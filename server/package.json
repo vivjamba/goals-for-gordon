@@ -1,0 +1,29 @@
+{
+  "name": "goals_for_gorder_backend",
+  "version": "1.0.0",
+  "description": "The backend server for goals_for_gordon, which will service the app.",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest",
+    "start": "node server.js",
+    "dev-up": "nodemon --inspect=0.0.0.0:9229 server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vivjamba/goals-for-gordon.git"
+  },
+  "author": "The Big Slays backend team",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/vivjamba/goals-for-gordon/issues"
+  },
+  "homepage": "https://github.com/vivjamba/goals-for-gordon#readme",
+  "dependencies": {
+    "express": "^4.18.2",
+    "mongoose": "^6.6.5",
+    "nodemon": "^2.0.20"
+  },
+  "devDependencies": {
+    "jest": "^29.1.2"
+  }
+}

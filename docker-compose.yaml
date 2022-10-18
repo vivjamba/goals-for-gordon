@@ -1,0 +1,35 @@
+version: '3.8'
+
+# Must reload docker image upon change of this file, or change of project directories
+
+services:
+    # Uses a custom Docker image built from Node. See api/Dockerfile
+    server:
+        build:
+            context: server
+            dockerfile: Dockerfile
+        ports:
+            - 5000:5000
+            - 9229:9229
+        environment:
+           - SERVER_PORT=8000
+           # Unsure exactly about this implementation
+           #- DEV_CONNECTIONSTRING= <connection here>
+           #- CURRENT_BUILD_CONNECTIONSTRING= https://<connection here>
+           #- PROD_CONNECTIONSTRING= https://<connection here>
+
+        # Bind-Mount all files in code directory to accomodate nodemon and debuggers.
+        volumes:
+            - ./server/:/app
+
+        # Overrides docker image command. See package.json for debug script.
+        command: npm run dev-up
+    #client:
+    #    build:
+    #      context: client
+    #      dockerfile: Dockerfile
+    #    ports:
+    #      - 5173:5173
+    #    volumes:
+    #      - ./client/:/app
+
