@@ -12,7 +12,9 @@ Begin by cloning and entering into directory.
 ### Running with Docker
 Ensure you download and run Docker daemon. 
 ```
-npm install -g nodemon
+cd server
+npm install nodemon
+cd ..
 docker-compose up --build
 ```
 This will build the entire environment for development (frontend + backend)
@@ -23,25 +25,42 @@ this a less frequent requirement;
 ### Running native
 
 #### Server
-`cd server`
-`npm install`
-`npm run dev-up`
+``````cd server
+cd server
+npm install
+npm install nodemon
+npm run dev-up
+``````
 
 #### Client *TODO*
 
 ## File Structure
 
 goals-for-gordon
+
 |- client *todo*
+
     |
+
 |- server               // Where all the files for server live
+
     |- src                  // Primary source files here
+
         |- schemas              // Schemas for the database
+
             |- <schemaHere>.js
+
         |- index.js         // Entry point for schema module
+
         |- test.json        // Test data
+
     |- Dockerfile       // File describes our custom docker image
+
     |- package.json     // Describes dependancies for server
+
     |- server.js        // Entry/main files for server
+
 |- .gitignore           // what won't be uploaded to git
+
 |- docker-compose.yaml  // Describes how to run all docker images
+
