@@ -25,12 +25,12 @@ this a less frequent requirement;
 ### Running native
 
 #### Server
-``````cd server
+```cd server
 cd server
 npm install
 npm install nodemon
 npm run dev-up
-``````
+```
 
 #### Client *TODO*
 
@@ -38,7 +38,7 @@ npm run dev-up
 
 goals-for-gordon
 
-|- client *todo*
+```|- client *todo*
 
     |
 
@@ -64,3 +64,4 @@ goals-for-gordon
 
 |- docker-compose.yaml  // Describes how to run all docker images
 
+```
