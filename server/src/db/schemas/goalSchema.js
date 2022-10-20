@@ -1,16 +1,19 @@
 const mongoose = require('mongoose');
 
-
-
-const commentSchema=new mongoose.Schema({
-	content:{ type: String, required: true },
+const goalSchema=new mongoose.Schema({
+	title:{ type: String, required: true },
+	description:{ type: String, required: true },
+	startDate:Date,
+	endDate:Date,
+	category:String,
+	status:{ type: Boolean, required: true },
+	comments:[{
+		type: mongoose.Types.ObjectId,
+		ref: "Comment",
+	}],
 	poster:{
 		type: mongoose.Types.ObjectId,
 		ref: "Employee",
 	},
-	goal:{
-		type: mongoose.Types.ObjectId,
-		ref: "Goal",
-	}
 })
-module.exports = commentSchema;
+module.exports = goalSchema;
