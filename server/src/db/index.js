@@ -3,7 +3,8 @@ const mongoose = require("mongoose")
 const employees=require("./test.json") // Testing file, will be moved into remote server
 const { userSchema, goalSchema, commentSchema } = require('./schemas')
 
-const MONGODB_URL = "mongodb+srv://yejoonjung:1357@cs320projecttest.t9mhlqf.mongodb.net/?retryWrites=true&w=majority"
+// This is put in place because 
+const MONGODB_URL = process.env.CONNECTION_STRING || "mongodb+srv://yejoonjung:1357@cs320projecttest.t9mhlqf.mongodb.net/?retryWrites=true&w=majority"
 
 
 mongoose.connect(MONGODB_URL)
@@ -41,10 +42,6 @@ async function testCreate() {
 	for(let i=1;i<10;++i){
 		//upload first 10 data from json file
 		const resolvedData = await User.create(employees[i])
-		//retrieve auto-generated object id
-		const id = resolvedData._id
-		console.log(resolvedData)
-		console.log(id)
 	}
 }
 // Just a funky test function
