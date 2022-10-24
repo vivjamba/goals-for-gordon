@@ -18,6 +18,7 @@ app.use("/user", require("./src/routes/user"))
 //temporary mongodb database url for testing
 
 
+
 app.get('/',
     async function(req, res){
         res.send('<h1>Hello World</h1>')

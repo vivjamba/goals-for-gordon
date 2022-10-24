@@ -16,4 +16,5 @@ const goalSchema=new mongoose.Schema({
 		ref: "Employee",
 	},
 })
+
 module.exports = goalSchema;
