@@ -25,18 +25,22 @@ const Comment = mongoose.model('Comment', commentSchema);
 const Goal = mongoose.model('Goal', goalSchema);
 
 
-const testSchema = new mongoose.Schema(
-	{
-		name: { type: String, required: true },
-		content: { type: String, required: true },
-		image: { data: Buffer, contentType: String },
-	},
-	{ timestamps: true }
-)
+// const testSchema = new mongoose.Schema(
+// 	{
+// 		name: { type: String, required: true },
+// 		content: { type: String, required: true },
+// 		image: { data: Buffer, contentType: String },
+// 	},
+// 	{ timestamps: true }
+// )
 
-const TestModel = mongoose.model("Test", testSchema)
+// const TestModel = mongoose.model("Test", testSchema)
+
+
+
 
 // Simple test function to create the first 10 employees
+//plz stop executing this function. There are already 1000 employees created .
 async function testCreate() {
 	//create document from JSON
 	for(let i=1;i<10;++i){
@@ -47,9 +51,9 @@ async function testCreate() {
 // Just a funky test function
 async function testFetch() {
 	//fetch all documents
-	return await User.find({}, )
+	return await User.findByEmail("Iva_Page@fluffybunnyconsulting.com")
 }
-testCreate();
+// testCreate();
 module.exports = {
     User,
     Comment,

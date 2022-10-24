@@ -13,7 +13,7 @@ const {testCreate, testFetch} = require('./src/db');
 
 const app = express()
 const port = 5000;
-
+app.use("/user", require("./src/routes/user"))
 
 //temporary mongodb database url for testing
 

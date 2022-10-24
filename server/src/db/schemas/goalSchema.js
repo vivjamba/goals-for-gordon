@@ -17,5 +17,4 @@ const goalSchema=new mongoose.Schema({
 	},
 })
 
-
 module.exports = goalSchema;
