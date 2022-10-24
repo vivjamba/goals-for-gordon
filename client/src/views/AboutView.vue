@@ -9,27 +9,29 @@ const state = reactive({
     errMsg: ""
 })
 
-function call(){
-    fetch('localhost:5000/dbtest')
-        .then((response)=>respons.json())
+function examplefetch(){
+    fetch(`http://localhost:5000/user/Iva_Page@fluffybunnyconsulting.com`)
+        .then((response) => {
+            console.log(response)
+            return response
+        })
+        .then((response)=>response.json())
         .then((data) => {
-            console.log(data)
+            state.users = data[0]
         })
         .catch((err) => {
-            console.log("ERROR ALERT")
+            console.log(err)
             state.errMsg = err;
-            isErr = true;
+            state.isErr = true;
         })
 }
 onMounted(()=>{
-    call();
+    examplefetch();
 })
 </script>
 
 <template>
   <div class="about">
-    <h1>This is an about page</h1>
-    <br/>
     {{state.isErr ? state.errMsg : state.users}}
   </div>
 </template>

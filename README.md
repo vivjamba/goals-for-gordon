@@ -24,46 +24,25 @@ this a less frequent requirement;
 
 ### Running native
 
+To run native, you must use multiple terminal windows or a terminal multiplexer such as tmux.
+
 #### Server
+
+##### Installation
 ```cd server
 cd server
 npm install
 npm install nodemon
-npm run dev-up
+``````
+to run
+`npm run dev=up`
+
+#### Client
 ```
-
-#### Client *TODO*
-
-## File Structure
-
-goals-for-gordon
-
-```|- client *todo*
-
-    |
-
-|- server               // Where all the files for server live
-
-    |- src                  // Primary source files here
-
-        |- schemas              // Schemas for the database
-
-            |- <schemaHere>.js
-
-        |- index.js         // Entry point for schema module
-
-        |- test.json        // Test data
-
-    |- Dockerfile       // File describes our custom docker image
-
-    |- package.json     // Describes dependancies for server
-
-    |- server.js        // Entry/main files for server
-
-|- .gitignore           // what won't be uploaded to git
-
-|- docker-compose.yaml  // Describes how to run all docker images
-
+cd client
+npm install
+npm run dev
+```
 ```
 
 ## Update 2022-10-23
@@ -72,10 +51,24 @@ goals-for-gordon
 `/user/`:fetchs all users
 `/user/<email>`:fetchs all users with email
 
-## updated file structure
+## file structure
 ```
 📦goals-for-gordon
  ┣ client *todo*
+    ┣ public
+    ┣ src
+    ┣ .vscode       // Folder describe vscode editor configs
+    ┣ .dockerignore // What files to ignore when copying into docker image
+    ┣ .gitignore    // What files to ignore when uploading to github
+    ┣ Dockerfile    // How to make a docker image from this file structure 
+    ┣ README.md         // Documentation on this module
+    ┣ package.json      // Dependencies, scripts, etc
+    ┣ package-lock.json // How to carry these dependencies to *Do not Edit*
+    ┣ tsconfig.config.json
+    ┣ tsconfig.json
+    ┣ vite.config.ts    // vue package config, called vite becuase we use vite runtime
+    ┣ env.d.ts
+    ┗ index.html        // Entry point to html application
  ┣ server           // Where all the files for server live
     ┣ src            // Primary source files here
         ┣ schemas    // Schemas for the database

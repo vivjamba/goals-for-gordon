@@ -9,10 +9,13 @@
 
 const express = require('express')
 const bodyParser = require('body-parser')
+const cors = require('cors')
 const {testCreate, testFetch} = require('./src/db');
-
 const app = express()
 const port = 5000;
+
+
+app.use(cors()); // Enable ALL cors requests
 app.use("/user", require("./src/routes/user"))
 
 //temporary mongodb database url for testing
