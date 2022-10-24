@@ -43,7 +43,6 @@ cd client
 npm install
 npm run dev
 ```
-```
 
 ## Update 2022-10-23
 
@@ -82,5 +81,4 @@ npm run dev
     ┣ server.js        // Entry/main files for server
  ┣ docker-compose.yaml  // Describes how to run all docker images
  ┗ .gitignore           // what won't be uploaded to git
-
 ````
