@@ -7,13 +7,7 @@ import vueJsx from '@vitejs/plugin-vue-jsx'
 // https://vitejs.dev/config/
 export default defineConfig({
     server:{
-        host:true,
-        proxy: {
-            '^/api': {
-                target:'http:localhost:5000', 
-                changeOrigin:true
-            },
-        }
+        host:true
     },
     plugins: [vue(), vueJsx()],
     resolve: {
