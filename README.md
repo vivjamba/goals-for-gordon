@@ -65,3 +65,29 @@ goals-for-gordon
 |- docker-compose.yaml  // Describes how to run all docker images
 
 ```
+
+## Update 2022-10-23
+
+## REST API
+`/user/`:fetchs all users
+`/user/<email>`:fetchs all users with email
+
+## updated file structure
+```
+📦goals-for-gordon
+ ┣ client *todo*
+ ┣ server           // Where all the files for server live
+    ┣ src            // Primary source files here
+        ┣ schemas    // Schemas for the database
+            ┗ <schemaHere>.js
+        ┣ routes    // routers for API
+             ┗ <routerHere>.js
+        ┣ index.js    // Entry point for schema module
+        ┗ test.json    // Test data
+    ┣ Dockerfile       // File describes our custom docker image
+    ┣ package.json     // Describes dependancies for server
+    ┣ server.js        // Entry/main files for server
+ ┣ docker-compose.yaml  // Describes how to run all docker images
+ ┗ .gitignore           // what won't be uploaded to git
+
+````

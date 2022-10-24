@@ -25,4 +25,20 @@ const userSchema = new mongoose.Schema(
 	},
 	{ timestamps: true }
 )
+
+//returns all users
+userSchema.statics.findAll = function () {
+	return this.find()
+}
+//find all users with name
+userSchema.statics.findById = function (id) {
+	return this.findById(id)
+}
+//find all users with the email
+userSchema.statics.findByEmail = function (email) {
+	return this.find({ email: email })
+}
+
 module.exports = userSchema;
+
+
