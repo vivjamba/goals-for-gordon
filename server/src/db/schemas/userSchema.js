@@ -13,15 +13,16 @@ const userSchema = new mongoose.Schema(
 		startDate:String,
 		manager: mongoose.Types.ObjectId,
 		isManager: { type: Boolean, required: true },
-		goals: [{type: mongoose.Types.ObjectId,
-				ref: "Goal",
-			},
-		],
+		// goals: [{type: mongoose.Types.ObjectId,
+		// 		ref: "Goal",
+		// 	},
+		// ],
+		
 		email: { type: String, required: true },
 		password: { type: String, required: true },
-		employees: [{type: mongoose.Types.ObjectId,
-			ref: "Employee",
-		}]
+		// employees: [{type: mongoose.Types.ObjectId,
+		// 	ref: "Employee",
+		// }]
 	},
 	{ timestamps: true }
 )
@@ -30,13 +31,14 @@ const userSchema = new mongoose.Schema(
 userSchema.statics.findAll = function () {
 	return this.find()
 }
-//find all users with name
-userSchema.statics.findById = function (id) {
-	return this.findById(id)
-}
 //find all users with the email
 userSchema.statics.findByEmail = function (email) {
 	return this.find({ email: email })
+}
+
+//find all employees of a manager
+userSchema.statics.findByManager = function (managerId) {
+	return this.find({ manager: managerId })
 }
 
 module.exports = userSchema;

@@ -7,14 +7,21 @@ const goalSchema=new mongoose.Schema({
 	endDate:Date,
 	category:String,
 	status:{ type: Boolean, required: true },
-	comments:[{
-		type: mongoose.Types.ObjectId,
-		ref: "Comment",
-	}],
+	// comments:[{
+	// 	type: mongoose.Types.ObjectId,
+	// 	ref: "Comment",
+	// }],
 	poster:{
 		type: mongoose.Types.ObjectId,
 		ref: "Employee",
 	},
 })
+
+//find all goals of a poster
+goalSchema.statics.findByPoster = function (posterId) {
+	return this.find({ poster: posterId })
+}
+
+
 
 module.exports = goalSchema;
