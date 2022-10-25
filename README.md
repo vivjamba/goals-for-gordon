@@ -2,6 +2,18 @@
 
 Backend available at `localhost:5000` with a demo at `localhost:5000/dbtest`
 
+## Trello Board
+https://trello.com/b/pePWfePv/employee-goals-app
+
+## Slack
+bestcs320team.slack.com
+
+## Google Drive
+https://docs.google.com/spreadsheets/d/1kHYYPvPIFhu78y40Eb04lMguJ62HAZa5rHtHUJ-VlhE/edit?usp=sharing
+
+## Zoom Link
+https://umass-amherst.zoom.us/j/96432975453
+
 ## Development Installation
 
 Begin by cloning and entering into directory.
