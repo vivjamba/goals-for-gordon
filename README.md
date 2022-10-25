@@ -70,12 +70,14 @@ npm run dev
     ┗ index.html        // Entry point to html application
  ┣ server           // Where all the files for server live
     ┣ src            // Primary source files here
-        ┣ schemas    // Schemas for the database
-            ┗ <schemaHere>.js
+        ┣ db    
+            ┣ schemas    // Schemas for the database
+                ┗ <schemaHere>.js
+            ┣ index.js    // Entry point for schema module
+            ┗ test.json    // Test data
         ┣ routes    // routers for API
              ┗ <routerHere>.js
-        ┣ index.js    // Entry point for schema module
-        ┗ test.json    // Test data
+        ┗ util.js     //contains utility functions
     ┣ Dockerfile       // File describes our custom docker image
     ┣ package.json     // Describes dependancies for server
     ┣ server.js        // Entry/main files for server
