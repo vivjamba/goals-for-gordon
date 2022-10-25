@@ -1,5 +1,17 @@
 # client
 
+## Trello Board
+https://trello.com/b/pePWfePv/employee-goals-app
+
+## Slack
+bestcs320team.slack.com
+
+## Google Drive
+https://docs.google.com/spreadsheets/d/1kHYYPvPIFhu78y40Eb04lMguJ62HAZa5rHtHUJ-VlhE/edit?usp=sharing
+
+## Zoom Link
+https://umass-amherst.zoom.us/j/96432975453
+
 This template should help get you started developing with Vue 3 in Vite.
 
 ## Recommended IDE Setup
