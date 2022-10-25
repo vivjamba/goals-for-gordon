@@ -47,7 +47,7 @@ npm install
 npm install nodemon
 ``````
 to run
-`npm run dev=up`
+`npm run dev-up`
 
 #### Client
 ```
