@@ -11,7 +11,14 @@
 a,
 .green {
   text-decoration: none;
-  color: hsla(160, 100%, 37%, 1);
+  color: #005151;
+  transition: 0.4s;
+}
+
+a,
+.greenlight{
+  text-decoration: none;
+  color: #30CEBB;
   transition: 0.4s;
 }
 
