@@ -35,6 +35,6 @@ services:
           - API=http://localhost:5000
         volumes:
           - ./client/:/app
-        command: npm run dev
+        command: sh -c "npm rebuild esbuild && npm run dev"
       
 
