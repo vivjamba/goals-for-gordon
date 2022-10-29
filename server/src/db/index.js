@@ -72,7 +72,7 @@ async function generateGoals(posterId) {
             status:false,
             poster:mongoose.Types.ObjectId(posterId) 
         })
-        console.log(resolvedData)
+        //console.log(resolvedData)
 	}
     
 
@@ -93,7 +93,7 @@ async function generateComments(posterId,goalId) {
             poster:mongoose.Types.ObjectId(posterId) ,
             goal:mongoose.Types.ObjectId(goalId) 
         })
-        console.log(resolvedData)
+        //console.log(resolvedData)
 	}
     
 
