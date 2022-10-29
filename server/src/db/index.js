@@ -4,7 +4,8 @@ const employees=require("./test.json") // Testing file, will be moved into remot
 const { userSchema, goalSchema, commentSchema } = require('./schemas')
 const util=require('./../util')
 // This is put in place because 
-const MONGODB_URL = process.env.CONNECTION_STRING || "mongodb+srv://yejoonjung:1357@cs320projecttest.t9mhlqf.mongodb.net/?retryWrites=true&w=majority"
+//const MONGODB_URL = process.env.CONNECTION_STRING || "mongodb+srv://yejoonjung:1357@cs320projecttest.t9mhlqf.mongodb.net/?retryWrites=true&w=majority"
+const MONGODB_URL = process.env.CONNECTION_STRING || "mongodb+srv://GoalsForGordon:YEoH16H21y6jwVF1@goals-testing.gl51g8n.mongodb.net/?retryWrites=true&w=majority"
 
 
 mongoose.connect(MONGODB_URL)
@@ -27,18 +28,26 @@ const Goal = mongoose.model('Goal', goalSchema);
 
 function onDBConnect(){
 
-    // generateUsers()
-  //  generateGoals("635823b166a32968b45e328c")
+    //testCreateAll()
+    //testCreate()
+    //generateUsers()
+    //generateGoals("635823b166a32968b45e328c")
     // generateComments("635823b166a32968b45e328c","635825a2a4f26f9aa1d78f3e")
 }
 
-
+async function testCreateAll() {
+    await User.create(employees)
+}
 
 async function testCreate() {
 	//create document from JSON
-	for(let i=1;i<10;++i){
+	for(let i=0;i<3;++i){
 		//upload first 10 data from json file
-		// const resolvedData = await User.create(employees[i])
+		const resolvedData = await User.create(employees[i])
+        
+        //Reverse add manager (Bad)
+        //manager = await User.find({managerId: resolvedData.managerId})
+        //await User.findByIdAndUpdate(manager._id, )
 	}
 }
 
