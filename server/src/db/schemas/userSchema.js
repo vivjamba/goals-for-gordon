@@ -19,6 +19,7 @@ const userSchema = new mongoose.Schema(
 	{ timestamps: true }
 )
 
+/*
 //returns all users
 userSchema.statics.findAll = function () {
 	return this.find()
@@ -37,7 +38,7 @@ userSchema.statics.findByManager = function (inputManagerId) {
 userSchema.statics.findById = function (inputEmployeeId) {
     return this.find({ employeeId: inputEmployeeId })
 }
-
+*/
 module.exports = userSchema;
 
 
