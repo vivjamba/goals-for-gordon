@@ -7,7 +7,7 @@
             <br>
             <input type="password" id="pwd" name="pwd" placeholder="Password">
             <br>
-            <input type="submit" value="Log-In">
+            <input @click="$router.push('/user')" type="submit" value="Log-In">
         </form>
     </div>
     

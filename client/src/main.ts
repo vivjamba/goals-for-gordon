@@ -10,6 +10,7 @@ import router from './router'
 
 import './assets/main.css'
 import InputSwitch from 'primevue/inputswitch';
+import Button from 'primevue/button'
 
 const app = createApp(App)
 
@@ -17,5 +18,6 @@ app.use(router)
 app.use(PrimeVue)
 
 app.component('InputSwitch', InputSwitch);
+app.component('Button', Button);
 
 app.mount('#app')

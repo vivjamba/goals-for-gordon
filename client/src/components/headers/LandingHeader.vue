@@ -5,23 +5,35 @@
         </div>
         <div class="profile-info">
             <img alt="Profile Photo" class="prof-pic" src="@/assets/sample_profile.png" width="75" height="75" />
-            <h2 class="name"><span class="first-name">{{first_name}}</span> <span class="last-name">{{last_name}}</span></h2>
+            <div class="text-info">
+                <h2 class="name"><span class="first-name">{{first_name}}</span> <span class="last-name">{{last_name}}</span></h2>
+                <div class="role">
+                    <h3>{{title}}</h3>
+                </div>
+            </div>
         </div>
         <div class="control-buttons">
-            <a>logout</a>
-            <InputSwitch v-model="checked" label="employee"/>
+            {{email}}
+            <span class="p-button-set">
+                <Button icon="pi pi-cog" class="p-button-link" />
+                <Button @click="$router.push('/')" icon='pi pi-sign-out' label="logout" class="p-button-link"/>
+            </span>
+            <InputSwitch v-model="checked" class="manager-switch"/>
         </div>
     </div>
     
 </template>
 
 <script>
+import { RouterLink, RouterView } from 'vue-router'
 export default {
     data() {
         return {
             checked: false,
             first_name: "Gordon",
-            last_name:"Anderson"
+            last_name:"Anderson", 
+            title: "Senior Software Engineer",
+            email: "ganderson@ukg.umass.edu"
         }
     }
 }
@@ -34,9 +46,31 @@ export default {
     align-items: center;
     gap: 10px;
 }
+.role{
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+}
+.manager-switch {
+    scale:.7;
+}
+
+.control-buttons {
+    display: flex;
+    flex-direction:column;
+    align-items: flex-end;
+    justify-content: flex-start;
+
+}
+.control-buttons>.p-button-set {
+
+}
 
 .bar>.profile-info {
     flex-grow: 2;
+}
+.bar>.control-buttons P{
+    flex-grow: 1;
 }
 .bar>.logo-div{
     flex-grow: 1;
