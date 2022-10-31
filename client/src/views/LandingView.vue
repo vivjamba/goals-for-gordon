@@ -12,10 +12,17 @@ export default {
 </script>
 
 <template>
-    <LandingHeader/>
-    <GoalContainer/>
+    <div id="landing-page">
+        <LandingHeader/>
+        <GoalContainer/>
+    </div>
 </template>
 
 <style scoped>
+#landing-page{
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
 
 </style>
