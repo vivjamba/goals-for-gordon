@@ -3,6 +3,10 @@ import axios from 'axios'
 
 export const store = reactive({
     email: "Kelli_Oneill@fluffybunnyconsulting.com",
+    firstName: "Gordon",
+    lastname: "Anderson",
+    positionTitle: "320 Prof.", 
+    isManager: true,
     // TODO: better fit to a reasonable model
     getUserInfo(email){
         this.userInfoLoading = true; 
