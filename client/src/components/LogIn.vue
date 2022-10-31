@@ -3,7 +3,7 @@
         <h1>Sign In</h1>
         <form action="">
             <br>
-            <input type="text" id="username" name="username" placeholder="Username">
+            <input v-model="store.email" type="text" id="username" name="username" placeholder="Username">
             <br>
             <input type="password" id="pwd" name="pwd" placeholder="Password">
             <br>
@@ -14,9 +14,13 @@
 </template>
 
 <script>
+import { store } from '../stores/session.js';
 export default {
     name: "LogIn",
-    methods: {
+    data(){
+        return {
+            store
+        }
     }
 }
 </script>

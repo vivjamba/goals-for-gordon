@@ -6,9 +6,9 @@
         <div class="profile-info">
             <img alt="Profile Photo" class="prof-pic" src="@/assets/sample_profile.png" width="75" height="75" />
             <div class="text-info">
-                <h2 class="name"><span class="first-name">{{first_name}}</span> <span class="last-name">{{last_name}}</span></h2>
+                <h2 class="name"><span class="first-name">{{firstName}}</span> <span class="last-name">{{lastName}}</span></h2>
                 <div class="role">
-                    <h3>{{title}}</h3>
+                    <h3>{{positionTitle}}</h3>
                 </div>
             </div>
         </div>
@@ -18,7 +18,7 @@
                 <Button icon="pi pi-cog" class="p-button-link" />
                 <Button @click="$router.push('/')" icon='pi pi-sign-out' label="logout" class="p-button-link"/>
             </span>
-            <InputSwitch v-model="checked" class="manager-switch"/>
+            <InputSwitch v-if="isManager" v-model="checked" class="manager-switch"/>
         </div>
     </div>
     
@@ -27,13 +27,16 @@
 <script>
 import { RouterLink, RouterView } from 'vue-router'
 export default {
+    props:{
+        firstName: String,
+        lastName: String,
+        email: String,
+        positionTitle: String,
+        isManager: Boolean
+    },
     data() {
         return {
             checked: false,
-            first_name: "Gordon",
-            last_name:"Anderson", 
-            title: "Senior Software Engineer",
-            email: "ganderson@ukg.umass.edu"
         }
     }
 }
