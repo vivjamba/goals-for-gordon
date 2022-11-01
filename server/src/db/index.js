@@ -3,10 +3,9 @@ const mongoose = require("mongoose")
 const employees=require("./test.json") // Testing file, will be moved into remote server
 const { userSchema, goalSchema, commentSchema } = require('./schemas')
 const util=require('./../util')
-// This is put in place because 
-//const MONGODB_URL = process.env.CONNECTION_STRING || "mongodb+srv://yejoonjung:1357@cs320projecttest.t9mhlqf.mongodb.net/?retryWrites=true&w=majority"
-const MONGODB_URL = process.env.CONNECTION_STRING || "mongodb+srv://GoalsForGordon:YEoH16H21y6jwVF1@goals-testing.gl51g8n.mongodb.net/?retryWrites=true&w=majority"
+require('dotenv').config({path:__dirname+'/../../config/variables.env'})
 
+const MONGODB_URL = process.env.MONGODB_URL
 
 mongoose.connect(MONGODB_URL)
 
@@ -95,8 +94,6 @@ async function generateComments(posterId,goalId) {
         })
         //console.log(resolvedData)
 	}
-    
-
 }
 
 // Just a funky test function
