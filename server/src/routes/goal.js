@@ -21,4 +21,15 @@ router.get("/employee/:id", goal_controller.goal_list_all_employee)
 //create goal
 router.post("/create", goal_controller.goal_create_post)
 
+
+/**
+ * edit goal
+ * data:{
+ *  id:<goalId>,
+ *  content:{<goal object>}
+ * }
+ */
+router.post("/edit", goal_controller.goal_create_post)
+
+
 module.exports=router

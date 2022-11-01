@@ -14,3 +14,7 @@ exports.comment_list_all_goal = (req, res) => {
 exports.comment_create = (req, res) => {
     Comment.create(req.body).then((data)=>res.send(data));
 }
+exports.comment_edit = (req, res) =>{
+    //console.log(req.body)
+    Comment.findOneAndUpdate(req.body.id,req.body.content).then((data)=>res.send(data));
+}

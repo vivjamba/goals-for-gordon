@@ -20,4 +20,15 @@ router.get("/goal/:id", comment_controller.comment_list_all_goal)
 //Create comment with all fields
 router.post("/create", comment_controller.comment_create)
 
+
+/**
+ * edit comment
+ * data:{
+ *  id:<commentId>,
+ *  content:{<comment object>}
+ * }
+ */
+router.post("/edit", comment_controller.comment_edit)
+
+
 module.exports=router
