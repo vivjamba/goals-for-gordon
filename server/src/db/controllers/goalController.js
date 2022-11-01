@@ -12,5 +12,5 @@ exports.goal_create_post = (req, res) =>{
 }
 exports.goal_edit_post = (req, res) =>{
     //console.log(req.body)
-    Goal.findOneAndUpdate(req.body.id,req.body.content).then((data)=>res.send(data));
+    Goal.findByIdAndUpdate(req.body.id,req.body.content).then((data)=>res.send(data));
 }
