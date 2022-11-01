@@ -11,13 +11,13 @@ router.use(bodyParser.text())
 
 //sends all comments
 router.get("/", comment_controller.comment_list_all)
-//sends all comments
+//get all comments associated with employee _id
 router.get("/employee/:id", comment_controller.comment_list_all_employee)
-//sends all comments
+//get all comments associated with goal _id
 router.get("/goal/:id", comment_controller.comment_list_all_goal)
 
 //CREATE
-//Crate comment with all fields
+//Create comment with all fields
 router.post("/create", comment_controller.comment_create)
 
 module.exports=router
