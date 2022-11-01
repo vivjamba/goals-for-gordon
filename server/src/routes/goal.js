@@ -29,7 +29,7 @@ router.post("/create", goal_controller.goal_create_post)
  *  content:{<goal object>}
  * }
  */
-router.post("/edit", goal_controller.goal_create_post)
+router.post("/edit", goal_controller.goal_edit_post)
 
 
 module.exports=router
