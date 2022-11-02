@@ -13,12 +13,4 @@ const goalSchema=new mongoose.Schema({
 	},
 })
 
-/*
-//find all goals of a poster
-goalSchema.statics.findByPoster = function (posterId) {
-	return this.find({ poster: posterId })
-}
-
-*/
-
 module.exports = goalSchema;

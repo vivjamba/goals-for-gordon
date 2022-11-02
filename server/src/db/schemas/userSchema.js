@@ -19,26 +19,6 @@ const userSchema = new mongoose.Schema(
 	{ timestamps: true }
 )
 
-/*
-//returns all users
-userSchema.statics.findAll = function () {
-	return this.find()
-}
-//find all users with the email
-userSchema.statics.findByEmail = function (email) {
-	return this.find({ email: email })
-}
-
-//find all employees of a manager
-userSchema.statics.findByManager = function (inputManagerId) {
-    return this.find({ managerId: inputManagerId })
-}
-
-//find employee by ID number
-userSchema.statics.findById = function (inputEmployeeId) {
-    return this.find({ employeeId: inputEmployeeId })
-}
-*/
 module.exports = userSchema;
 
 
