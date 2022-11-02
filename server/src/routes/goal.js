@@ -9,17 +9,19 @@ router.use(bodyParser.text())
 
 //READ
 
-//sends all goals
-router.get("/", goal_controller.goal_list_all)
-//sends all goals created by given employee id
-router.get("/employee/:id", goal_controller.goal_list_all_employee)
+//get all goals
+router.get("/list", goal_controller.list_all_goals)
+
+//get all goals created by an employee (query by employee's Mongoose _id)
+router.get("/employee/:_id", goal_controller.find_goals_by_employee)
+
 //sends the goals of all the employees that is visable to this manager, including their own
 //router.get("/manager/:id", goal_controller.goal_list_all_manager)
 
 //CREATE
 
 //create goal
-router.post("/create", goal_controller.goal_create_post)
+router.post("/create", goal_controller.create_goal)
 
 
 /**
@@ -29,7 +31,8 @@ router.post("/create", goal_controller.goal_create_post)
  *  content:{<goal object>}
  * }
  */
-router.post("/edit", goal_controller.goal_edit_post)
+//edit a goal
+router.post("/edit", goal_controller.edit_goal)
 
 
 module.exports=router
