@@ -9,16 +9,21 @@ router.use(bodyParser.text())
 
 //READ
 
-//sends all comments
-router.get("/", comment_controller.comment_list_all)
-//get all comments associated with employee _id
-router.get("/employee/:id", comment_controller.comment_list_all_employee)
-//get all comments associated with goal _id
-router.get("/goal/:id", comment_controller.comment_list_all_goal)
+//get all comments
+router.get("/list", comment_controller.list_all_comments)
+
+//get all comments associated with employee Mongoose _id
+router.get("/employee/:_id", comment_controller.find_comments_by_employee)
+
+//get all comments associated with goal Mongoose _id
+router.get("/goal/:_id", comment_controller.find_comments_by_goal)
+
+//get comment by Mongoose _id
+router.get("/_id/:mongo_id", comment_controller.find_comment_by_id)
 
 //CREATE
 //Create comment with all fields
-router.post("/create", comment_controller.comment_create)
+router.post("/create", comment_controller.create_comment)
 
 
 /**
@@ -28,7 +33,7 @@ router.post("/create", comment_controller.comment_create)
  *  content:{<comment object>}
  * }
  */
-router.post("/edit", comment_controller.comment_edit)
+router.post("/edit", comment_controller.edit_comment)
 
 
 module.exports=router

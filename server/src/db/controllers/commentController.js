@@ -1,20 +1,30 @@
 const {Comment}=require("../index")
 
-exports.comment_list_all = (req, res) => {
+//find all comments
+exports.list_all_comments = (req, res) => {
     Comment.find({}).then((data)=>res.send(data));
 }
-//get all comments associated with employee _id
-exports.comment_list_all_employee = (req, res) => {
-    Comment.find({poster: req.params.id}).then((data)=>res.send(data));
+
+//get all comments associated with employee Mongoose _id
+exports.find_comments_by_employee = (req, res) => {
+    Comment.find({poster: req.params._id}).then((data)=>res.send(data));
 }
-//get all comments associated with goal _id
-exports.comment_list_all_goal = (req, res) => {
-    Comment.find({goal: req.params.id}).then((data)=>res.send(data));
+
+//get all comments associated with goal Mongoose _id
+exports.find_comments_by_goal = (req, res) => {
+    Comment.find({goal: req.params._id}).then((data)=>res.send(data));
 }
-exports.comment_create = (req, res) => {
+
+//get a comment associated with comment Mongoose _id
+exports.find_comment_by_id = (req, res) => {
+    Comment.find({_id: req.params.mongo_id}).then((data)=>res.send(data));
+}
+
+exports.create_comment = (req, res) => {
     Comment.create(req.body).then((data)=>res.send(data));
 }
-exports.comment_edit = (req, res) =>{
-    console.log(req.body)
+
+exports.edit_comment = (req, res) =>{
+    //console.log(req.body)
     Comment.findByIdAndUpdate(req.body.id,req.body.content).then((data)=>res.send(data));
 }
