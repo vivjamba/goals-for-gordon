@@ -9,7 +9,7 @@ https://trello.com/b/pePWfePv/employee-goals-app
 bestcs320team.slack.com
 
 ## Google Drive
-https://docs.google.com/spreadsheets/d/1kHYYPvPIFhu78y40Eb04lMguJ62HAZa5rHtHUJ-VlhE/edit?usp=sharing
+https://drive.google.com/drive/u/1/folders/0ACyQyaNlcwHKUk9PVA
 
 ## Zoom Link
 https://umass-amherst.zoom.us/j/96432975453
@@ -47,7 +47,7 @@ npm install
 npm install nodemon
 ``````
 to run
-`npm run dev=up`
+`npm run dev-up`
 
 #### Client
 ```
