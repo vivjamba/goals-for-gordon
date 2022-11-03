@@ -13,7 +13,7 @@ router.use(bodyParser.text())
 router.get("/list", user_controller.list_all_users)
 
 //get users by email
-router.get("/:mogno_id", user_controller.find_user_by_mongo_id)
+router.get("/:mongo_id", user_controller.find_user_by_mongo_id)
 
 //get user identified by employeeId + companyId
 router.get("/_id/:companyId-:employeeId", user_controller.find_user_by_id)
