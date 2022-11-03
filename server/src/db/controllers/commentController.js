@@ -25,6 +25,6 @@ exports.create_comment = (req, res) => {
 }
 
 exports.edit_comment = (req, res) =>{
-    //console.log(req.body)
-    Comment.findByIdAndUpdate(req.params.mongo_id,req.body).then((data)=>res.send(data));
+    Comment.findByIdAndUpdate(req.params.mongo_id, req.body, {new: true})
+    .then((data)=>res.send(data));
 }

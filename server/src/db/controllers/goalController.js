@@ -23,6 +23,6 @@ exports.create_goal = (req, res) =>{
 
 //edit a goal
 exports.edit_goal = (req, res) =>{
-    // console.log(req.body)
-    Goal.findByIdAndUpdate(req.params.mongo_id, req.body).then((data)=>res.send(data));
+    Goal.findByIdAndUpdate(req.params.mongo_id, req.body, {new: true})
+    .then((data)=>res.send(data));
 }
