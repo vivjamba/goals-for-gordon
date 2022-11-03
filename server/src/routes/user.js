@@ -16,7 +16,7 @@ router.get("/list", user_controller.list_all_users)
 router.get("/:email", user_controller.find_by_email)
 
 //get user identified by employeeId + companyId
-router.get("/id/:companyId-:employeeId", user_controller.find_user_by_id)
+router.get("/_id/:companyId-:employeeId", user_controller.find_user_by_id)
 
 //get user identified by Mongoose _id
 router.get("/_id/:mongo_id", user_controller.find_user_by_mongo_id)

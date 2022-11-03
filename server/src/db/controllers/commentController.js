@@ -7,12 +7,12 @@ exports.list_all_comments = (req, res) => {
 
 //get all comments associated with employee Mongoose _id
 exports.find_comments_by_employee = (req, res) => {
-    Comment.find({poster: req.params._id}).then((data)=>res.send(data));
+    Comment.find({poster: req.params.mongo_id}).then((data)=>res.send(data));
 }
 
 //get all comments associated with goal Mongoose _id
 exports.find_comments_by_goal = (req, res) => {
-    Comment.find({goal: req.params._id}).then((data)=>res.send(data));
+    Comment.find({goal: req.params.mongo_id}).then((data)=>res.send(data));
 }
 
 //get a comment associated with comment Mongoose _id
@@ -26,5 +26,5 @@ exports.create_comment = (req, res) => {
 
 exports.edit_comment = (req, res) =>{
     //console.log(req.body)
-    Comment.findByIdAndUpdate(req.body.id,req.body.content).then((data)=>res.send(data));
+    Comment.findByIdAndUpdate(req.params.mongo_id,req.body).then((data)=>res.send(data));
 }

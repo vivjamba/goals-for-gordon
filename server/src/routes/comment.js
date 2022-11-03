@@ -12,28 +12,21 @@ router.use(bodyParser.text())
 //get all comments
 router.get("/list", comment_controller.list_all_comments)
 
+//get comment by Mongoose _id
+router.get("/:mongo_id", comment_controller.find_comment_by_id)
+
 //get all comments associated with employee Mongoose _id
-router.get("/employee/:_id", comment_controller.find_comments_by_employee)
+router.get("/employee/:mongo_id", comment_controller.find_comments_by_employee)
 
 //get all comments associated with goal Mongoose _id
 router.get("/goal/:_id", comment_controller.find_comments_by_goal)
-
-//get comment by Mongoose _id
-router.get("/_id/:mongo_id", comment_controller.find_comment_by_id)
 
 //CREATE
 //Create comment with all fields
 router.post("/create", comment_controller.create_comment)
 
-
-/**
- * edit comment
- * data:{
- *  id:<commentId>,
- *  content:{<comment object>}
- * }
- */
-router.post("/edit", comment_controller.edit_comment)
+//Edit comment
+router.post("/edit/:mongo_id", comment_controller.edit_comment)
 
 
 module.exports=router
