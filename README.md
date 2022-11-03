@@ -24,6 +24,8 @@ Begin by cloning and entering into directory.
 `git clone https://github.com/vivjamba/goals-for-gordon/`
 `cd goals-for-gordon`
 
+To make sure you can connect to the database, you need a server/config folder with a variables.env file containing the MONGODB_URL. This file does not get committed.
+
 ### Running with Docker
 Ensure you download and run Docker daemon. 
 ```
