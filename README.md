@@ -1,6 +1,9 @@
 # goals-for-gordon
 
-Backend available at `localhost:5000` with a demo at `localhost:5000/dbtest`
+Frontend available at `localhost:5173`
+
+Backend available at `localhost:5000`
+
 
 ## Trello Board
 https://trello.com/b/pePWfePv/employee-goals-app
@@ -21,6 +24,8 @@ Begin by cloning and entering into directory.
 `git clone https://github.com/vivjamba/goals-for-gordon/`
 `cd goals-for-gordon`
 
+To make sure you can connect to the database, you need a server/config folder with a variables.env file containing the MONGODB_URL. This file does not get committed.
+
 ### Running with Docker
 Ensure you download and run Docker daemon. 
 ```
@@ -31,7 +36,7 @@ docker-compose up --build
 ```
 This will build the entire environment for development (frontend + backend)
 *Note: The `--build` tag atm is only require for when you create new files,
-install new dependances, or alter any Docker related files. Working on making
+install new dependencies, or alter any Docker related files. Working on making
 this a less frequent requirement;
 
 ### Running native
@@ -56,11 +61,46 @@ npm install
 npm run dev
 ```
 
-## Update 2022-10-23
+## Update 2022-11-3
 
 ## REST API
-`/user/`:fetchs all users
-`/user/<email>`:fetchs all users with email
+#### User Routes
+
+`/user/list`: get all users
+
+`/user/<email>`: get all users with email
+
+`/user/id/<companyId>-<employeeId>`: get user identified by employeeId + companyId
+
+`/user/_id/:mongo_id`: get user identified by Mongoose _id
+
+`/user/manager/<companyId>-<managerId>`: get an employee's manager identified by employee's managerId + companyId
+
+`/user/manager/list/<companyId>-<managerId>`: get all of a manager's employees, where managerId is a manager’s “employeeId” field
+
+#### Goal Routes
+
+`/goal/list`: get all goals
+
+`/goal/employee/<_id>`: get all goals created by an employee (query by employee's Mongoose _id)
+
+`/goal/create`: create a goal with fields in request body 
+
+`/goal/edit`: edit a goal with fields in request body 
+
+#### Comment Routes
+
+`/comment/list`: get all comments
+
+`/comment/employee/<_id>`: get all comments associated with employee Mongoose _id
+
+`/comment/goal/<_id>`: get all comments associated with goal Mongoose _id
+
+`/comment/_id/<mongo_id>`: get comment by its Mongoose _id
+
+`/comment/create`: create a comment with fields in request body 
+
+`/comment/edit`: edit a comment with fields in request body 
 
 ## file structure
 ```
