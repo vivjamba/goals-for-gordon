@@ -1,6 +1,8 @@
 # goals-for-gordon
 
+Frontend available at 'localhost:5173'
 Backend available at `localhost:5000` with a demo at `localhost:5000/dbtest`
+
 
 ## Trello Board
 https://trello.com/b/pePWfePv/employee-goals-app
@@ -31,7 +33,7 @@ docker-compose up --build
 ```
 This will build the entire environment for development (frontend + backend)
 *Note: The `--build` tag atm is only require for when you create new files,
-install new dependances, or alter any Docker related files. Working on making
+install new dependencies, or alter any Docker related files. Working on making
 this a less frequent requirement;
 
 ### Running native
@@ -59,7 +61,7 @@ npm run dev
 ## Update 2022-10-23
 
 ## REST API
-`/user/`:fetchs all users
+`/user/list`:fetchs all users
 `/user/<email>`:fetchs all users with email
 
 ## file structure
