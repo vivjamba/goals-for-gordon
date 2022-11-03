@@ -64,7 +64,7 @@ npm run dev
 ## Update 2022-11-3
 
 ## REST API
-###User Routes
+#### User Routes
 
 `/user/list`: get all users
 
@@ -76,9 +76,9 @@ npm run dev
 
 `/user/manager/<companyId>-<managerId>`: get an employee's manager identified by employee's managerId + companyId
 
-`/user/manager/list/:companyId-:managerId`: get all of a manager's employees, where managerId is a manager’s “employeeId” field
+`/user/manager/list/<companyId>-<managerId>`: get all of a manager's employees, where managerId is a manager’s “employeeId” field
 
-###Goal Routes
+#### Goal Routes
 
 `/goal/list`: get all goals
 
@@ -88,7 +88,7 @@ npm run dev
 
 `/goal/edit`: edit a goal with fields in request body 
 
-###Comment Routes
+#### Comment Routes
 
 `/comment/list`: get all comments
 
