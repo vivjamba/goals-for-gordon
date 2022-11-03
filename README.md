@@ -1,6 +1,7 @@
 # goals-for-gordon
 
-Frontend available at 'localhost:5173'
+Frontend available at `localhost:5173`
+
 Backend available at `localhost:5000` with a demo at `localhost:5000/dbtest`
 
 
