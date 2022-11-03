@@ -6,9 +6,9 @@ exports.list_all_users = (req, res) => {
 }
 
 //find users by email
-// exports.find_user_by_email = (req, res) => {
-//    // User.find({ email: req.params.email }).then((data) => res.send(data))
-// }
+exports.find_user_by_email = (req, res) => {
+    User.find({ email: req.params.email }).then((data) => res.send(data))
+}
 
 //find user by ID (employee + company)
 exports.find_user_by_id = (req, res) => {
