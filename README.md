@@ -72,7 +72,7 @@ npm run dev
 
 `/user/id/<companyId>-<employeeId>`: get user identified by employeeId + companyId
 
-`/user/email/:email` get user identified by email
+`/user/email/<email>` get user identified by email
 
 `/user/manager/<companyId>-<managerId>`: get an employee's manager identified by employee's managerId + companyId
 
@@ -84,11 +84,11 @@ npm run dev
 
 `/goal/:mongo_id`: get goal by mongo_id
 
-`/goal/employee/<_id>`: get all goals created by an employee (query by employee's Mongoose _id)
+`/goal/employee/<mongo_id>`: get all goals created by an employee (query by employee's mongo_id)
 
 `/goal/create`: create a goal with fields in request body 
 
-`/goal/edit/:mongo_id`: edit a goal with given mongo_id with fields in request body JSON
+`/goal/edit/<mongo_id>`: edit a goal with given mongo_id with fields in request body JSON
 
 #### Comment Routes
 
@@ -102,7 +102,7 @@ npm run dev
 
 `/comment/create`: create a comment with fields in request body 
 
-`/comment/edit/:mongo_id`: edit a comment with given mongo_id with fields in request body JSON
+`/comment/edit/<mongo_id>`: edit a comment with given mongo_id with fields in request body JSON
 
 ## file structure
 ```
