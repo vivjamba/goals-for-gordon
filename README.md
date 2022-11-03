@@ -72,7 +72,7 @@ npm run dev
 
 `/user/id/<companyId>-<employeeId>`: get user identified by employeeId + companyId
 
-`/user/email/:email: get user identified by email
+`/user/email/:email' get user identified by email
 
 `/user/manager/<companyId>-<managerId>`: get an employee's manager identified by employee's managerId + companyId
 
