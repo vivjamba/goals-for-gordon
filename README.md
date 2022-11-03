@@ -85,6 +85,8 @@ npm run dev
         ┣ db    
             ┣ schemas    // Schemas for the database
                 ┗ <schemaHere>.js
+            ┣ controllers    // Controllers for the routes
+                ┗ <controllerHere>.js
             ┣ index.js    // Entry point for schema module
             ┗ test.json    // Test data
         ┣ routes    // routers for API
