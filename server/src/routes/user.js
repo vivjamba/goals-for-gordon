@@ -2,12 +2,19 @@ const express = require('express');
 const bodyParser = require('body-parser')
 const router = express.Router()
 const user_controller = require("../db/controllers/userController.js")
+const {auth}=require("./auth.js")
 
 //parser
 router.use(bodyParser.json())
 router.use(bodyParser.text())
 
 //READ
+
+
+/**
+ * log in function
+ */
+router.post("/login",user_controller.check_login)
 
 //get all users
 router.get("/list", user_controller.list_all_users)
