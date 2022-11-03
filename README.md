@@ -68,11 +68,11 @@ npm run dev
 
 `/user/list`: get all users
 
-`/user/<email>`: get all users with email
+`/user/<mongo_id>`: get user with mongo_id
 
 `/user/id/<companyId>-<employeeId>`: get user identified by employeeId + companyId
 
-`/user/_id/:mongo_id`: get user identified by Mongoose _id
+`/user/email/:email: get user identified by email
 
 `/user/manager/<companyId>-<managerId>`: get an employee's manager identified by employee's managerId + companyId
 
@@ -82,25 +82,27 @@ npm run dev
 
 `/goal/list`: get all goals
 
+`/goal/:mongo_id`: get goal by mongo_id
+
 `/goal/employee/<_id>`: get all goals created by an employee (query by employee's Mongoose _id)
 
 `/goal/create`: create a goal with fields in request body 
 
-`/goal/edit`: edit a goal with fields in request body 
+`/goal/edit/:mongo_id`: edit a goal with given mongo_id with fields in request body JSON
 
 #### Comment Routes
 
 `/comment/list`: get all comments
 
-`/comment/employee/<_id>`: get all comments associated with employee Mongoose _id
+`/comment/<mongo_id>`: get comment by its mongo _id
 
-`/comment/goal/<_id>`: get all comments associated with goal Mongoose _id
+`/comment/employee/<mongo_id>`: get all comments associated with employee mongo_id
 
-`/comment/_id/<mongo_id>`: get comment by its Mongoose _id
+`/comment/goal/<mongo_id>`: get all comments associated with goal mongo_id
 
 `/comment/create`: create a comment with fields in request body 
 
-`/comment/edit`: edit a comment with fields in request body 
+`/comment/edit/:mongo_id`: edit a comment with given mongo_id with fields in request body JSON
 
 ## file structure
 ```
