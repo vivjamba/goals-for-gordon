@@ -8,16 +8,16 @@ exports.list_all_users = (req, res) => {
 ;
 }
 
-//find users by email
+//find users by email (will probably be deprecated eventually)
 exports.find_user_by_email = (req, res) => {
     User.find({ email: req.params.email }).then((data) => sendData(res,data))
     .catch((e)=> onServerError(res,e))
 
 }
 
-//find user by ID (employee + company)
+//find user by employeeId + companyId (guaranteed unique ID)
 exports.find_user_by_id = (req, res) => {
-    User.find({ 
+    User.findOne({ 
         employeeId: req.params.employeeId, 
         companyId: req.params.companyId
     }).then((data) => sendData(res,data))
@@ -27,7 +27,7 @@ exports.find_user_by_id = (req, res) => {
 
 //find user by Mongoose ID
 exports.find_user_by_mongo_id = (req, res) => {
-    User.find({ 
+    User.findOne({ 
         _id: req.params.mongo_id, 
     }).then((data) => sendData(res,data))
     .catch((e)=> onServerError(res,e))
@@ -36,7 +36,7 @@ exports.find_user_by_mongo_id = (req, res) => {
 
 //find an employee's manager 
 exports.find_manager_by_id = (req, res) => {
-    User.find({
+    User.findOne({
         employeeID: req.params.managerId,
         companyId: req.params.companyId,
         isManager: true

@@ -66,17 +66,17 @@ npm run dev
 ## REST API
 #### User Routes
 
-`/user/list`: get all users
+`/user/list`: get all users (returns an array of User objects)
 
-`/user/<mongo_id>`: get user with mongo_id
+`/user/<mongo_id>`: get user by mongo_id (returns a single User object)
 
-`/user/id/<companyId>-<employeeId>`: get user identified by employeeId + companyId
-
-`/user/email/<email>` get user identified by email
+`/user/id/<companyId>-<employeeId>`: get user identified by companyId & employeeId (returns a single User object)
 
 `/user/manager/<companyId>-<managerId>`: get an employee's manager identified by employee's managerId + companyId
 
-`/user/manager/list/<companyId>-<managerId>`: get all of a manager's employees, where managerId is a manager’s “employeeId” field
+`/user/manager/list/<companyId>-<managerId>`: get all of a manager's employees, where managerId is a manager’s “employeeId” field (returns array of User objects)
+
+`/user/email/<email>` get users identified by email (returns array of User objects)
 
 #### Goal Routes
 
