@@ -23,6 +23,18 @@ export const store = reactive({
             .catch((err) => {
                 console.log(err)
             })
+    },
+    logIn(){
+        // TODO
+
+    },
+    logOut(){
+        // TODO: delete auhorization token
+        this.email = ''
+        this.firstName = ''
+        this.lastName = ''
+        this.positionTitle = ''
     }
+
    
 })

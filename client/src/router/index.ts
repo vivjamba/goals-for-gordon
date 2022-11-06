@@ -1,20 +1,31 @@
+import { h } from 'vue'
 import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
 import LandingView from '../views/LandingView.vue'
+import GoalDetailView from '../views/GoalDetailView.vue'
+import GoalContainerView from '../views/GoalContainerView.vue'
 
 const router = createRouter({
-  history: createWebHistory(import.meta.env.BASE_URL),
+  history: createWebHistory(),
   routes: [
     {
-      path: '/',
-      name: 'home',
-      component: HomeView
+        path: '/',
+        name: 'home',
+        component: HomeView
     },
     {
-      path: '/user',
-      name: 'landing',
-      component: LandingView
-    }
+        path: '/:userid',
+        name:'user',
+        component: { render: () => h( LandingView ) },
+        children: [
+          {
+              path: 'goal/:goalid',
+              name:'goal',
+              component: GoalDetailView
+          }
+          
+        ]
+    },
   ]
 })
 

@@ -2,20 +2,28 @@
 import LandingHeader from '../components/headers/LandingHeader.vue'
 import GoalContainer from '../components/goals/GoalContainer.vue'
 import { store } from '../stores/session.js';
+import { RouterView } from 'vue-router'
+import GoalDetailView from './GoalDetailView.vue'
 
 export default {
     name: 'LandingView',
     components:{
         LandingHeader,
-        GoalContainer
+        GoalContainer,
+        GoalDetailView
     },
     data() {
         return {
             store
         }
     },
+    methods : {
+        openGoal(goalid){
+            this.$router.push({name:'goal', params:{ goalid }})
+        },
+    },
     mounted(){
-        this.store.getUserInfo(store.email)
+        this.store.getUserInfo(this.$route.params.userid);
     }
 }
 </script>
@@ -28,8 +36,10 @@ export default {
             :email="store.email"
             :position-title="store.positionTitle"
             :is-manager="store.isManager"
+            :logout = "this.logOut"
+            class="bg-primary"
         />
-        <GoalContainer/>
+        <RouterView> </RouterView>
     </div>
 </template>
 
