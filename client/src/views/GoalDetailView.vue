@@ -1,4 +1,6 @@
 <script>
+import axios from 'axios'
+
 import CommentThread from '../components/goals/CommentThread.vue'
 
 import Dialog from 'primevue/Dialog'
@@ -25,14 +27,28 @@ export default {
     },
     computed: {
         statusClass(){
-            return this.status.toLowerCase() =='completed' ? 'p-tag-rounded text-color-secondary bg-green-300' : 'p-tag-rounded text-color-secondary bg-yellow-300';
+            return this.status ? 'p-tag-rounded text-color-secondary bg-green-300' : 'p-tag-rounded text-color-secondary bg-yellow-300';
+        },
+        statusText(){
+            return this.status ? 'Completed' : 'In Progress';
         }
     },
     mounted(){
+        this.getGoalDetails()
     },
     methods : {
         exitDialog(){
-            this.$router.push({name:'user', params:{userid: "Kelli_Oneill@fluffybunnyconsulting.com"}})
+            this.$router.push({name:'user', params:{userid: this.$route.params.userid}})
+        },
+        getGoalDetails(){
+            axios.get(`http://localhost:5000/goal/${this.$route.params.goalid}`)
+                .then((res)=>{
+                    let data = res.data[0];
+                    this.title = data.title;
+                    this.dueDate = data.endDate;
+                    this.description = data.description;
+                    this.status = data.status;
+                })
         }
     }
 }
@@ -43,7 +59,7 @@ export default {
         <template #header>
             <div>
                 <h1>{{title}}</h1>
-                <span><Tag value="status" :class="statusClass">{{status}}</Tag> Due Date: {{ dueDate }}</span>
+                <span><Tag value="status" :class="statusClass">{{statusText}}</Tag> Due Date: {{ dueDate }}</span>
             </div>
         </template>
         <div class="border-round-md w-full h-30rem">

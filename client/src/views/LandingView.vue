@@ -1,7 +1,8 @@
 <script>
+import { session } from '../stores/session.js';
+
 import LandingHeader from '../components/headers/LandingHeader.vue'
 import GoalContainer from '../components/goals/GoalContainer.vue'
-import { store } from '../stores/session.js';
 import { RouterView } from 'vue-router'
 import GoalDetailView from './GoalDetailView.vue'
 
@@ -14,7 +15,7 @@ export default {
     },
     data() {
         return {
-            store
+            session
         }
     },
     methods : {
@@ -23,7 +24,7 @@ export default {
         },
     },
     mounted(){
-        this.store.getUserInfo(this.$route.params.userid);
+        this.session.getUserInfo(this.$route.params.userid);
     }
 }
 </script>
@@ -31,14 +32,17 @@ export default {
 <template>
     <div id="landing-page">
         <LandingHeader 
-            :first-name="store.firstName"
-            :last-name="store.lastName"
-            :email="store.email"
-            :position-title="store.positionTitle"
-            :is-manager="store.isManager"
+            :first-name="session.user.firstName"
+            :last-name="session.user.lastName"
+            :email="session.user.email"
+            :position-title="session.user.positionTitle"
+            :is-manager="session.user.isManager"
             :logout = "this.logOut"
             class="bg-primary"
         />
+        <GoalContainer
+            :goals="session.goals"
+            :openGoal="this.openGoal"/>
         <RouterView> </RouterView>
     </div>
 </template>
