@@ -2,6 +2,7 @@ const express = require('express');
 const bodyParser = require('body-parser')
 const router = express.Router()
 const goal_controller = require("../db/controllers/goalController.js")
+const {auth}=require("./auth.js")
 
 //parser
 router.use(bodyParser.json())
@@ -24,12 +25,12 @@ router.get("/employee/:mongo_id", goal_controller.find_goals_by_employee)
 //CREATE
 
 //create goal
-router.post("/create", goal_controller.create_goal)
+router.post("/create",auth, goal_controller.create_goal)
 
 //EDIT
 
 //edit a goal
-router.post("/edit/:mongo_id", goal_controller.edit_goal)
+router.post("/edit/:mongo_id",auth, goal_controller.edit_goal)
 
 
 module.exports=router

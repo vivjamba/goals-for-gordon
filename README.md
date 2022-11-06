@@ -68,6 +68,10 @@ npm run dev
 
 `/user/list`: get all users (returns an array of User objects)
 
+`POST /user/login`: attempt logging in by email and password
+If email is wrong: respond with 401 with message "wrong email"
+If password is wrong: respond with 401 with message "wrong password"
+
 `/user/<mongo_id>`: get user by mongo_id (returns a single User object)
 
 `/user/id/<companyId>-<employeeId>`: get user identified by companyId & employeeId (returns a single User object)
@@ -86,9 +90,9 @@ npm run dev
 
 `/goal/employee/<mongo_id>`: get all goals created by an employee (query by employee's mongo_id)
 
-`/goal/create`: create a goal with fields in request body 
+`POST /goal/create`: create a goal with fields in request body 
 
-`/goal/edit/<mongo_id>`: edit a goal with given mongo_id with fields in request body JSON
+`POST /goal/edit/<mongo_id>`: edit a goal with given mongo_id with fields in request body JSON
 
 #### Comment Routes
 
@@ -100,9 +104,9 @@ npm run dev
 
 `/comment/goal/<mongo_id>`: get all comments associated with goal mongo_id
 
-`/comment/create`: create a comment with fields in request body 
+`POST /comment/create`: create a comment with fields in request body 
 
-`/comment/edit/<mongo_id>`: edit a comment with given mongo_id with fields in request body JSON
+`POST /comment/edit/<mongo_id>`: edit a comment with given mongo_id with fields in request body JSON
 
 ## file structure
 ```

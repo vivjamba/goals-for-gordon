@@ -1,6 +1,29 @@
 const { User } = require("../index")
 
 const { sendData, onServerError } = require("./statusHandlers")
+
+exports.check_login= async function check_login(req,res){
+    let email=req.body.email
+    let pw=req.body.password
+    try{
+
+        const user=await User.find({ email: email })
+        if(!user || user.length==0) {
+            res.status(401).end("wrong email")
+            return
+        }
+        if(user[0].password!==pw) {
+            res.status(401).end("wrong password")
+            return
+        }
+        res.status(200).end("successfully logged in")
+    }
+    catch(e){
+        onServerError(res,e)
+    }
+}
+
+
 //find all users
 exports.list_all_users = (req, res) => {
     User.find({}).then((data) => sendData(res,data))
@@ -37,7 +60,7 @@ exports.find_user_by_mongo_id = (req, res) => {
 //find an employee's manager 
 exports.find_manager_by_id = (req, res) => {
     User.findOne({
-        employeeID: req.params.managerId,
+        employeeId: req.params.managerId,
         companyId: req.params.companyId,
         isManager: true
     }).then((data) => sendData(res,data))
