@@ -23,9 +23,9 @@ exports.find_comments_by_goal = (req, res) => {
 
 }
 
-//get a comment associated with comment Mongoose _id
+//get a single comment associated with comment Mongoose _id
 exports.find_comment_by_id = (req, res) => {
-    Comment.find({_id: req.params.mongo_id}).then((data) => sendData(res,data))
+    Comment.findOne({_id: req.params.mongo_id}).then((data) => sendData(res,data))
     .catch((e)=> onServerError(res,e))
 
 }

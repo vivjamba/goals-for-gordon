@@ -1,6 +1,7 @@
 const {Goal}=require("../index")
 
 const { sendData, onServerError } = require("./statusHandlers")
+
 //get all goals
 exports.list_all_goals = (req, res) => {
     Goal.find({}).then((data) => sendData(res,data))
@@ -10,7 +11,7 @@ exports.list_all_goals = (req, res) => {
 
 //find goal by mongo_id
 exports.find_goal_by_mongo_id = (req, res) => {
-    Goal.find({_id: req.params.mongo_id}).then((data) => sendData(res,data))
+    Goal.findOne({_id: req.params.mongo_id}).then((data) => sendData(res,data))
     .catch((e)=> onServerError(res,e))
 
 }
