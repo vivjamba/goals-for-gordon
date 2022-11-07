@@ -23,6 +23,13 @@ returns an single Goal object
 router.get("/:mongo_id", goal_controller.find_goal_by_mongo_id)
 
 /*
+get goal by mongo_id 
+PLANNED: return array of goal object followed by any comment objects
+CURRENT: only returns goal object same as above
+*/
+router.get("/withComments/:mongo_id", goal_controller.find_goal_by_mongo_id_with_comments)
+
+/*
 get all goals created by an employee (query by employee's Mongoose _id)
 returns an array of Goal objects
 */

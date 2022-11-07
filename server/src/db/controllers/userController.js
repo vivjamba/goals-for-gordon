@@ -57,16 +57,16 @@ exports.find_user_by_mongo_id = (req, res) => {
 
 }
 
-//find an employee's manager 
-exports.find_manager_by_id = (req, res) => {
+//find an employee or manager by companyId + employeeId 
+exports.find_by_company = (req, res) => {
     User.findOne({
-        employeeId: req.params.managerId,
+        employeeId: req.params.employeeId,
         companyId: req.params.companyId,
-        isManager: true
     }).then((data) => sendData(res,data))
     .catch((e)=> onServerError(res,e))
 
 }
+
 
 //find all of a manager's employees  
 exports.find_employees_by_manager = (req, res) => {

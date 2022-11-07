@@ -74,11 +74,9 @@ If password is wrong: respond with 401 with message "wrong password"
 
 `/user/<mongo_id>`: get user by mongo_id (returns a single User object)
 
-`/user/id/<companyId>-<employeeId>`: get user identified by companyId & employeeId (returns a single User object)
+`/user/findByCompany/<companyId>/<employeeId>`: get an employee's manager via comapnyId + managerId OR any employee via companyId + employeeId 
 
-`/user/manager/<companyId>-<managerId>`: get an employee's manager identified by employee's managerId + companyId
-
-`/user/manager/list/<companyId>-<managerId>`: get all of a manager's employees, where managerId is a manager’s “employeeId” field (returns array of User objects)
+`/user/manager/listEmployees/<companyId>/<managerId>`: get all of a manager's employees, where managerId is a manager’s “employeeId” field (returns array of User objects)
 
 `/user/email/<email>` get users identified by email (returns array of User objects)
 
@@ -86,7 +84,9 @@ If password is wrong: respond with 401 with message "wrong password"
 
 `/goal/list`: get all goals
 
-`/goal/:mongo_id`: get goal by mongo_id
+`/goal/<mongo_id>`: get goal by mongo_id
+
+`/goal/withComments/<mongo_id>`: (PLACEHOLDER) get goal as well as any comments on that goal by mongo_id. PLANNED: Return array with goal object followed by comment objects CURRENT: returns only goal object
 
 `/goal/employee/<mongo_id>`: get all goals created by an employee (query by employee's mongo_id)
 
