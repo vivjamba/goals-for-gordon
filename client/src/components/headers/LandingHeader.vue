@@ -18,7 +18,11 @@
                 <Button icon="pi pi-cog" class="p-button-link" />
                 <Button @click="$router.push('/')" icon='pi pi-sign-out' label="logout" class="p-button-link"/>
             </span>
-            <InputSwitch v-if="isManager" v-model="checked" class="manager-switch"/>
+            <span class="switch">
+                <InputSwitch v-if="isManager" v-model="checked" class="manager-switch"/>
+                <h4 v-if="isManager && checked">Manager View</h4>
+                <h4 v-if="isManager && !checked">Employee View</h4>
+            </span>
         </div>
     </div>
     
@@ -43,6 +47,9 @@ export default {
 </script>
 
 <style scoped>
+.switch{
+    display: flex;
+}
 .profile-info{
     display: flex;
     flex-direction: row;
@@ -57,6 +64,7 @@ export default {
 .manager-switch {
     scale:.7;
 }
+
 
 .control-buttons {
     display: flex;
