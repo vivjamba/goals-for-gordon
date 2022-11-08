@@ -1,6 +1,9 @@
 # goals-for-gordon
 
-Backend available at `localhost:5000` with a demo at `localhost:5000/dbtest`
+Frontend available at `localhost:5173`
+
+Backend available at `localhost:5000`
+
 
 ## Trello Board
 https://trello.com/b/pePWfePv/employee-goals-app
@@ -9,7 +12,7 @@ https://trello.com/b/pePWfePv/employee-goals-app
 bestcs320team.slack.com
 
 ## Google Drive
-https://docs.google.com/spreadsheets/d/1kHYYPvPIFhu78y40Eb04lMguJ62HAZa5rHtHUJ-VlhE/edit?usp=sharing
+https://drive.google.com/drive/u/1/folders/0ACyQyaNlcwHKUk9PVA
 
 ## Zoom Link
 https://umass-amherst.zoom.us/j/96432975453
@@ -21,6 +24,8 @@ Begin by cloning and entering into directory.
 `git clone https://github.com/vivjamba/goals-for-gordon/`
 `cd goals-for-gordon`
 
+To make sure you can connect to the database, you need a server/config folder with a variables.env file containing the MONGODB_URL. This file does not get committed.
+
 ### Running with Docker
 Ensure you download and run Docker daemon. 
 ```
@@ -31,7 +36,7 @@ docker-compose up --build
 ```
 This will build the entire environment for development (frontend + backend)
 *Note: The `--build` tag atm is only require for when you create new files,
-install new dependances, or alter any Docker related files. Working on making
+install new dependencies, or alter any Docker related files. Working on making
 this a less frequent requirement;
 
 ### Running native
@@ -47,7 +52,7 @@ npm install
 npm install nodemon
 ``````
 to run
-`npm run dev=up`
+`npm run dev-up`
 
 #### Client
 ```
@@ -56,11 +61,48 @@ npm install
 npm run dev
 ```
 
-## Update 2022-10-23
+## Update 2022-11-3
 
 ## REST API
-`/user/`:fetchs all users
-`/user/<email>`:fetchs all users with email
+#### User Routes
+
+`/user/list`: get all users
+
+`/user/<mongo_id>`: get user with mongo_id
+
+`/user/id/<companyId>-<employeeId>`: get user identified by employeeId + companyId
+
+`/user/email/<email>` get user identified by email
+
+`/user/manager/<companyId>-<managerId>`: get an employee's manager identified by employee's managerId + companyId
+
+`/user/manager/list/<companyId>-<managerId>`: get all of a manager's employees, where managerId is a manager’s “employeeId” field
+
+#### Goal Routes
+
+`/goal/list`: get all goals
+
+`/goal/:mongo_id`: get goal by mongo_id
+
+`/goal/employee/<mongo_id>`: get all goals created by an employee (query by employee's mongo_id)
+
+`/goal/create`: create a goal with fields in request body 
+
+`/goal/edit/<mongo_id>`: edit a goal with given mongo_id with fields in request body JSON
+
+#### Comment Routes
+
+`/comment/list`: get all comments
+
+`/comment/<mongo_id>`: get comment by its mongo _id
+
+`/comment/employee/<mongo_id>`: get all comments associated with employee mongo_id
+
+`/comment/goal/<mongo_id>`: get all comments associated with goal mongo_id
+
+`/comment/create`: create a comment with fields in request body 
+
+`/comment/edit/<mongo_id>`: edit a comment with given mongo_id with fields in request body JSON
 
 ## file structure
 ```
@@ -85,6 +127,8 @@ npm run dev
         ┣ db    
             ┣ schemas    // Schemas for the database
                 ┗ <schemaHere>.js
+            ┣ controllers    // Controllers for the routes
+                ┗ <controllerHere>.js
             ┣ index.js    // Entry point for schema module
             ┗ test.json    // Test data
         ┣ routes    // routers for API

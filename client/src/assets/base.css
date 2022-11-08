@@ -1,3 +1,10 @@
+/* Color Palette for PrimeFlex */
+:root {
+    --primary-color:#CFF3EF;
+    --primary-color-text:#005151;
+    --border-radius:6px;
+}
+
 /* color palette from <https://github.com/vuejs/theme> */
 :root {
   --vt-c-white: #ffffff;
@@ -23,6 +30,7 @@
 
 /* semantic color variables for this project */
 :root {
+    
   --color-background: var(--vt-c-white);
   --color-background-soft: var(--vt-c-white-soft);
   --color-background-mute: var(--vt-c-white-mute);

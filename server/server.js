@@ -7,6 +7,7 @@
  *  attached to the main process.
  */
 
+require('dotenv').config()
 const express = require('express')
 const bodyParser = require('body-parser')
 const cors = require('cors')
@@ -17,6 +18,8 @@ const port = 5000;
 
 app.use(cors()); // Enable ALL cors requests
 app.use("/user", require("./src/routes/user"))
+app.use("/goal", require("./src/routes/goal"))
+app.use("/comment", require("./src/routes/comment"))
 
 //temporary mongodb database url for testing
 
