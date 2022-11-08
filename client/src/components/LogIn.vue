@@ -3,7 +3,7 @@
         <h1>Sign In</h1>
         <form @submit.prevent >
             <br>
-            <input v-model="session.email" type="text" id="username" name="username" placeholder="Username">
+            <input v-model="email" type="text" id="username" name="username" placeholder="Username">
             <br>
             <input type="password" id="pwd" name="pwd" placeholder="Password">
             <br>
@@ -16,18 +16,16 @@
 <script>
 
 // TODO: stop sharing the login email in store with the same store in landingview
-import { session } from '../stores/session.js';
 export default {
     name: "LogIn",
     data(){
         return {
-            session
+            email:""
         }
     },
     methods: {
         logIn(){
-            
-            this.$router.push({name:'user', params: { userid: session.email }});
+            this.$router.push({name:'user', params: { userid:this.email }});
         }
     }
 }

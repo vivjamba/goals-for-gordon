@@ -19,10 +19,13 @@ export default {
     data() {
         return {
             display: true,
-            description: "I would like to learn Vue so that I can pass 320 and be helpful for the completion of the project.",
-            status: "Completed",
-            dueDate: "11/-7/2022",
-            title: "Learn Vue"
+            editing: false,
+            description: "",
+            status: "",
+            dueDate: "",
+            title: "",
+
+            cal: null
         }
     },
     computed: {
@@ -40,10 +43,14 @@ export default {
         exitDialog(){
             this.$router.push({name:'user', params:{userid: this.$route.params.userid}})
         },
+        edit(){
+            this.editing = !this.editing;
+        },
         getGoalDetails(){
             axios.get(`http://localhost:5000/goal/${this.$route.params.goalid}`)
                 .then((res)=>{
                     let data = res.data[0];
+                    console.log(data);
                     this.title = data.title;
                     this.dueDate = data.endDate;
                     this.description = data.description;
@@ -55,20 +62,38 @@ export default {
 </script>
 
 <template class="">
-    <Dialog class="w-10" modal='true' @after-hide="this.exitDialog()" v-model:visible="display">
+    <Dialog :draggable='false' class="w-10" modal='true' @after-hide="this.exitDialog()" v-model:visible="display">
         <template #header>
             <div>
-                <h1>{{title}}</h1>
-                <span><Tag value="status" :class="statusClass">{{statusText}}</Tag> Due Date: {{ dueDate }}</span>
+                <div class="field max-h-4rem">
+                    <template v-if="editing" class="">
+                        <InputText class="p-inputtext-lg w-full m-1"/>
+                    </template>
+                    <template v-else>
+                        <h1>{{title}}</h1>
+                    </template>
+                </div>
+                <div class="field">
+                    <tag value="status" :class="statusClass">{{statusText}}</tag> 
+                    <label for="due-date">Due Date:</label>
+                    <span id="due-date">
+                        <template v-if="editing">
+                            <Calendar class="" v-model="cal"/>
+                        </template>
+                        <template v-else> 
+                            {{ dueDate }}
+                        </template>
+                    </span>
+                </div>
+            <Divider/>
             </div>
         </template>
-        <div class="border-round-md w-full h-30rem">
-            <Divider/>
+        <div class="border-round-md w-full h-24rem">
             <p class="text-lg">{{ description }}</p>
             <CommentThread/>
         </div>
         <template #footer>
-            <h5> Edit </h5>
+            <Button label="Edit" @click="edit()" class="p-button-link" icon="pi pi-file-edit"></Button>
         </template>
     </Dialog>
 </template>
