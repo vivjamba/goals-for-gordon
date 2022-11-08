@@ -16,6 +16,10 @@ import InputText from 'primevue/inputtext';
 import Button from 'primevue/button'
 import DynamicDialog from 'primevue/dynamicdialog';
 import Calendar from 'primevue/calendar';
+import DataTable from 'primevue/datatable'
+import Column from 'primevue/column';
+import ColumnGroup from 'primevue/columngroup';     //optional for column grouping
+import Row from 'primevue/row'; 
 
 const app = createApp(App)
 
@@ -24,6 +28,10 @@ app.use(PrimeVue)
 app.use(DialogService)
 
 app.component('InputSwitch', InputSwitch);
+app.component('DataTable', DataTable);
+app.component('Column', Column);
+app.component('ColumnGroup', ColumnGroup);
+app.component('Row', Row);
 app.component('InputText', InputText);
 app.component('Button', Button);
 app.component('DynamicDialog', DynamicDialog);

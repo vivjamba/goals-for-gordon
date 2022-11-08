@@ -73,7 +73,7 @@ export default {
             :logout = "this.logOut"
             class="bg-primary"
         />
-        <GoalContainer
+        <GoalContainer 
             :goals="this.goals"
             :openGoal="this.openGoal"/>
         <RouterView> </RouterView>
