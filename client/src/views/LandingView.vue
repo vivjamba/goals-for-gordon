@@ -3,15 +3,22 @@ import axios from 'axios'
 
 import LandingHeader from '../components/headers/LandingHeader.vue'
 import GoalContainer from '../components/goals/GoalContainer.vue'
+
+import GoalHeader from '../components/headers/GoalHeader.vue'
+
 import { RouterView } from 'vue-router'
 import GoalDetailView from './GoalDetailView.vue'
+
+
 
 export default {
     name: 'LandingView',
     components:{
         LandingHeader,
+        GoalHeader,
         GoalContainer,
         GoalDetailView
+
     },
     data() {
         return {
@@ -73,10 +80,14 @@ export default {
             :logout = "this.logOut"
             class="bg-primary"
         />
+
+        <GoalHeader/>
+
         <GoalContainer 
             :goals="this.goals"
             :openGoal="this.openGoal"/>
         <RouterView> </RouterView>
+
     </div>
 </template>
 

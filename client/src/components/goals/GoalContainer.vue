@@ -1,4 +1,5 @@
 <template>
+
         <div class="grid">
             <DataTable :value="goals" @row-click="openGoal($event.data._id)" class="col-10 col-offset-1 p-datatable-lg max-w-10" responsiveLayout="scroll">
                 <Column field="title" header="Title"></Column>
@@ -18,6 +19,7 @@ import Button from 'primevue/button'
 import Tag from 'primevue/Tag'
 
 export default {
+
     name: 'GoalContainer',
     props:['goals', 'openGoal'],
     components:{
