@@ -1,12 +1,15 @@
 <script>
 import LandingHeader from '../components/headers/LandingHeader.vue'
 import GoalContainer from '../components/goals/GoalContainer.vue'
+import GoalHeader from '../components/headers/GoalHeader.vue'
 import { store } from '../stores/session.js';
+
 
 export default {
     name: 'LandingView',
     components:{
         LandingHeader,
+        GoalHeader,
         GoalContainer
     },
     data() {
@@ -29,7 +32,8 @@ export default {
             :position-title="store.positionTitle"
             :is-manager="store.isManager"
         />
-        <GoalContainer/>
+        <GoalHeader/>
+        
     </div>
 </template>
 
