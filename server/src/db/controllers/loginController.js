@@ -2,29 +2,40 @@ const localStrategy = require('passport-local').Strategy;
 const { User } = require("../index")
 const passport = require('passport');
 const jwt = require('jsonwebtoken');
+const KEY="goals_for_gordon_key";
+const { onServerError } = require("./statusHandlers")
+
+
+const loginParamConfig={
+  usernameField: 'email',
+  passwordField: 'password'
+}
+//Gerald_Cunningham@fluffybunnyconsulting.com
+//cunninghamge
+
+const loginVerify=async (email, password, done) => {
+  try {
+    console.log(email,password)
+      const user=await User.findOne({ email: email })
+      console.log(user)
+      if(!user) {
+          return done(null, false, { message: 'User not found' });
+      }
+      if(user.password!==password) {
+          return done(null, false, { message: 'Wrong Password' });
+      }
+      return done(null, user, { message: 'Logged in Successfully' });
+  } catch (error) {
+    return done(error);
+  }
+}
 
 
 passport.use(
     'login',
     new localStrategy(
-      {
-        usernameField: 'email',
-        passwordField: 'password'
-      },
-      async (email, password, done) => {
-        try {
-            const user=await User.findOne({ email: email })
-            if(!user || user.length==0) {
-                return done(null, false, { message: 'User not found' });
-            }
-            if(user[0].password!==password) {
-                return done(null, false, { message: 'Wrong Password' });
-            }
-            return done(null, user, { message: 'Logged in Successfully' });
-        } catch (error) {
-          return done(error);
-        }
-      }
+      loginParamConfig,
+      loginVerify
     )
   );
 
@@ -33,27 +44,21 @@ async function loginController(req, res, next){
   passport.authenticate(
     'login',
     async (err, user, info) => {
+      console.log(user)
       try {
         if (err || !user) {
-          const error = new Error('An error occurred.');
-
-          return next(error);
+          onServerError(res,err)
+          return
         }
+       
+        const body = { _id: user._id, email: user.email};
+        const token = jwt.sign({ user: body },KEY);
 
-        req.login(
-          user,
-          { session: false },
-          async (error) => {
-            if (error) return next(error);
+        return res.json({ token });
 
-            const body = { _id: user._id, email: user.email };
-            const token = jwt.sign({ user: body },KEY);
-
-            return res.json({ token });
-          }
-        );
       } catch (error) {
-        return next(error);
+        onServerError(res,err)
+        return
       }
     }
   )(req, res, next);

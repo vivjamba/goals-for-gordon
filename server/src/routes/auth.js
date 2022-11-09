@@ -1,6 +1,12 @@
 const passport = require('passport');
 
 
+const JWTstrategy = require('passport-jwt').Strategy;
+const ExtractJWT = require('passport-jwt').ExtractJwt;
+const {JWTVerify}=require("./jwtVerifier")
+
+const KEY="goals_for_gordon_key";
+
 /**
  * pass only if you are authorized(Default=true for now)
  * if not, send 401 unauthorized
@@ -25,34 +31,31 @@ function auth(req,res,next){
     }
 }
 
+const JWTConfigPOST={
+  secretOrKey: KEY,
+  jwtFromRequest: ExtractJWT.fromBodyField('token'),
+  passReqToCallback: true
+
+}
+const JWTConfig={
+  secretOrKey: KEY,
+  jwtFromRequest: ExtractJWT.fromAuthHeaderAsBearerToken('token'),
+  passReqToCallback: true
+}
+//eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7Il9pZCI6IjYzNjAwZDA1MjE5MjJkMzFkOGE3NGY5YiIsImVtYWlsIjoiR2VyYWxkX0N1bm5pbmdoYW1AZmx1ZmZ5YnVubnljb25zdWx0aW5nLmNvbSJ9LCJpYXQiOjE2NjgwMjg5NDd9.o43VGsjzDbFaSwU28ZuiQBmMMZehNmsw0xQl3DtJITQ
 
 
-
-const JWTstrategy = require('passport-jwt').Strategy;
-const ExtractJWT = require('passport-jwt').ExtractJwt;
-const KEY="TOP_SECRET";
-
-passport.use(
+passport.use("jwt",
   new JWTstrategy(
-    {
-      secretOrKey: KEY,
-      jwtFromRequest: ExtractJWT.fromUrlQueryParameter('secret_token')
-    },
-    async (token, done) => {
-      try {
-        return done(null, token.user);
-      } catch (error) {
-        done(error);
-      }
-    }
+    JWTConfig,JWTVerify
   )
-);
+)
 
 
-const jwtAuth=passport.authenticate('jwt', { session: false })
+const verifyJWT=passport.authenticate('jwt', { session: false })
 
 
 
 module.exports={
-    auth,jwtAuth
+    auth,verifyJWT
 }
