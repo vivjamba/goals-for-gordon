@@ -139,6 +139,7 @@ If password is wrong: respond with 401 with message "wrong password"
              ┗ <routerHere>.js
         ┗ util.js     //contains utility functions
     ┣ Dockerfile       // File describes our custom docker image
+    ┣ .env             //This file is not distributed through github
     ┣ package.json     // Describes dependancies for server
     ┣ server.js        // Entry/main files for server
  ┣ docker-compose.yaml  // Describes how to run all docker images
