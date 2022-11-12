@@ -1,44 +1,79 @@
 const { User } = require("../index")
 
+const { sendData, onServerError } = require("./statusHandlers")
+
+// TODO: FIXME
+exports.check_login= async function check_login(req,res){
+    let email=req.body.email
+    let pw=req.body.password
+    try{
+
+        const user=await User.find({ email: email })
+        if(!user || user.length==0) {
+            res.status(401).end("wrong email")
+            return
+        }
+        if(user[0].password!==pw) {
+            res.status(401).end("wrong password")
+            return
+        }
+        res.status(200).end("successfully logged in")
+    }
+    catch(e){
+        onServerError(res,e)
+    }
+}
+
+
 //find all users
 exports.list_all_users = (req, res) => {
-    User.find({}).then((data) => res.send(data));
+    User.find({}).then((data) => sendData(res,data))
+    .catch((e)=> onServerError(res,e));
 }
 
-//find users by email
+//find users by email (will probably be deprecated eventually)
 exports.find_user_by_email = (req, res) => {
-    User.find({ email: req.params.email }).then((data) => res.send(data))
+    User.find({ email: req.params.email }).then((data) => sendData(res,data))
+    .catch((e)=> onServerError(res,e))
 }
 
-//find user by ID (employee + company)
+//find user by employeeId + companyId (guaranteed unique ID)
 exports.find_user_by_id = (req, res) => {
-    User.find({ 
+    User.findOne({ 
         employeeId: req.params.employeeId, 
         companyId: req.params.companyId
-    }).then((data) => res.send(data))
+    }).then((data) => sendData(res,data))
+    .catch((e)=> onServerError(res,e))
+
 }
 
 //find user by Mongoose ID
 exports.find_user_by_mongo_id = (req, res) => {
-    User.find({ 
+    User.findOne({ 
         _id: req.params.mongo_id, 
-    }).then((data) => res.send(data))
+    }).then((data) => sendData(res,data))
+    .catch((e)=> onServerError(res,e))
+
 }
 
-//find an employee's manager 
-exports.find_manager_by_id = (req, res) => {
-    User.find({
-        employeeID: req.params.managerId,
+//find an employee or manager by companyId + employeeId 
+exports.find_by_company = (req, res) => {
+    User.findOne({
+        employeeId: req.params.employeeId,
         companyId: req.params.companyId,
-        isManager: true
-    }).then((data) => res.send(data))
+    }).then((data) => sendData(res,data))
+    .catch((e)=> onServerError(res,e))
+
 }
+
 
 //find all of a manager's employees  
 exports.find_employees_by_manager = (req, res) => {
     User.find({
         managerId: req.params.managerId,
         companyId: req.params.companyId,
-    }).then((data) => res.send(data))
+    }).then((data) => sendData(res,data))
+    .catch((e)=> onServerError(res,e))
+
 }
 

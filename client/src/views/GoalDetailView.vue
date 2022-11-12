@@ -49,7 +49,7 @@ export default {
         getGoalDetails(){
             axios.get(`http://localhost:5000/goal/${this.$route.params.goalid}`)
                 .then((res)=>{
-                    let data = res.data[0];
+                    let data = res.data;
                     console.log(data);
                     this.title = data.title;
                     this.dueDate = data.endDate;
