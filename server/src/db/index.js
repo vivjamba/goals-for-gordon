@@ -3,7 +3,7 @@ const mongoose = require("mongoose")
 const employees=require("./test.json") // Testing file, will be moved into remote server
 const { userSchema, goalSchema, commentSchema } = require('./schemas')
 const util=require('./../util')
-require('dotenv').config({path:__dirname+'/../../config/variables.env'})
+
 
 const MONGODB_URL = process.env.MONGODB_URL
 
