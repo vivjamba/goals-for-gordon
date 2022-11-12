@@ -35,6 +35,12 @@ returns an array of Goal objects
 */
 router.get("/employee/:mongo_id", goal_controller.find_goals_by_employee)
 
+/*
+get all goals created by an employee with given statuss
+returns an array of Goal objects
+*/
+router.get("/employee/:mongo_id/status/:statusValue", goal_controller.find_goals_by_employee_and_status)
+
 //CREATE
 
 /*
