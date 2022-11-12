@@ -24,7 +24,7 @@ Begin by cloning and entering into directory.
 `git clone https://github.com/vivjamba/goals-for-gordon/`
 `cd goals-for-gordon`
 
-To make sure you can connect to the database, you need a server/config folder with a variables.env file containing the MONGODB_URL. This file does not get committed.
+To make sure you can connect to the database, you need a .env file containing the MONGODB_URL in the server root directory (goals-for-gordon/server). This file does not get committed.
 
 ### Running with Docker
 Ensure you download and run Docker daemon. 
@@ -74,21 +74,21 @@ If password is wrong: respond with 401 with message "wrong password"
 
 `/user/<mongo_id>`: get user by mongo_id (returns a single User object)
 
-`/user/findByCompany/<companyId>/<employeeId>`: get an employee's manager via comapnyId + managerId OR any employee via companyId + employeeId 
+`/user/findByCompany/<companyId>/<employeeId>`: get an employee's manager via comapnyId + managerId OR any employee via companyId + employeeId (returns a single User object)
 
 `/user/manager/listEmployees/<companyId>/<managerId>`: get all of a manager's employees, where managerId is a manager’s “employeeId” field (returns array of User objects)
 
-`/user/email/<email>` get users identified by email (returns array of User objects)
+`/user/email/<email>`: get users identified by email (returns array of User objects)
 
 #### Goal Routes
 
-`/goal/list`: get all goals
+`/goal/list`: get all goals (returns array of Goal objects)
 
-`/goal/<mongo_id>`: get goal by mongo_id
+`/goal/<mongo_id>`: get goal by mongo_id (returns a single Goal object)
 
 `/goal/withComments/<mongo_id>`: (PLACEHOLDER) get goal as well as any comments on that goal by mongo_id. PLANNED: Return array with goal object followed by comment objects CURRENT: returns only goal object
 
-`/goal/employee/<mongo_id>`: get all goals created by an employee (query by employee's mongo_id)
+`/goal/employee/<mongo_id>`: get all goals created by an employee, query by employee's mongo_id (returns array of Goal objects)
 
 `POST /goal/create`: create a goal with fields in request body 
 
@@ -96,15 +96,15 @@ If password is wrong: respond with 401 with message "wrong password"
 
 #### Comment Routes
 
-`/comment/list`: get all comments
+`/comment/list`: get all comments (returns array of Comment objects)
 
-`/comment/<mongo_id>`: get comment by its mongo _id
+`/comment/<mongo_id>`: get comment by its mongo_id (returns a single Comment object)
 
-`/comment/employee/<mongo_id>`: get all comments associated with employee mongo_id
+`/comment/employee/<mongo_id>`: get all comments associated with employee mongo_id (returns array of Comment objects)
 
-`/comment/goal/<mongo_id>`: get all comments associated with goal mongo_id
+`/comment/goal/<mongo_id>`: get all comments associated with goal mongo_id (returns array of Comment objects)
 
-`POST /comment/create`: create a comment with fields in request body 
+`POST /comment/create`: create a comment with fields in request body
 
 `POST /comment/edit/<mongo_id>`: edit a comment with given mongo_id with fields in request body JSON
 
