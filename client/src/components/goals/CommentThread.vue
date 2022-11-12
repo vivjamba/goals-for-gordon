@@ -4,7 +4,7 @@
 
 <script>
 export default {
-    name: 'GoalModal'
+    name: 'GoalModalComment'
 }
 </script>
 

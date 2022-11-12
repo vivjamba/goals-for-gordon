@@ -1,25 +1,31 @@
 <template>
     <div class="center">
         <h1>Sign In</h1>
-        <form action="">
+        <form @submit.prevent >
             <br>
-            <input v-model="store.email" type="text" id="username" name="username" placeholder="Username">
+            <input v-model="email" type="text" id="username" name="username" placeholder="Username">
             <br>
             <input type="password" id="pwd" name="pwd" placeholder="Password">
             <br>
-            <input @click="$router.push('/user')" type="submit" value="Log-In">
-        </form>
+            <input @click="logIn" type="submit" value="Log-In">
+        </form >
     </div>
     
 </template>
 
 <script>
-import { store } from '../stores/session.js';
+
+// TODO: stop sharing the login email in store with the same store in landingview
 export default {
     name: "LogIn",
     data(){
         return {
-            store
+            email:""
+        }
+    },
+    methods: {
+        logIn(){
+            this.$router.push({name:'user', params: { userid:this.email }});
         }
     }
 }
