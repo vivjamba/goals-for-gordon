@@ -30,15 +30,24 @@ exports.find_comment_by_id = (req, res) => {
 
 }
 
+//create comment
 exports.create_comment = (req, res) => {
     Comment.create(req.body).then((data) => sendData(res,data))
     .catch((e)=> onServerError(res,e))
 
 }
 
+//edit comment by mongo_id
 exports.edit_comment = (req, res) =>{
     Comment.findByIdAndUpdate(req.params.mongo_id, req.body, {new: true})
     .then((data) => sendData(res,data))
     .catch((e)=> onServerError(res,e))
 
+}
+
+//delete a comment by mongo_id
+exports.delete_comment = (req, res) =>{
+    Comment.findByIdAndDelete(req.params.mongo_id)
+    .then((data) => sendData(res, data))
+    .catch((e)=> onServerError(res,e))
 }

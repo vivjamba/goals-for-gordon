@@ -84,7 +84,9 @@ If password is wrong: respond with 401 with message "wrong password"
 
 `/goal/list`: get all goals (returns array of Goal objects)
 
-`/goal/<mongo_id>`: get goal by mongo_id (returns a single Goal object)
+`GET /goal/<mongo_id>`: get goal by mongo_id (returns a single Goal object)
+
+`DELETE /goal/<mongo_id>`: delete goal by mongo_id (returns the single deleted goal object if successful)
 
 `/goal/withComments/<mongo_id>`: (PLACEHOLDER) get goal as well as any comments on that goal by mongo_id. PLANNED: Return array with goal object followed by comment objects CURRENT: returns only goal object
 
@@ -98,7 +100,9 @@ If password is wrong: respond with 401 with message "wrong password"
 
 `/comment/list`: get all comments (returns array of Comment objects)
 
-`/comment/<mongo_id>`: get comment by its mongo_id (returns a single Comment object)
+`GET /comment/<mongo_id>`: get comment by its mongo_id (returns a single Comment object)
+
+`DELETE /comment/<mongo_id>`: delete goal by mongo_id (returns the single deleted comment object if successful)
 
 `/comment/employee/<mongo_id>`: get all comments associated with employee mongo_id (returns array of Comment objects)
 

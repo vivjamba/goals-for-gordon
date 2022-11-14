@@ -41,10 +41,19 @@ Create comment with all fields in request body
 */
 router.post("/create", auth, comment_controller.create_comment)
 
+//EDIT
+
 /*
 Edit comment by replacing with fields in request body 
 */
 router.post("/edit/:mongo_id", auth, comment_controller.edit_comment)
+
+//DELETE
+
+/*
+Delete goal with given mongo_id
+*/
+router.delete("/:mongo_id", auth, comment_controller.delete_comment)
 
 
 module.exports=router
