@@ -13,6 +13,8 @@ const loginParamConfig={
 //Gerald_Cunningham@fluffybunnyconsulting.com
 //cunninghamge
 
+
+//verify user with email and password
 const loginVerify=async (email, password, done) => {
   try {
     console.log(email,password)
@@ -24,13 +26,15 @@ const loginVerify=async (email, password, done) => {
       if(user.password!==password) {
           return done(null, false, { message: 'Wrong Password' });
       }
-      return done(null, user, { message: 'Logged in Successfully' });
+
+
+      return done(null, user, { message: 'Logged in Successfully' }); //success
   } catch (error) {
     return done(error);
   }
 }
 
-
+//a "strategy" for login authorization
 passport.use(
     'login',
     new localStrategy(
@@ -40,6 +44,9 @@ passport.use(
   );
 
 
+
+//controller function for login
+//uses "login" strategy defined above
 async function loginController(req, res, next){
   passport.authenticate(
     'login',
@@ -52,9 +59,9 @@ async function loginController(req, res, next){
         }
        
         const body = { _id: user._id, email: user.email};
-        const token = jwt.sign({ user: body },KEY);
+        const token = jwt.sign({ user: body },KEY);  //create jwt
 
-        return res.json({ token });
+        return res.json({ token }); //send signed jwt to client
 
       } catch (error) {
         onServerError(res,err)
