@@ -55,6 +55,14 @@ returns array of User objects
 // NOTE: this is being used as alt to /login until login is complete.
 router.get("/email/:email", user_controller.find_user_by_email)
 
+//EDIT
+
+/*
+edit a user fields by replacing with fields in request body
+*/
+router.post("/edit/:mongo_id", auth, user_controller.edit_user)
+
+
 //UPDATE
 
 module.exports=router
