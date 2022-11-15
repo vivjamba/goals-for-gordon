@@ -69,3 +69,11 @@ router.get("/email/:email", user_controller.find_user_by_email)
 //UPDATE
 
 module.exports=router
+
+
+//EDIT
+
+/*
+edit a user's mutable fields by replacing with fields in request body
+*/
+router.post("/edit/:mongo_id", auth, user_controller.edit_user)
