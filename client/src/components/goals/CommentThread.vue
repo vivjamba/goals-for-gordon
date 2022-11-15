@@ -1,7 +1,7 @@
 <template>
     <div>
-        <Comment content="content" date="date" poster="poster"/>
-        <Comment content="content" date="date" poster="poster"/>
+        <Comment content="comment number 1" date="2022-11-03" poster="FirstName LastName"/>
+        <Comment content="test comment number 2" date="2022-11-03" poster="FirstName LastName"/>
     </div>
     
 </template>
