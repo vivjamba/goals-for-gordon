@@ -2,7 +2,6 @@ const { User } = require("../index")
 
 const { sendData, onServerError } = require("./statusHandlers")
 
-// TODO: FIXME
 exports.check_login= async function check_login(req,res){
     let email=req.body.email
     let pw=req.body.password
