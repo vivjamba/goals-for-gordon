@@ -46,7 +46,8 @@ export default {
             return status ? 'Completed' : 'In Progress';
         },
         readable(date){
-            return date.toString().substring(0, 10);
+            var date2 = new Date(date);
+            return date2.toDateString();
         }
     }
 }
