@@ -43,5 +43,4 @@ exports.edit_goal = (req, res) =>{
     Goal.findByIdAndUpdate(req.params.mongo_id, req.body, {new: true})
     .then((data) => sendData(res,data))
     .catch((e)=> onServerError(res,e))
-
 }

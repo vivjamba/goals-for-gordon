@@ -14,7 +14,12 @@ router.use(bodyParser.text())
 /**
  * log in function
  */
-router.post("/login",loginController)
+router.post("/login_jwt",loginController)
+
+/**
+ * old function that does not use jwt
+ */
+router.post("/login",user_controller.check_login)
 
 
 router.post("/jwt_test/:id",verifyJWT,(req,res)=>{
