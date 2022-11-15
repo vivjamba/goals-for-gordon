@@ -78,5 +78,5 @@ const verifyUserOrManager=passport.authenticate('jwt-verify-user-or-manager', { 
 
 
 module.exports={
-    verifyJWT,verifyUser,verifyUserOrManager
+    auth,verifyJWT,verifyUser,verifyUserOrManager
 }
