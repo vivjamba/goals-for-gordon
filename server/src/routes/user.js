@@ -21,7 +21,6 @@ router.post("/login_jwt",loginController)
  */
 router.post("/login", user_controller.check_login)
 
-
 router.post("/jwt_test/:id",verifyJWT,(req,res)=>{
     res.send("authorized")
 })
@@ -64,6 +63,7 @@ router.get("/manager/listEmployees/:companyId/:managerId", user_controller.find_
 get users by email (will probably be deprecated eventually)
 returns array of User objects
 */
+// NOTE: this is being used as alt to /login until login is complete.
 router.get("/email/:email", user_controller.find_user_by_email)
 
 //UPDATE

@@ -2,7 +2,6 @@ const { User } = require("../index")
 
 const { sendData, onServerError } = require("./statusHandlers")
 
-
 exports.check_login= async function check_login(req,res){
     let email=req.body.email
     let pw=req.body.password
@@ -28,15 +27,13 @@ exports.check_login= async function check_login(req,res){
 //find all users
 exports.list_all_users = (req, res) => {
     User.find({}).then((data) => sendData(res,data))
-    .catch((e)=> onServerError(res,e))
-;
+    .catch((e)=> onServerError(res,e));
 }
 
 //find users by email (will probably be deprecated eventually)
 exports.find_user_by_email = (req, res) => {
     User.find({ email: req.params.email }).then((data) => sendData(res,data))
     .catch((e)=> onServerError(res,e))
-
 }
 
 //find user by employeeId + companyId (guaranteed unique ID)

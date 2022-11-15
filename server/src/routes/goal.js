@@ -49,5 +49,13 @@ edit a goal by replacing with fields in request body
 */
 router.post("/edit/:mongo_id",auth, goal_controller.edit_goal)
 
+//DELETE
+
+/*
+Delete goal with given mongo_id
+*/
+router.delete("/:mongo_id", auth, goal_controller.delete_goal)
+
+
 
 module.exports=router
