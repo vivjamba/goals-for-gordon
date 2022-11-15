@@ -68,7 +68,7 @@ async function generateGoals(posterId) {
             startDate:date,
             endDate:date,
             category:"none",
-            status:false,
+            status:"inactive",
             poster:mongoose.Types.ObjectId(posterId) 
         })
         //console.log(resolvedData)
