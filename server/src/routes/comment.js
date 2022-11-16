@@ -32,7 +32,7 @@ router.get("/employee/:mongo_id", comment_controller.find_comments_by_employee)
 get all comments associated with goal Mongoose _id
 returns an array of Comment objects 
 */
-router.get("/goal/:_id", comment_controller.find_comments_by_goal)
+router.get("/goal/:mongo_id", comment_controller.find_comments_by_goal)
 
 //CREATE
 
