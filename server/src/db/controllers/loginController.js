@@ -58,7 +58,7 @@ async function loginController(req, res, next){
           return
         }
        
-        const body = { _id: user._id, email: user.email};
+        const body = { _id: user._id, email: user.email,employeeId:user.employeeId};
         const token = jwt.sign({ user: body },KEY);  //create jwt
 
           return res.json({ token }); //send signed jwt to client

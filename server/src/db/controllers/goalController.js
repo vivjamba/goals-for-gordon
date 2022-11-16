@@ -40,6 +40,7 @@ exports.create_goal = (req, res) =>{
 
 //edit a goal by mongo_id
 exports.edit_goal = (req, res) =>{
+    console.log(req.params)
     Goal.findByIdAndUpdate(req.params.mongo_id, req.body, {new: true})
     .then((data) => sendData(res,data))
     .catch((e)=> onServerError(res,e))

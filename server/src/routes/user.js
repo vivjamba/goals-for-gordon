@@ -21,9 +21,14 @@ router.post("/login_jwt",loginController)
  */
 router.post("/login", user_controller.check_login)
 
-router.post("/jwt_test/:id",verifyJWT,(req,res)=>{
+
+router.post("/jwt_test/:id",verifyJWT,(req,res,next)=>{
+    console.log(req.user)
+    next()
+},(req,res)=>{
     res.send("authorized")
 })
+
 router.get("/jwt_test/:id",verifyJWT,(req,res)=>{
     res.send("authorized")
 })

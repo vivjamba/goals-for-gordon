@@ -2,7 +2,10 @@ const express = require('express');
 const bodyParser = require('body-parser')
 const router = express.Router()
 const goal_controller = require("../db/controllers/goalController.js")
-const {auth}=require("./auth.js")
+const roleChecker = require("../db/roleChecker.js")
+
+const {auth}=require("./auth.js");
+const { verifyJWT } = require('./auth.js');
 
 //parser
 router.use(bodyParser.json())
@@ -56,6 +59,11 @@ Delete goal with given mongo_id
 */
 router.delete("/:mongo_id", auth, goal_controller.delete_goal)
 
+
+/**
+ * example function with role checker middleware
+ */
+router.post("/edit_jwt/:mongo_id",verifyJWT, roleChecker.edit_or_delete_goal,(req,res)=>{res.send("ok")})
 
 
 module.exports=router

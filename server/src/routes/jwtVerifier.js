@@ -19,6 +19,7 @@ const JWTVerify=async (req,token, done) => {
   }
   
   /**
+   * UNUSED, WILL BE REMOVED
    * verify if user is same user with the "target"
    * 
    * i.e.
@@ -42,7 +43,8 @@ const JWTVerify=async (req,token, done) => {
     }
   }
   
-    /**
+  /**
+  * UNUSED, WILL BE REMOVED
    * verify if user is same user with the "target" or "target"`s manager
    * 
    */
