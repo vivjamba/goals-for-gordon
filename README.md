@@ -80,6 +80,8 @@ If password is wrong: respond with 401 with message "wrong password"
 
 `/user/email/<email>`: get users identified by email (returns array of User objects)
 
+`/user/edit/<mongo_id>`: edit a user with given mongo_id with fields in request body JSON (used for updating only mutable fields preferredName and profileImgDir)
+
 #### Goal Routes
 
 `/goal/list`: get all goals (returns array of Goal objects)

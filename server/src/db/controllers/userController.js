@@ -76,3 +76,11 @@ exports.find_employees_by_manager = (req, res) => {
 
 }
 
+
+//edit a user's mutable fields by mongo_id
+exports.edit_user = (req, res) =>{
+    User.findByIdAndUpdate(req.params.mongo_id, req.body, {new: true})
+    .then((data) => sendData(res,data))
+    .catch((e)=> onServerError(res,e))
+
+}
