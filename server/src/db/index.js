@@ -5,7 +5,7 @@ const { userSchema, goalSchema, commentSchema } = require('./schemas')
 const util=require('./../util')
 
 
-const MONGODB_URL = process.env.MONGODB_URL
+const MONGODB_URL = process.env.MONGODB_URL2
 
 mongoose.connect(MONGODB_URL)
 
@@ -67,7 +67,7 @@ async function generateGoals(posterId) {
             startDate:date,
             endDate:date,
             category:"none",
-            status:false,
+            status:"inactive",
             poster:mongoose.Types.ObjectId(posterId) 
         })
         //console.log(resolvedData)
