@@ -27,6 +27,8 @@ import DataTable from 'primevue/datatable'
 import Column from 'primevue/column';
 import ColumnGroup from 'primevue/columngroup';     //optional for column grouping
 import Row from 'primevue/row'; 
+import Dialog from 'primevue/Dialog';
+import Textarea from 'primevue/Textarea';
 
 
 const app = createApp(App)
@@ -46,6 +48,8 @@ app.component('Button', Button);
 
 app.component('Dropdown', Dropdown);
 app.component('Checkbox', Checkbox);
+app.component('Dialog', Dialog);
+app.component('Textarea', Textarea);
 
 
 

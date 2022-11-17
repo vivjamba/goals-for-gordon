@@ -2,8 +2,8 @@ const express = require('express');
 const bodyParser = require('body-parser')
 const router = express.Router()
 const user_controller = require("../db/controllers/userController.js")
-const {auth}=require("./auth.js")
-
+const {auth,verifyJWT}=require("./auth.js")
+const { loginController}=require("../db/controllers/loginController")
 //parser
 router.use(bodyParser.json())
 router.use(bodyParser.text())
@@ -14,8 +14,19 @@ router.use(bodyParser.text())
 /**
  * log in function
  */
+router.post("/login_jwt",loginController)
+
+/**
+ * old function that does not use jwt
+ */
 router.post("/login", user_controller.check_login)
 
+router.post("/jwt_test/:id",verifyJWT,(req,res)=>{
+    res.send("authorized")
+})
+router.get("/jwt_test/:id",verifyJWT,(req,res)=>{
+    res.send("authorized")
+})
 /* 
 get all users
 returns an array of User objects
@@ -56,5 +67,11 @@ returns array of User objects
 router.get("/email/:email", user_controller.find_user_by_email)
 
 //UPDATE
+
+/*
+edit a user's mutable fields by replacing with fields in request body
+note: will only change mutable User fields, even if request body specifies immutable fields
+*/
+router.post("/edit/:mongo_id", auth, user_controller.edit_user)
 
 module.exports=router

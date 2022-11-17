@@ -45,10 +45,16 @@ exports.create_goal = (req, res) =>{
 
 }
 
-//edit a goal
+//edit a goal by mongo_id
 exports.edit_goal = (req, res) =>{
     Goal.findByIdAndUpdate(req.params.mongo_id, req.body, {new: true})
     .then((data) => sendData(res,data))
     .catch((e)=> onServerError(res,e))
+}
 
+//delete a goal by mongo_id
+exports.delete_goal = (req, res) =>{
+    Goal.findByIdAndDelete(req.params.mongo_id)
+    .then((data) => sendData(res, data))
+    .catch((e)=> onServerError(res,e))
 }

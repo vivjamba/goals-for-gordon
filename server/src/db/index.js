@@ -61,7 +61,6 @@ async function generateGoals(posterId) {
     let date=new Date()
     let count=2
 	for(let i=0;i<count;++i){
-		//upload first 10 data from json file
 		const resolvedData = await Goal.create({
             title:"goal_"+util.randNumber(),
             description:"an auto-generated goal",
@@ -86,7 +85,6 @@ async function generateComments(posterId,goalId) {
 	//create document from JSON
     let count=2
 	for(let i=0;i<count;++i){
-		//upload first 10 data from json file
 		const resolvedData = await Comment.create({
             content:"an auto-generated comment"+util.randNumber(),
             poster:mongoose.Types.ObjectId(posterId) ,

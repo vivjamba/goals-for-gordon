@@ -8,8 +8,16 @@
                         <tag value="status" :class="statusClass(data.status)">{{statusText(data.status)}}</tag> 
                     </template>
                 </Column>
-                <Column field="startDate" header="Start Date"></Column>
-                <Column field="endDate" header="End Date"></Column>
+                <Column field="startDate" header="Start Date">
+                    <template #body="{data}">
+                        {{readable(data.startDate)}}
+                    </template>
+                </Column>
+                <Column field="endDate" header="End Date">
+                <template #body="{data}">
+                        {{readable(data.endDate)}}
+                    </template>
+                </Column>
             </DataTable>  
         </div>
 </template>
@@ -38,6 +46,10 @@ export default {
         },
         statusText(status){
             return status;
+        },
+        readable(date){
+            var date2 = new Date(date);
+            return date2.toDateString();
         }
     }
 }

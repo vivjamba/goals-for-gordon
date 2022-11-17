@@ -32,7 +32,7 @@ router.get("/employee/:mongo_id", comment_controller.find_comments_by_employee)
 get all comments associated with goal Mongoose _id
 returns an array of Comment objects 
 */
-router.get("/goal/:_id", comment_controller.find_comments_by_goal)
+router.get("/goal/:mongo_id", comment_controller.find_comments_by_goal)
 
 //CREATE
 
@@ -41,10 +41,19 @@ Create comment with all fields in request body
 */
 router.post("/create", auth, comment_controller.create_comment)
 
+//EDIT
+
 /*
 Edit comment by replacing with fields in request body 
 */
 router.post("/edit/:mongo_id", auth, comment_controller.edit_comment)
+
+//DELETE
+
+/*
+Delete goal with given mongo_id
+*/
+router.delete("/:mongo_id", auth, comment_controller.delete_comment)
 
 
 module.exports=router

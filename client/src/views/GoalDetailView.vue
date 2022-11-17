@@ -83,7 +83,7 @@ export default {
                             <Calendar class="" v-model="cal"/>
                         </template>
                         <template v-else> 
-                            {{ dueDate }}
+                            {{ " " + dueDate.toString().substring(0,10) }}
                         </template>
                     </span>
                 </div>
