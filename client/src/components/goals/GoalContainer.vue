@@ -40,10 +40,12 @@ export default {
     },
     methods:{
         statusClass(status){
-            return status ? 'p-tag-rounded text-color-secondary bg-green-300' : 'p-tag-rounded text-color-secondary bg-yellow-300';
+            return status == "complete" ? 'p-tag-rounded text-color-secondary bg-green-300' 
+            : status == "active" ? 'p-tag-rounded text-color-secondary bg-yellow-300'
+            : 'p-tag-rounded text-color-secondary bg-red-300';
         },
         statusText(status){
-            return status ? 'Completed' : 'In Progress';
+            return status;
         },
         readable(date){
             var date2 = new Date(date);

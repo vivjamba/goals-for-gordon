@@ -28,10 +28,12 @@ export default {
     },
     computed: {
         statusClass(){
-            return this.status ? 'p-tag-rounded text-color-secondary bg-green-300' : 'p-tag-rounded text-color-secondary bg-yellow-300';
+            return this.status == "complete" ? 'p-tag-rounded text-color-secondary bg-green-300' 
+            : this.status == "active" ? 'p-tag-rounded text-color-secondary bg-yellow-300'
+            :'p-tag-rounded text-color-secondary bg-red-300';
         },
         statusText(){
-            return this.status ? 'Completed' : 'In Progress';
+            return this.status;
         },
         descHTML(){
             return this.description.replace(/\n/g, "<br/>");

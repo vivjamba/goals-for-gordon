@@ -30,6 +30,13 @@ exports.find_goals_by_employee = (req, res) => {
 
 }
 
+//find all goals created by an employee (query by employee's Mongoose _id)
+exports.find_goals_by_employee_and_status = (req, res) => {
+    Goal.find({ poster: req.params.mongo_id, status: req.params.statusValue }).then((data) => sendData(res,data))
+    .catch((e)=> onServerError(res,e))
+
+}
+
 //create a goal
 exports.create_goal = (req, res) =>{
     //console.log(req.body)

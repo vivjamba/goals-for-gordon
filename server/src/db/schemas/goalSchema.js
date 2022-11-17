@@ -6,7 +6,7 @@ const goalSchema=new mongoose.Schema({
 	startDate:Date,
 	endDate:Date,
 	category:String,
-	status:{ type: Boolean, required: true },
+    status: {type: String, enum:["inactive", "active", "complete"], default: "inactive"},
 	poster:{
 		type: mongoose.Types.ObjectId,
 		ref: "Employee",
