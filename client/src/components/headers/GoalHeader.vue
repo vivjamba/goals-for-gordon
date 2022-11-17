@@ -1,3 +1,24 @@
+<script>
+import { RouterLink, RouterView } from 'vue-router'
+
+import CreateGoalView from '../../views/CreateGoalView.vue'
+
+export default {
+  name: 'GoalHeader',
+  components:{
+        CreateGoalView
+
+    },
+  data() {
+		return {
+			checked: false,
+      checked2: false,
+      checked3: false
+		}
+	}
+}
+</script>
+
 <template>
   <div class="bar">
       <div class="title">
@@ -6,7 +27,7 @@
           <div class="filters">
             <span class="p-input-icon-left">
               <i class="pi pi-search"/>
-              <InputText type="text" v-model="value3" class="w-24rem" placeholder="Search" />
+              <InputText type="text" v-model="value3" class="w-16rem" placeholder="Search" />
             </span>
 
             <Dropdown v-model="selectedCar" :options="cars" optionLabel="brand" placeholder="Filters" :filter="true" class="w-16rem h-2rem" filterPlaceholder="Goal Filters"/>
@@ -25,29 +46,13 @@
               <Checkbox inputId="binary3" v-model="checked3" :binary="true" />
               <label for="binary3">Completed</label>
             </div>
+            <CreateGoalView></CreateGoalView>
+            <!-- <Button label="Create Goal" class="p-button-raised p-button-rounded w-8rem"  /> -->
           </div>
       </div>
   </div>
 </template>
 
-<script>
-import { RouterLink, RouterView } from 'vue-router'
-export default {
-  name: 'GoalHeader',
-  data() {
-		return {
-			checked: false,
-      checked2: false,
-      checked3: false
-		}
-	}
-
-  
-  
-}
-
-
-</script>
 
 <style scoped>
 h3 {
