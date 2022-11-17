@@ -65,7 +65,17 @@ export default {
     },
     mounted(){
         this.getUserInfo(this.$route.params.userid);
+    },
+    // A really bootleg way to check to see if we are on landing view
+    watch: {
+        $route(){
+            if(this.$route.params.goalid==undefined){
+                this.getGoals(this.user._id);
+            }
+        }
     }
+
+    
 }
 </script>
 
@@ -77,7 +87,7 @@ export default {
             :email="this.user.email"
             :position-title="this.user.positionTitle"
             :is-manager="this.user.isManager"
-            :logout = "this.logOut"
+            :log-out = "this.logOut"
             class="bg-primary"
         />
 

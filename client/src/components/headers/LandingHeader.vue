@@ -16,7 +16,7 @@
             {{email}}
             <span class="p-button-set">
                 <Button icon="pi pi-cog" class="p-button-link text-cyan-900" />
-                <Button @click="this.logOut()" icon='pi pi-sign-out' label="logout" class="p-button-link text-cyan-900"/>
+                <Button @click="this.logOut" icon='pi pi-sign-out' label="logout" class="p-button-link text-cyan-900"/>
             </span>
             <span class="switch">
                 <InputSwitch v-if="isManager" v-model="checked" class="manager-switch"/>
