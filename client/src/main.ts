@@ -16,6 +16,7 @@ import './assets/main.css'
 import InputSwitch from 'primevue/inputswitch';
 import InputText from 'primevue/inputtext';
 import Button from 'primevue/button'
+import Fieldset from 'primevue/fieldset';
 
 
 import Dropdown from 'primevue/dropdown';

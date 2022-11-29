@@ -14,7 +14,7 @@ export default {
         Dialog,
         Tag,
         Divider,
-        CommentThread
+        CommentThread,
     },
     data() {
         return {
@@ -41,6 +41,7 @@ export default {
     },
     mounted(){
         this.getGoalDetails()
+        this.getGoalComments()
     },
     methods : {
         exitDialog(){
@@ -78,6 +79,17 @@ export default {
                     this.dueDate = data.endDate;
                     this.description = data.description;
                     this.status = data.status;
+                })
+        },
+        getGoalComments(){
+            axios.get(`http://localhost:5000/comment/goal/${this.$route.params.goalid}`)
+                .then((res)=>{
+                    let data = res.data;
+                    console.log(data);
+                    // this.title = data.title;
+                    // this.dueDate = data.endDate;
+                    // this.description = data.description;
+                    // this.status = data.status;
                 })
         }
     }
@@ -117,7 +129,10 @@ export default {
                     <p class="text-md"><span v-html="descHTML"></span></p>
                 </template>
             </div>
-
+        </template>
+        <div class="border-round-md w-full h-24rem">
+            <p class="text-lg">{{ description }}</p>
+            <h2>Comments:</h2>
             <CommentThread/>
         </div>
         <template #footer>
