@@ -25,7 +25,28 @@ async function isLoggedInUserManagerOfPoster(posterMongoId,req){
     return req.employeeId == user.managerId
 }
 
+/**
+ * moves on to next middleware if logged in user is poster or poster`s manager, 
+ * otherwise send 401 unauthorized. 
+ * 
+ * @param {*} posterMongoId poster`s employee id
+ * @param {*} req 
+ * @param {*} res 
+ * @param {*} next 
+ */
+async function controlManagerPermission(posterMongoId,req,res,next){
+    
+    let isManagerOfPoster = await isLoggedInUserManagerOfPoster(posterMongoId,req)
 
+    if(isLoggedInUserPoster(posterMongoId,req) || isManagerOfPoster)
+    {
+        next()
+    }
+    else{
+        res.status(401).end()
+        return
+    }
+}
 
 
 /**
@@ -98,36 +119,18 @@ async function read_goal_by_id(req,res,next){
         return
     }
 
-
-    let isManagerOfPoster = await isLoggedInUserManagerOfPoster(goal.poster,req)
-
-    if(isLoggedInUserPoster(goal.poster,req) || isManagerOfPoster)
-    {
-        next()
-    }
-    else{
-        res.status(401).end()
-        return
-    }
+    controlManagerPermission(goal.poster,req,res,next)
 }
 
 
 /**
- * poster of the goal or poster`s manager can only read the goal
+ * poster of the goal/comment or poster`s manager can only read the goal/comment
  */
-async function read_goal_by_poster_id(req,res,next){
+async function read_by_poster_id(req,res,next){
     let poster_id=req.params.mongo_id
 
-    let isManagerOfPoster = await isLoggedInUserManagerOfPoster(poster_id,req)
+    controlManagerPermission(poster_id,req,res,next)
 
-    if((isLoggedInUserPoster(poster_id,req) || isManagerOfPoster)) 
-    {
-        next()
-    }
-    else{
-        res.status(401).end()
-        return
-    }
 }
 
 /**
@@ -135,6 +138,17 @@ async function read_goal_by_poster_id(req,res,next){
  */
 async function read_comment_by_id(req,res,next){
     //TODO
+    let comment_mongo_id=req.params.mongo_id
+
+    let comment=await Comment.findById(comment_mongo_id)
+
+    if(!comment){
+        res.status(404).end()
+        return
+    }
+    controlManagerPermission(comment.poster,req,res,next)
+
+
 }
 
 /**
@@ -142,19 +156,24 @@ async function read_comment_by_id(req,res,next){
  */
 async function read_comment_by_goal_id(req,res,next){
  //TODO
+
+    let goal_mongo_id=req.params.mongo_id
+
+    let goal=await Goal.findById(goal_mongo_id)
+
+    if(!goal){
+        res.status(404).end()
+        return
+    }
+    controlManagerPermission(goal.poster,req,res,next)
+
 }
 
 
-/**
- * poster of the comment or poster`s manager can only read the comment
- */
-async function read_comment_by_poster_id(req,res,next){
- //TODO
-}
 
 
 /**
- * Make sure the user cannot "forge" the poster of the goal(cannot pretend the goal is created by other than itself)
+ * Make sure the user cannot "forge" the poster of the goal(cannot pretend the goal is created by others)
  * 
  * compare poster field in the request body to user that currently logged in 
  * 
@@ -166,7 +185,7 @@ async function create_goal(req,res,next){
 
 
 /**
- * Make sure the user cannot "forge" the poster of the comment(cannot pretend the comment is created by other than itself)
+ * Make sure the user cannot "forge" the poster of the comment(cannot pretend the comment is created by others)
  * and make sure not to put the comment to a wrong goal
  * 
  * 1. compare poster field in the request body to user that currently logged in 
@@ -180,6 +199,7 @@ async function create_comment(req,res,next){
 
 module.exports={
     edit_or_delete_goal,edit_or_delete_comment,
-    read_goal_by_id,read_goal_by_poster_id
+    read_goal_by_id,read_by_poster_id,read_comment_by_id
+    ,read_comment_by_goal_id
 
 }
