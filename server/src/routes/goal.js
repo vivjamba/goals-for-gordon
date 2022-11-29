@@ -23,7 +23,7 @@ router.get("/list", goal_controller.list_all_goals)
 get goal by mongo_id
 returns an single Goal object
 */
-router.get("/:mongo_id", goal_controller.find_goal_by_mongo_id)
+router.get("/:mongo_id",verifyJWT,roleChecker.read_goal_by_id, goal_controller.find_goal_by_mongo_id)
 
 /*
 get goal by mongo_id 
@@ -50,7 +50,7 @@ router.post("/create",auth, goal_controller.create_goal)
 /*
 edit a goal by replacing with fields in request body
 */
-router.post("/edit/:mongo_id",auth, goal_controller.edit_goal)
+router.post("/edit/:mongo_id",verifyJWT, roleChecker.edit_or_delete_goal, goal_controller.edit_goal)
 
 //DELETE
 

@@ -3,7 +3,10 @@ const bodyParser = require('body-parser')
 const router = express.Router()
 const user_controller = require("../db/controllers/userController.js")
 const {auth,verifyJWT}=require("./auth.js")
-const { loginController}=require("../db/controllers/loginController")
+const roleChecker = require("../db/roleChecker.js")
+
+const { loginController}=require("../db/controllers/loginController");
+const { JWTVerify } = require('./jwtVerifier.js');
 //parser
 router.use(bodyParser.json())
 router.use(bodyParser.text())
@@ -42,7 +45,7 @@ router.get("/list", user_controller.list_all_users)
 get user by Mongoose ID
 returns a single User object
 */
-router.get("/:mongo_id", user_controller.find_user_by_mongo_id)
+router.get("/:mongo_id",verifyJWT ,user_controller.find_user_by_mongo_id)
 
 /*
 get user identified by employeeId + companyId (guaranteed unique ID)
