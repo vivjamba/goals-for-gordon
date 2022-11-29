@@ -8,7 +8,7 @@ const {JWTVerify,JWTVerifyUser,JWTVerifyUserOrManager}=require("./jwtVerifier")
 const KEY="goals_for_gordon_key"; //jwt secret key, should be put into variables.env in future
 
 /**
- * DEPRICATED
+ * 
  * pass only if you are authorized(Default=true for now)
  * if not, send 401 unauthorized
  * @param {*} req 
