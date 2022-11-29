@@ -108,6 +108,7 @@ export default {
                 </template>
             </div>
         </template>
+        <template>
         <div class="border-round-md w-full h-24rem">
             <div class="field grid">
                 <span class="mx-1"><tag value="status" :class="statusClass">{{statusText}}</tag></span>
@@ -129,6 +130,7 @@ export default {
                     <p class="text-md"><span v-html="descHTML"></span></p>
                 </template>
             </div>
+        </div>
         </template>
         <div class="border-round-md w-full h-24rem">
             <p class="text-lg">{{ description }}</p>
