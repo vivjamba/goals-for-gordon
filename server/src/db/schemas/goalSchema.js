@@ -5,7 +5,7 @@ const goalSchema=new mongoose.Schema({
 	description:{ type: String, required: true },
 	startDate:Date,
 	endDate:Date,
-	category:{type: String, enum:["personal", "professional", "development"], required: true},
+	category:{type: String, enum:["personal", "performance", "developmental"], required: true},
     status: {type: String, enum:["inactive", "active", "complete"], default: "inactive"},
 	poster:{
 		type: mongoose.Types.ObjectId,
