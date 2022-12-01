@@ -5,7 +5,7 @@
             <br>
             <input v-model="email" type="text" id="username" name="username" placeholder="Username">
             <br>
-            <input type="password" id="pwd" name="pwd" placeholder="Password">
+            <input v-model="password" type="password" id="pwd" name="pwd" placeholder="Password">
             <br>
             <input @click="logIn" type="submit" value="Log-In">
         </form >
@@ -15,17 +15,36 @@
 
 <script>
 
+import axios from 'axios';
 // TODO: stop sharing the login email in store with the same store in landingview
 export default {
     name: "LogIn",
     data(){
         return {
-            email:""
+            email:"",
+            password:""
         }
     },
     methods: {
         logIn(){
-            this.$router.push({name:'user', params: { userid:this.email }});
+            //this.$router.push({name:'user', params: { userid:this.email }});
+            
+            axios.post(`http://localhost:5000/user/login_jwt`, 
+                {
+                    email: this.email,
+                    password: this.password
+                })
+                .then((res) => {
+                    console.log(res)
+                    localStorage.setItem('token', res.data.token)
+
+                    this.$router.push({name:'user', params: { userid: res.data.id }});
+
+                })
+                .catch((err) => {
+                    
+                    console.log(err)
+                });
         }
     }
 }

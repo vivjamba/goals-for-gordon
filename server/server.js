@@ -7,7 +7,7 @@
  *  attached to the main process.
  */
 
-require('dotenv').config({path:"variables.env"})
+require('dotenv').config()
 const express = require('express')
 const bodyParser = require('body-parser')
 const cors = require('cors')

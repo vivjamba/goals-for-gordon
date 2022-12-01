@@ -53,7 +53,11 @@ async function loginController(req, res, next){
     async (err, user, info) => {
       console.log(user)
       try {
-        if (err || !user) {
+        if(!user){
+            res.status(401);
+            return
+        }
+        if (err) {
           onServerError(res,err)
           return
         }

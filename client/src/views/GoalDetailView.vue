@@ -40,9 +40,14 @@ export default {
         }
     },
     mounted(){
+        this.checkLogin()
         this.getGoalDetails()
     },
     methods : {
+        checkLogin(){
+            this.auth = localStorage.getItem('token')
+            return this.auth!=undefined;
+        },
         exitDialog(){
             this.$router.push({name:'user', params:{userid: this.$route.params.userid}})
         },
@@ -55,8 +60,13 @@ export default {
                     description: this.description,
                     endDate: this.dueDate,
                     status: this.status
+                },{
+                    headers: { Authorization: `Bearer ${localStorage.getItem('token')}`}
                 })
                 .then((res) => {
+                    if(res.status==403){
+                        throw "Not authenticated!";
+                    }
                     this.editing = false;
 
                     let data = res.data;
@@ -66,11 +76,14 @@ export default {
                     this.status = data.status;
                 })
                 .catch((err) => {
-                    console.error(err);
+                    this.$router.push({name:'home'})
                 })
         },
         getGoalDetails(){
-            axios.get(`http://localhost:5000/goal/${this.$route.params.goalid}`)
+            axios.get(`http://localhost:5000/goal/${this.$route.params.goalid}`,
+                {
+                    headers:{Authorization: `Bearer ${this.auth}`}
+                })
                 .then((res)=>{
                     let data = res.data;
                     console.log(data);
