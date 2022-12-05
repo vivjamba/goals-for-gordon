@@ -76,7 +76,6 @@ export default {
     mounted(){
         this.checkLogin();
         this.getUserInfo(this.$route.params.userid);
-
     },
     // A really bootleg way to check to see if we are on landing view
     watch: {
@@ -94,6 +93,7 @@ export default {
 <template>
     <div id="landing-page">
         <LandingHeader 
+            @myclicked='changemanagerState'
             :first-name="this.user.firstName"
             :last-name="this.user.lastName"
             :email="this.user.email"

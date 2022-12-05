@@ -29,7 +29,7 @@ router.post("/jwt_test/:id",verifyJWT,(req,res,next)=>{
     console.log(req.user)
     next()
 },(req,res)=>{
-    res.send("authorized")
+    res.status(200);
 })
 
 router.get("/jwt_test/:id",verifyJWT,(req,res)=>{

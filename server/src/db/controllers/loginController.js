@@ -54,7 +54,7 @@ async function loginController(req, res, next){
       console.log(user)
       try {
         if(!user){
-            res.status(401);
+            res.send(401);
             return
         }
         if (err) {
