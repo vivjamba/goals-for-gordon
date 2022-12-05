@@ -39,7 +39,11 @@ export default {
         },
         getUserInfo(userid){ // probably gonna be replaced with TOKEN
             this.userLoading = true; 
-            // TODO: once we get mongoDB id, change to query by id
+            if(!this.checkLogin()){
+                this.$toast.add({severity:'error', summary: 'Authentication Expired', detail:'Please login again', life: 2000});
+                this.$router.push({name:'home'})
+                return;
+            }
             axios.get(`http://localhost:5000/user/${userid}`,
                 {
                     headers:{Authorization: `Bearer ${this.auth}`}
@@ -56,6 +60,11 @@ export default {
                 });
         },
         getGoals(userid){
+            if(!this.checkLogin()){
+                this.$toast.add({severity:'error', summary: 'Authentication Expired', detail:'Please login again', life: 2000});
+                this.$router.push({name:'home'})
+                return;
+            }
             this.goalsLoading = true;
             axios.get(`http://localhost:5000/goal/employee/${userid}`, 
                 {
@@ -68,7 +77,10 @@ export default {
                 .catch((err) => console.log(err));
         },
         logOut(){
+            localStorage.removeItem('token')
+            this.auth = undefined
             this.$router.push({name:'home'})
+            this.$toast.add({severity:'success', summary: 'Logout Success', detail:'', life: 1000});
         }
         
         

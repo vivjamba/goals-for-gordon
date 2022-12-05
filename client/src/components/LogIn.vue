@@ -14,7 +14,6 @@
 </template>
 
 <script>
-
 import axios from 'axios';
 // TODO: stop sharing the login email in store with the same store in landingview
 export default {
@@ -28,21 +27,22 @@ export default {
     methods: {
         logIn(){
             //this.$router.push({name:'user', params: { userid:this.email }});
-            
             axios.post(`http://localhost:5000/user/login_jwt`, 
                 {
                     email: this.email,
                     password: this.password
                 })
                 .then((res) => {
-                    console.log(res)
                     localStorage.setItem('token', res.data.token)
-
+                    this.loginErr=false
                     this.$router.push({name:'user', params: { userid: res.data.id }});
-
+                    this.$toast.add({severity:'success', summary: 'Login Success', detail:'', life: 1000});
                 })
                 .catch((err) => {
-                    
+                    console.log(err)
+                    if(err.response.status == 401){
+                        this.$toast.add({severity:'error', summary: 'Incorrect email/pass', detail:'Please try again', life: 3000});
+                    }
                     console.log(err)
                 });
         }
