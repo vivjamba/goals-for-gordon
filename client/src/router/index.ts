@@ -4,6 +4,7 @@ import HomeView from '../views/HomeView.vue'
 import LandingView from '../views/LandingView.vue'
 import GoalDetailView from '../views/GoalDetailView.vue'
 import GoalContainerView from '../views/GoalContainerView.vue'
+import CreateGoalView from '../views/CreateGoalView.vue'
 
 const router = createRouter({
   history: createWebHistory(),
@@ -22,7 +23,12 @@ const router = createRouter({
               path: 'goal/:goalid',
               name:'goal',
               component: GoalDetailView
-          }
+          },
+          {
+            path: 'add',
+            name:'addGoal',
+            component: CreateGoalView
+         },
           
         ]
     },

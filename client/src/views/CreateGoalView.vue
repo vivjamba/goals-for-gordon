@@ -1,6 +1,6 @@
 <template>
-    <Button label="Add Goal" icon="pi pi-plus" @click="openModal" class="p-button-raised p-button-rounded bg-cyan-700" />
-        <Dialog header="Add Goal" v-model:visible="displayModal" :breakpoints="{'960px': '75vw', '640px': '90vw'}" :style="{width: '30vw'}" :modal="true">
+        
+        <Dialog header="Add Goal" v-model:visible="displayModal" @click="closeModal" :breakpoints="{'960px': '75vw', '640px': '90vw'}" :style="{width: '30vw'}" :modal="true">
             <p class="m-0">
                 <div class="user-input">
                     <h4>Goal Title </h4>
@@ -16,25 +16,26 @@
                     <h4>Status</h4>
                     <Dropdown v-model="status" :options="statusList" optionLabel="name" optionValue="code" placeholder="Select a Status" />
                 </div>
-                <!-- Developmental, performance, personal -->
+
                 
 
             </p>
             <template #footer>
                 <Button label="Cancel" icon="pi pi-times" @click="closeModal" class="p-button-text text-red-300"/>
-                <Button label="Add" icon="pi pi-check" @click="closeModal" class="bg-cyan-700" autofocus />
+                <Button label="Add" icon="pi pi-check" @click="save" class="bg-cyan-700" autofocus />
             </template>
         </Dialog>
     
 </template>
 
 <script>
+import axios from "axios";
 
 export default {
     name: 'CreateGoalView',
     data() {
 		return {
-            displayModal: false,
+            displayModal: true,
             position: 'center',
             title: null,
             description: null,
@@ -44,8 +45,8 @@ export default {
             status: null,
             statusList: [
                 {name: 'Inactive', code: 'inactive'},
-                {name: 'In-progress', code: 'in-progress'},
-                {name: 'Completed', code: 'completed'},
+                {name: 'Active', code: 'active'},
+                {name: 'Complete', code: 'complete'},
             ],
             categoryList: [
                 {name: 'Developmental', code: 'developmental'},
@@ -60,7 +61,7 @@ export default {
         },
         closeModal() {
             this.displayModal = false;
-            save();
+            this.$router.push({name: 'user', params: {userid : this.$route.params.userid}})
         },
         save(){
             axios.post(`http://localhost:5000/goal/create`, {
@@ -69,9 +70,14 @@ export default {
                     startDate: this.startDate,
                     endDate: this.endDate,
                     category: this.category,
-                    status: this.status
+                    status: this.status,
+                    poster: this.$route.params.userid,
+                
+
                 })
                 .then((res) => {
+                    this.closeModal();
+                    
                     
                 })
                 .catch((err) => {

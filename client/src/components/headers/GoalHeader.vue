@@ -9,6 +9,11 @@ export default {
         CreateGoalView
 
     },
+    methods:{
+      openGoalButton() {
+            this.$router.push({name: 'addGoal'})
+        },
+    },
   data() {
 		return {
 			checked: false,
@@ -46,7 +51,8 @@ export default {
               <Checkbox inputId="binary3" v-model="checked3" :binary="true" />
               <label for="binary3">Completed</label>
             </div>
-            <CreateGoalView></CreateGoalView>
+
+            <Button label="Add Goal" icon="pi pi-plus" @click="openGoalButton" class="p-button-raised p-button-rounded bg-cyan-700 w-8rem"/>
             <!-- <Button label="Create Goal" class="p-button-raised p-button-rounded w-8rem"  /> -->
           </div>
       </div>
