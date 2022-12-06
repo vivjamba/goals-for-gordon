@@ -15,18 +15,22 @@ export default {
     name: 'CreateComment',
     methods:{
         addComment(){
-            console.log(this.$route.params)
-            // axios.post(`http://localhost:5000/comment/create/`, {
-            //         content: this.text,
-            //         goal: this.$route.params.goalid,
-            //         poster: this.$route.params.userid,
-            //     })
-            //     .then((res) => {
-            //         console.log(res);
-            //     })
-            //     .catch((err) => {
-            //         console.error(err);
-            //     })
+            console.log(this.$route.params);
+            this.auth = localStorage.getItem('token');
+            axios.post(`http://localhost:5000/comment/create/`, {
+                    content: this.text,
+                    goal: this.$route.params.goalid,
+                    poster: this.$route.params.userid,
+                },{
+                    headers: { Authorization: `Bearer ${this.auth}`}
+                })
+                .then((res) => {
+                    console.log(res);
+                    this.$emit('close');
+                })
+                .catch((err) => {
+                    console.error(err);
+                })
         }
     },
     data() {

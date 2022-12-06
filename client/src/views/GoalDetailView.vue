@@ -127,6 +127,14 @@ export default {
         },
         changeAddComment(){
             this.addComment = !this.addComment;
+        },
+        update(){
+            this.changeAddComment();
+            this.getGoalComments();
+        },
+        readable(date){
+            var date2 = new Date(date);
+            return date2.toDateString();
         }
     }
 }
@@ -163,9 +171,10 @@ export default {
                 <template v-if="editing">
                     <Textarea v-model="description" rows="10" cols="60" />
                 </template>
-                <template v-else> 
+                <template v-else>
                     <p class="text-md"><span v-html="descHTML"></span></p>
                 </template>
+
             </div>
         </div>
         </template>
@@ -179,7 +188,7 @@ export default {
         </div>
         <div>
             <div v-if="addComment">
-                <CreateComment/>
+                <CreateComment @close="update()"/>
             </div>
             <CommentThread :comments="this.comments"/>
         </div>

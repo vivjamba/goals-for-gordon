@@ -26,7 +26,11 @@ export default {
     }, 
     methods:{
         getName(id){
-            axios.get(`http://localhost:5000/user/${id}`)
+            this.auth = localStorage.getItem('token')
+            axios.get(`http://localhost:5000/user/${id}`,
+            {
+                    headers: { Authorization: `Bearer ${this.auth}`}
+                })
                 .then((res)=>{
                     // console.log(res.data)
                     this.readable_name = res.data.firstName + " " + res.data.lastName;
