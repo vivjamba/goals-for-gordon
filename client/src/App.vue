@@ -3,6 +3,7 @@ import { RouterLink, RouterView } from 'vue-router'
 </script>
 
 <template>
+    <Toast/>
     <RouterView></RouterView>
 </template>
 

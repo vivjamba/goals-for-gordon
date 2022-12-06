@@ -31,12 +31,16 @@ import Row from 'primevue/row';
 import Dialog from 'primevue/Dialog';
 import Textarea from 'primevue/Textarea';
 
+import Toast from 'primevue/toast';
+import ToastService from 'primevue/toastservice';
+
 
 const app = createApp(App)
 
 app.use(router)
 app.use(PrimeVue)
 app.use(DialogService)
+app.use(ToastService)
 
 app.component('InputSwitch', InputSwitch);
 app.component('DataTable', DataTable);
@@ -45,6 +49,7 @@ app.component('ColumnGroup', ColumnGroup);
 app.component('Row', Row);
 app.component('InputText', InputText);
 app.component('Button', Button);
+app.component('Toast', Toast);
 
 
 app.component('Dropdown', Dropdown);

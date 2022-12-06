@@ -11,10 +11,12 @@
                     <Calendar inputId="basic" v-model="date1" autocomplete="off" />
                     <h4>End Date</h4>
                     <Calendar inputId="basic" v-model="date2" autocomplete="off" />
+                    <h4>Category</h4>
+                    <Dropdown v-model="selectedStatus" :options="category" optionLabel="name" optionValue="code" placeholder="Select a Category" />
                     <h4>Status</h4>
                     <Dropdown v-model="selectedStatus" :options="statuses" optionLabel="name" optionValue="code" placeholder="Select a Status" />
                 </div>
-
+                <!-- Developmental, performance, personal -->
                 
 
             </p>
@@ -41,6 +43,11 @@ export default {
                 {name: 'Inactive', code: 'inactive'},
                 {name: 'In-progress', code: 'in-progress'},
                 {name: 'Completed', code: 'completed'},
+            ],
+            category: [
+                {name: 'Developmental', code: 'developmental'},
+                {name: 'Performance', code: 'performance'},
+                {name: 'Personal', code: 'personal'},
             ]
 		}
 	},
