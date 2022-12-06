@@ -24,6 +24,7 @@ export default {
             status: "",
             dueDate: "",
             title: "",
+            poster:""
         }
     },
     computed: {
@@ -40,9 +41,14 @@ export default {
         }
     },
     mounted(){
+        this.checkLogin()
         this.getGoalDetails()
     },
     methods : {
+        checkLogin(){
+            this.auth = localStorage.getItem('token')
+            return this.auth!=undefined;
+        },
         exitDialog(){
             this.$router.push({name:'user', params:{userid: this.$route.params.userid}})
         },
@@ -55,8 +61,13 @@ export default {
                     description: this.description,
                     endDate: this.dueDate,
                     status: this.status
+                },{
+                    headers: { Authorization: `Bearer ${this.auth}`}
                 })
                 .then((res) => {
+                    if(res.status==401){
+                        throw "Not authenticated!";
+                    }
                     this.editing = false;
 
                     let data = res.data;
@@ -66,18 +77,38 @@ export default {
                     this.status = data.status;
                 })
                 .catch((err) => {
-                    console.error(err);
+                    console.log(err)
+                    this.$toast.add({severity:'error', summary: 'Save Failed', detail:'Please login again', life: 2000});
+                    //this.$router.push({name:'home'})
                 })
         },
         getGoalDetails(){
-            axios.get(`http://localhost:5000/goal/${this.$route.params.goalid}`)
+            if(!this.checkLogin()){
+                this.$router.push({name:'home'})
+                return;
+            }
+            axios.get(`http://localhost:5000/goal/${this.$route.params.goalid}`,
+                {
+                    headers:{ Authorization: `Bearer ${this.auth}`}
+                })
                 .then((res)=>{
                     let data = res.data;
-                    console.log(data);
+                    console.log(data)
                     this.title = data.title;
                     this.dueDate = data.endDate;
                     this.description = data.description;
                     this.status = data.status;
+
+                    return axios.get(`http://localhost:5000/user/${data.poster}`, {
+                        headers:{ Authorization: `Bearer ${this.auth}`}
+                    })
+                })
+                .then((res)=>{
+                    let data = res.data;
+                    this.poster = `${data.firstName} ${data.lastName}`
+                })
+                .catch((err)=>{
+                    this.$toast.add({severity:'error', summary: 'Retrieving Data failed', detail:'Please login again', life: 2000});
                 })
         }
     }
@@ -94,6 +125,7 @@ export default {
                 <template v-else>
                     <h1>{{title}}</h1>
                 </template>
+                {{this.poster}}
             </div>
         </template>
         <div class="border-round-md w-full h-24rem">

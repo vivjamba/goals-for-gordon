@@ -49,14 +49,15 @@ router.get("/employee/:mongo_id/status/:statusValue", goal_controller.find_goals
 /*
 create goal with fields in request body
 */
-router.post("/create",auth, goal_controller.create_goal)
+router.post("/create", goal_controller.create_goal)
 
 //EDIT
 
 /*
 edit a goal by replacing with fields in request body
 */
-router.post("/edit/:mongo_id",verifyJWT, roleChecker.edit_or_delete_goal, goal_controller.edit_goal)
+// TODO check privs for saving
+router.post("/edit/:mongo_id", goal_controller.edit_goal)
 
 //DELETE
 
