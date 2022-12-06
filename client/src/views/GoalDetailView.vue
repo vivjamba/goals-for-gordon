@@ -2,6 +2,7 @@
 import axios from 'axios'
 
 import CommentThread from '../components/goals/CommentThread.vue'
+import CreateComment from '../components/CreateComment.vue'
 
 import Dialog from 'primevue/Dialog'
 import Divider from 'primevue/Divider'
@@ -14,7 +15,8 @@ export default {
         Dialog,
         Tag,
         Divider,
-        CommentThread
+        CommentThread,
+        CreateComment,
     },
     data() {
         return {
@@ -24,7 +26,10 @@ export default {
             status: "",
             dueDate: "",
             title: "",
-            poster:""
+            poster:"",
+            comments: {},
+            addComment: false,
+            buttonDesc: "Add Comment",
         }
     },
     computed: {
@@ -43,6 +48,7 @@ export default {
     mounted(){
         this.checkLogin()
         this.getGoalDetails()
+        this.getGoalComments()
     },
     methods : {
         checkLogin(){
@@ -110,6 +116,25 @@ export default {
                 .catch((err)=>{
                     this.$toast.add({severity:'error', summary: 'Retrieving Data failed', detail:'Please login again', life: 2000});
                 })
+        },
+        getGoalComments(){
+            axios.get(`http://localhost:5000/comment/goal/${this.$route.params.goalid}`)
+                .then((res)=>{
+                    let data = res.data;
+                    console.log(data);
+                    this.comments = data;
+                })
+        },
+        changeAddComment(){
+            this.addComment = !this.addComment;
+        },
+        update(){
+            this.changeAddComment();
+            this.getGoalComments();
+        },
+        readable(date){
+            var date2 = new Date(date);
+            return date2.toDateString();
         }
     }
 }
@@ -128,6 +153,7 @@ export default {
                 {{this.poster}}
             </div>
         </template>
+        <template>
         <div class="border-round-md w-full h-24rem">
             <div class="field grid">
                 <span class="mx-1"><tag value="status" :class="statusClass">{{statusText}}</tag></span>
@@ -145,12 +171,26 @@ export default {
                 <template v-if="editing">
                     <Textarea v-model="description" rows="10" cols="60" />
                 </template>
-                <template v-else> 
+                <template v-else>
                     <p class="text-md"><span v-html="descHTML"></span></p>
                 </template>
-            </div>
 
-            <CommentThread/>
+            </div>
+        </div>
+        </template>
+        <div class="border-round-md w-full">
+            <p class="text-lg">{{ description }}</p>
+        </div>
+        <div class="comment-head">
+            <h2>Comments:</h2>
+            <Button v-if="!this.addComment" label="Add Comment" @click="changeAddComment()" class="bg-cyan-700"/>
+            <Button v-if="this.addComment" label="Cancel" @click="changeAddComment()" class="p-button-text text-red-300"/>
+        </div>
+        <div>
+            <div v-if="addComment">
+                <CreateComment @close="update()"/>
+            </div>
+            <CommentThread :comments="this.comments"/>
         </div>
         <template #footer>
             <template v-if="editing">
@@ -164,5 +204,8 @@ export default {
 </template>
 
 <style scoped>
-
+.comment-head{
+    display: flex;
+    justify-content: space-between;
+}
 </style>
