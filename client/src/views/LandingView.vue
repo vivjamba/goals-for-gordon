@@ -26,20 +26,31 @@ export default {
             userLoading: true,
             goals:[],
             goalsLoading: true,
-
+            auth:undefined
         }
     },
     methods : {
+        checkLogin(){
+            this.auth = localStorage.getItem('token')
+            return this.auth!=undefined;
+        },
         openGoal(goalid){
             this.$router.push({name:'goal', params:{ goalid }})
         },
-        getUserInfo(email){ // probably gonna be replaced with TOKEN
+        getUserInfo(userid){ // probably gonna be replaced with TOKEN
             this.userLoading = true; 
-            // TODO: once we get mongoDB id, change to query by id
-            axios.get(`http://localhost:5000/user/email/${email}`)
+            if(!this.checkLogin()){
+                this.$toast.add({severity:'error', summary: 'Authentication Expired', detail:'Please login again', life: 2000});
+                this.$router.push({name:'home'})
+                return;
+            }
+            axios.get(`http://localhost:5000/user/${userid}`,
+                {
+                    headers:{Authorization: `Bearer ${this.auth}`}
+                })
                 .then((res) => {
                     console.log(res)
-                    let data = res['data'][0] // FIXME see Trello
+                    let data = res.data; // FIXME see Trello
                     this.userLoading = false; 
                     this.user = data;
                     this.getGoals(this.user._id);
@@ -49,8 +60,16 @@ export default {
                 });
         },
         getGoals(userid){
+            if(!this.checkLogin()){
+                this.$toast.add({severity:'error', summary: 'Authentication Expired', detail:'Please login again', life: 2000});
+                this.$router.push({name:'home'})
+                return;
+            }
             this.goalsLoading = true;
-            axios.get(`http://localhost:5000/goal/employee/${userid}`)
+            axios.get(`http://localhost:5000/goal/employee/${userid}`, 
+                {
+                    headers:{Authorization: `Bearer ${this.auth}`}
+                })
                 .then((res) => {
                     this.goalsLoading = false;
                     this.goals = res.data;
@@ -58,12 +77,16 @@ export default {
                 .catch((err) => console.log(err));
         },
         logOut(){
+            localStorage.removeItem('token')
+            this.auth = undefined
             this.$router.push({name:'home'})
+            this.$toast.add({severity:'success', summary: 'Logout Success', detail:'', life: 1000});
         }
         
         
     },
     mounted(){
+        this.checkLogin();
         this.getUserInfo(this.$route.params.userid);
     },
     // A really bootleg way to check to see if we are on landing view
@@ -82,6 +105,7 @@ export default {
 <template>
     <div id="landing-page">
         <LandingHeader 
+            @myclicked='changemanagerState'
             :first-name="this.user.firstName"
             :last-name="this.user.lastName"
             :email="this.user.email"

@@ -1,0 +1,38 @@
+version: '3.8'
+
+# Must reload docker image upon change of this file, or change of project directories
+
+services:
+    # Uses a custom Docker image built from Node. See api/Dockerfile
+    server:
+        build:
+            context: server
+            dockerfile: Dockerfile
+            target: prod
+        ports:
+            - 5000:5000
+            - 9229:9229
+        container_name: api
+        environment:
+           - SERVER_PORT=5000
+           #- CONNECTION_STRING=mongodb+srv://yejoonjung:1357@cs320projecttest.t9mhlqf.mongodb.net/?retryWrites=true&w=majority
+           #- CONNECTION_STRING=mongodb+srv://GoalsForGordon:YEoH16H21y6jwVF1@goals-testing.gl51g8n.mongodb.net/?retryWrites=true&w=majority
+
+        # Bind-Mount all files in code directory to accomodate nodemon and debuggers.
+        volumes:
+            - ./server/:/app
+
+    client:
+        build:
+          context: client
+          dockerfile: Dockerfile
+          target: prod
+        ports:
+          - 5173:5173
+        container_name: frontend
+        environment:
+          - API=http://localhost:5000
+        volumes:
+          - ./client/:/app
+      
+

@@ -11,7 +11,7 @@ const { User,Goal,Comment } = require("./index")
  * @returns true if logged in user`s id equals poster mongo id
  */
 function isLoggedInUserPoster(posterMongoId,req){
-    return posterMongoId === req.user._id
+    return req.user != undefined && posterMongoId === req.user._id
 }
 
 /**
@@ -83,7 +83,6 @@ async function controlManagerPermission(posterMongoId,req,res,next){
 async function edit_or_delete_goal(req,res,next){
 
     let goal=await Goal.findById(req.params.mongo_id)
-
     if(goal && isLoggedInUserPoster(goal.poster,req)) next()
     else{
         res.status(401).end()
