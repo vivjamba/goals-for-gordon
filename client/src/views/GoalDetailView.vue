@@ -2,6 +2,7 @@
 import axios from 'axios'
 
 import CommentThread from '../components/goals/CommentThread.vue'
+import CreateComment from '../components/CreateComment.vue'
 
 import Dialog from 'primevue/Dialog'
 import Divider from 'primevue/Divider'
@@ -15,6 +16,7 @@ export default {
         Tag,
         Divider,
         CommentThread,
+        CreateComment,
     },
     data() {
         return {
@@ -24,6 +26,9 @@ export default {
             status: "",
             dueDate: "",
             title: "",
+            comments: {},
+            addComment: false,
+            buttonDesc: "Add Comment",
         }
     },
     computed: {
@@ -86,11 +91,11 @@ export default {
                 .then((res)=>{
                     let data = res.data;
                     console.log(data);
-                    // this.title = data.title;
-                    // this.dueDate = data.endDate;
-                    // this.description = data.description;
-                    // this.status = data.status;
+                    this.comments = data;
                 })
+        },
+        changeAddComment(){
+            this.addComment = !this.addComment;
         }
     }
 }
@@ -132,10 +137,19 @@ export default {
             </div>
         </div>
         </template>
-        <div class="border-round-md w-full h-24rem">
+        <div class="border-round-md w-full">
             <p class="text-lg">{{ description }}</p>
+        </div>
+        <div class="comment-head">
             <h2>Comments:</h2>
-            <CommentThread/>
+            <Button v-if="!this.addComment" label="Add Comment" @click="changeAddComment()" class="bg-cyan-700"/>
+            <Button v-if="this.addComment" label="Cancel" @click="changeAddComment()" class="p-button-text text-red-300"/>
+        </div>
+        <div>
+            <div v-if="addComment">
+                <CreateComment/>
+            </div>
+            <CommentThread :comments="this.comments"/>
         </div>
         <template #footer>
             <template v-if="editing">
@@ -149,5 +163,8 @@ export default {
 </template>
 
 <style scoped>
-
+.comment-head{
+    display: flex;
+    justify-content: space-between;
+}
 </style>

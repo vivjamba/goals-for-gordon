@@ -1,19 +1,27 @@
 <template>
-    <div>
-        <Comment content="comment number 1" date="2022-11-03" poster="FirstName LastName"/>
-        <Comment content="test comment number 2" date="2022-11-03" poster="FirstName LastName"/>
+    <div >
+        <div v-for="comment in comments" :key="comment._id">
+            <Comment :content="comment.content" :poster="comment.poster"/>
+        </div>
     </div>
     
 </template>
 
 <script>
 
+
 import Comment from '../Comment.vue'
 export default {
     name: 'GoalModalComment',
     components: {
         Comment,
-    }
+    },
+    props:{
+        comments: {}
+    },
+    methods:{
+        
+    },
 }
 </script>
 
