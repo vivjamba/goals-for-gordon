@@ -1,8 +1,8 @@
 <template>
     <div class="surface-card p-4 shadow-2 border-round" style="margin:21px;">
-        <div class="text-2xl font-medium text-900 mb-3">Create Comment</div>
-        <Textarea class="font-medium text-500 mb-3 border-round" style="width:100%;" v-model="text" :autoResize="true" rows="4"/>
-        <Button label="Post Comment" @click="addComment()" class="bg-cyan-700"/>
+        <div class="font-medium text-900 mb-3">Create Comment</div>
+        <Textarea class="font-medium text-700 mb-3 border-round" style="width:100%; font-size: 12px;" v-model="text" :autoResize="true" rows="4"/>
+        <Button label="Post Comment" @click="addComment()" class="p-button-sm bg-cyan-700"/>
     </div>
      
 </template>
