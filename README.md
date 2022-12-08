@@ -26,7 +26,7 @@ Begin by cloning and entering into directory.
 
 To make sure you can connect to the database, you need a .env file containing the MONGODB_URL in the server root directory (goals-for-gordon/server). This file does not get committed.
 
-### Running with Docker
+# Running with Docker
 Ensure you download and run Docker daemon. 
 ```
 cd server
@@ -39,82 +39,100 @@ This will build the entire environment for development (frontend + backend)
 install new dependencies, or alter any Docker related files. Working on making
 this a less frequent requirement;
 
-### Running native
+# Running Native
 
 To run native, you must use multiple terminal windows or a terminal multiplexer such as tmux.
 
-#### Server
+## Server
 
-##### Installation
-```cd server
+### Install
+```
 cd server
 npm install
 npm install nodemon
-``````
-to run
-`npm run dev-up`
+```
+### Run
+```
+npm run dev-up
+```
 
-#### Client
+## Client
+
+### Install
 ```
 cd client
 npm install
 npm run dev
 ```
 
-## Update 2022-11-3
+### Run
 
-## REST API
-#### User Routes
+```
+npm run dev
+```
 
-`/user/list`: get all users (returns an array of User objects)
+# REST API
 
-`POST /user/login`: attempt logging in by email and password
+### *Update 2022-12-8*
+
+## **Format Key**: 
+
+`HTTP_REQUEST_TYPE /route/route/<variable set by value in route> => Response Body Contents`
+
+## User Routes
+
+`GET /user/list => [User Objects]` <br> Get all users 
+
+`POST /user/login_jwt => {JSON Web Token}` <br> Authenticate users using email and password and respond with a JSON Web Token
+
+
+**DEPRICATED** `POST /user/login` <br> Attempt logging in by email and password
 If email is wrong: respond with 401 with message "wrong email"
 If password is wrong: respond with 401 with message "wrong password"
 
-`/user/<mongo_id>`: get user by mongo_id (returns a single User object)
+`GET /user/<mongo_id> => {User Object}`<br> Get user by mongo_id 
 
-`/user/findByCompany/<companyId>/<employeeId>`: get an employee's manager via comapnyId + managerId OR any employee via companyId + employeeId (returns a single User object)
+`GET /user/findByCompany/<companyId>/<employeeId> => {User Object}`<br> Get an employee's manager via comapnyId + managerId OR any employee via companyId + employeeId
 
-`/user/manager/listEmployees/<companyId>/<managerId>`: get all of a manager's employees, where managerId is a manager’s “employeeId” field (returns array of User objects)
+`GET /user/manager/listEmployees/<companyId>/<managerId> => [User Objects]` <br> Get all of a manager's employees, where managerId is a manager’s “employeeId” field 
 
-`/user/email/<email>`: get users identified by email (returns array of User objects)
+`GET /user/email/<email> => [User Objects]`<br> Get users identified by email 
 
-`/user/edit/<mongo_id>`: edit a user with given mongo_id with fields in request body JSON (used for updating only mutable fields preferredName and profileImgDir)
+`POST /user/edit/<mongo_id> => {Updated User Object}` <br> Edit a user with given mongo_id with fields in request body JSON (used for updating only mutable fields preferredName and profileImgDir)
 
-#### Goal Routes
+## Goal Routes
 
-`/goal/list`: get all goals (returns array of Goal objects)
+`GET /goal/list => [Goal Objects]` <br> Get all goals 
 
-`GET /goal/<mongo_id>`: get goal by mongo_id (returns a single Goal object)
+`GET /goal/<mongo_id> => {Goal Object}` <br> Get goal by mongo_id
 
-`DELETE /goal/<mongo_id>`: delete goal by mongo_id (returns the single deleted goal object if successful)
+`DELETE /goal/<mongo_id> => {Deleted Goal Object}` <br> delete goal by mongo_id 
 
-`/goal/withComments/<mongo_id>`: (PLACEHOLDER) get goal as well as any comments on that goal by mongo_id. PLANNED: Return array with goal object followed by comment objects CURRENT: returns only goal object
+**PLACEHOLDER (Delete?)** `/goal/withComments/<mongo_id>`: (PLACEHOLDER) get goal as well as any comments on that goal by mongo_id. PLANNED: Return array with goal object followed by comment objects CURRENT: returns only goal object
 
-`/goal/employee/<mongo_id>`: get all goals created by an employee, query by employee's mongo_id (returns array of Goal objects)
+`GET /goal/employee/<mongo_id> => [Goal Objects]`<br> Get all goals created by an employee, query by employee's mongo_id 
 
-`POST /goal/create`: create a goal with fields in request body 
+`POST /goal/create => {Created Goal Object}` <br> Create a goal with fields in request body 
 
-`POST /goal/edit/<mongo_id>`: edit a goal with given mongo_id with fields in request body JSON
+`POST /goal/edit/<mongo_id> => {Edited Goal Object}` <br> Edit a goal with given mongo_id with fields in request body JSON
 
-#### Comment Routes
+## Comment Routes
 
-`/comment/list`: get all comments (returns array of Comment objects)
+`GET /comment/list => [Comment Objects]` <br> Get all comments 
 
-`GET /comment/<mongo_id>`: get comment by its mongo_id (returns a single Comment object)
+`GET /comment/<mongo_id> => {Comment Object}` <br> Get comment by its mongo_id 
 
-`DELETE /comment/<mongo_id>`: delete goal by mongo_id (returns the single deleted comment object if successful)
+`GET /comment/employee/<mongo_id> => [Comment Objects]`<br> Get all comments associated with employee mongo_id 
 
-`/comment/employee/<mongo_id>`: get all comments associated with employee mongo_id (returns array of Comment objects)
+`GET /comment/goal/<mongo_id> => [Comment Objects]` <br> Get all comments associated with goal mongo_id 
 
-`/comment/goal/<mongo_id>`: get all comments associated with goal mongo_id (returns array of Comment objects)
+`DELETE /comment/<mongo_id> => {Deleted Comment Object}` <br> delete goal by mongo_id
 
-`POST /comment/create`: create a comment with fields in request body
+`POST /comment/create => {Created Goal Object}` <br> Create a comment with fields in request body
 
-`POST /comment/edit/<mongo_id>`: edit a comment with given mongo_id with fields in request body JSON
+`POST /comment/edit/<mongo_id> => {Edited Goal Object}`<br> edit a comment with given mongo_id with fields in request body JSON
 
-## file structure
+# File Structure
 ```
 📦goals-for-gordon
  ┣ client *todo*
