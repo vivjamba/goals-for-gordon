@@ -62,7 +62,6 @@ npm run dev-up
 ```
 cd client
 npm install
-npm run dev
 ```
 
 ### Run
@@ -77,7 +76,7 @@ npm run dev
 
 ## **Format Key**: 
 
-`HTTP_REQUEST_TYPE /route/route/<variable set by value in route> => Response Body Contents`
+`HTTP_REQUEST_TYPE /route/route/<variable value in route> => Response Body`
 
 ## User Routes
 
@@ -106,11 +105,11 @@ If password is wrong: respond with 401 with message "wrong password"
 
 `GET /goal/<mongo_id> => {Goal Object}` <br> Get goal by mongo_id
 
-`DELETE /goal/<mongo_id> => {Deleted Goal Object}` <br> delete goal by mongo_id 
-
 **PLACEHOLDER (Delete?)** `/goal/withComments/<mongo_id>`: (PLACEHOLDER) get goal as well as any comments on that goal by mongo_id. PLANNED: Return array with goal object followed by comment objects CURRENT: returns only goal object
 
 `GET /goal/employee/<mongo_id> => [Goal Objects]`<br> Get all goals created by an employee, query by employee's mongo_id 
+
+`DELETE /goal/<mongo_id> => {Deleted Goal Object}` <br> delete goal by mongo_id 
 
 `POST /goal/create => {Created Goal Object}` <br> Create a goal with fields in request body 
 
