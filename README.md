@@ -86,7 +86,7 @@ npm run dev
 `POST /user/login_jwt => {JSON Web Token}` <br> Authenticate users using email and password and respond with a JSON Web Token
 
 
-**DEPRICATED** `POST /user/login` <br> Attempt logging in by email and password
+**DEPRECATED** `POST /user/login` <br> Attempt logging in by email and password
 If email is wrong: respond with 401 with message "wrong email"
 If password is wrong: respond with 401 with message "wrong password"
 
