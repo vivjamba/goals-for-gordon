@@ -2,7 +2,7 @@ const express = require('express');
 const bodyParser = require('body-parser')
 const router = express.Router()
 const user_controller = require("../db/controllers/userController.js")
-const {auth,verifyJWT}=require("./auth.js")
+const {verifyJWT}=require("./auth.js")
 const roleChecker = require("../db/roleChecker.js")
 
 const { loginController}=require("../db/controllers/loginController");
@@ -16,24 +16,25 @@ router.use(bodyParser.text())
 /**
  * log in function
  */
-router.post("/login_jwt",loginController)
+router.post("/login",loginController)
 
 /**
  * old function that does not use jwt
  */
-router.post("/login", user_controller.check_login)
+// router.post("/login", user_controller.check_login)
 
-
+/*
 router.post("/jwt_test/:id",verifyJWT,(req,res,next)=>{
     console.log(req.user)
     next()
 },(req,res)=>{
     res.status(200);
 })
-
 router.get("/jwt_test/:id",verifyJWT,(req,res)=>{
     res.send("authorized")
 })
+*/
+
 /* 
 get all users
 returns an array of User objects

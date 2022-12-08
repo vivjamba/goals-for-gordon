@@ -4,7 +4,7 @@ const router = express.Router()
 const goal_controller = require("../db/controllers/goalController.js")
 const roleChecker = require("../db/roleChecker.js")
 
-const {auth}=require("./auth.js");
+// const {auth}=require("./auth.js");
 const { verifyJWT } = require('./auth.js');
 
 //parser
@@ -69,8 +69,8 @@ router.delete("/:mongo_id", verifyJWT,roleChecker.edit_or_delete_goal, goal_cont
 
 /**
  * example function with role checker middleware
- */
 router.post("/edit_jwt/:mongo_id",verifyJWT, roleChecker.edit_or_delete_goal,(req,res)=>{res.send("ok")})
+*/
 
 
 module.exports=router

@@ -1,7 +1,7 @@
 const { User } = require("../index")
 
 const { sendData, onServerError } = require("./statusHandlers")
-
+/*
 exports.check_login= async function check_login(req,res){
     let email=req.body.email
     let pw=req.body.password
@@ -21,7 +21,7 @@ exports.check_login= async function check_login(req,res){
     catch(e){
         onServerError(res,e)
     }
-}
+}*/
 
 
 //find all users

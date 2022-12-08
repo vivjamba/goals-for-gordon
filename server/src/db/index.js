@@ -103,8 +103,6 @@ async function testFetch() {
 module.exports = {
     User,
     Comment,
-    Goal,
-    testCreate,
-    testFetch
+    Goal
 }
 

@@ -68,7 +68,7 @@ npm run dev
 
 `/user/list`: get all users (returns an array of User objects)
 
-`POST /user/login`: attempt logging in by email and password
+`POST /user/login`: attempt logging in by email and password using jwt
 If email is wrong: respond with 401 with message "wrong email"
 If password is wrong: respond with 401 with message "wrong password"
 
