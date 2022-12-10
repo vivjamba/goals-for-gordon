@@ -115,7 +115,7 @@ export default {
             class="bg-primary"
         />
 
-        <GoalHeader/>
+        <GoalHeader @saveGoal="this.getGoals(this.user._id)"/>
 
         <GoalContainer 
             :goals="this.goals"
