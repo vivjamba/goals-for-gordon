@@ -26,6 +26,8 @@ Begin by cloning and entering into directory.
 
 To make sure you can connect to the database, you need a .env file containing the MONGODB_URL in the server root directory (goals-for-gordon/server). This file does not get committed.
 
+<br>
+
 # Running with Docker
 Ensure you download and run Docker daemon. 
 ```
@@ -38,6 +40,8 @@ This will build the entire environment for development (frontend + backend)
 *Note: The `--build` tag atm is only require for when you create new files,
 install new dependencies, or alter any Docker related files. Working on making
 this a less frequent requirement;
+
+<br>
 
 # Running Native
 
@@ -70,6 +74,60 @@ npm install
 npm run dev
 ```
 
+<br>
+
+# Object Structure
+
+JSON objects including at least the **required** fields can be sent via routes and parsed into database documents. <br>
+**Immutable** fields cannot be altered after initial document creation <br>
+
+
+### User Object
+
+```Javascript   
+{
+    firstName: String,      //Required, Immutable
+    lastName: String,       //Required, Immutable
+    employeeId: Number,     //Immutable
+    email: String,          //Required, Immutable
+    companyId: Number,      //Immutable
+    companyName: String,    //Immutable
+    managerId: Number,      //Immutable
+    positionTitle: String,  //Immutable
+    startDate: String,      //Immutable
+    isManager: Boolean,     //Required, Immutable
+    password: String,       //Required, Immutable
+    preferredName: String,
+    profileImageDir: Buffer //(String) 
+} 
+```
+
+### Goal Object
+
+```Javascript
+{
+    title: String, //Required
+    description: String, //Required
+    startDate: Date, //Required
+    endDate:Date, //Required
+    category: //Required
+        String Enumerator ["personal", "performance", "developmental"], 
+    status: //Default: Inactive
+        String Enumerator ["inactive", "active", "complete"],
+    poster: UniqueID (String) //Required
+}
+```
+
+### Comment Object
+
+```JavaScript
+{
+	content: String, //Required
+	poster: UniqueID (Straing), //Required
+	goal:UniqueID (String) //Required
+}
+```
+
 # REST API
 
 ### *Update 2022-12-8*
@@ -82,12 +140,7 @@ npm run dev
 
 `GET /user/list => [User Objects]` <br> Get all users 
 
-`POST /user/login_jwt => {JSON Web Token}` <br> Authenticate users using email and password and respond with a JSON Web Token
-
-
-**DEPRECATED** `POST /user/login` <br> Attempt logging in by email and password
-If email is wrong: respond with 401 with message "wrong email"
-If password is wrong: respond with 401 with message "wrong password"
+`POST /user/login => {JSON Web Token}` <br> Authenticate users using credentials from request and respond with JSON Web Token on success
 
 `GET /user/<mongo_id> => {User Object}`<br> Get user by mongo_id 
 
@@ -99,13 +152,13 @@ If password is wrong: respond with 401 with message "wrong password"
 
 `POST /user/edit/<mongo_id> => {Updated User Object}` <br> Edit a user with given mongo_id with fields in request body JSON (used for updating only mutable fields preferredName and profileImgDir)
 
+<br>
+
 ## Goal Routes
 
 `GET /goal/list => [Goal Objects]` <br> Get all goals 
 
 `GET /goal/<mongo_id> => {Goal Object}` <br> Get goal by mongo_id
-
-**PLACEHOLDER (Delete?)** `/goal/withComments/<mongo_id>`: (PLACEHOLDER) get goal as well as any comments on that goal by mongo_id. PLANNED: Return array with goal object followed by comment objects CURRENT: returns only goal object
 
 `GET /goal/employee/<mongo_id> => [Goal Objects]`<br> Get all goals created by an employee, query by employee's mongo_id 
 
@@ -114,6 +167,8 @@ If password is wrong: respond with 401 with message "wrong password"
 `POST /goal/create => {Created Goal Object}` <br> Create a goal with fields in request body 
 
 `POST /goal/edit/<mongo_id> => {Edited Goal Object}` <br> Edit a goal with given mongo_id with fields in request body JSON
+
+<br>
 
 ## Comment Routes
 
@@ -130,6 +185,8 @@ If password is wrong: respond with 401 with message "wrong password"
 `POST /comment/create => {Created Goal Object}` <br> Create a comment with fields in request body
 
 `POST /comment/edit/<mongo_id> => {Edited Goal Object}`<br> edit a comment with given mongo_id with fields in request body JSON
+
+<br>
 
 # File Structure
 ```
