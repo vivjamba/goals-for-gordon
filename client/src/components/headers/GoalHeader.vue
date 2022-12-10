@@ -15,7 +15,12 @@ export default {
       checked2: false,
       checked3: false
 		}
-	}
+	},
+  methods: {
+    saveGoal(){
+      this.$emit("saveGoal");
+    }
+  }
 }
 </script>
 
@@ -46,7 +51,7 @@ export default {
               <Checkbox inputId="binary3" v-model="checked3" :binary="true" />
               <label for="binary3">Completed</label>
             </div>
-            <CreateGoalView></CreateGoalView>
+            <CreateGoalView @saveGoal="saveGoal()"></CreateGoalView>
             <!-- <Button label="Create Goal" class="p-button-raised p-button-rounded w-8rem"  /> -->
           </div>
       </div>
