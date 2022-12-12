@@ -206,7 +206,7 @@ JSON objects including at least the **required** fields can be sent via requests
         String Enumerator ["personal", "performance", "developmental"], 
     status: //Default: Inactive
         String Enumerator ["inactive", "active", "complete"],
-    poster: UniqueID (String) //Required
+    poster: Mongoose Object ID (String) //Required
 }
 ```
 
@@ -215,8 +215,8 @@ JSON objects including at least the **required** fields can be sent via requests
 ```JavaScript
 {
 	content: String, //Required
-	poster: UniqueID (Straing), //Required
-	goal:UniqueID (String) //Required
+	poster: Mongoose Object ID (String), //Required
+	goal: Mongoose Object ID (String) //Required
 }
 ```
 
