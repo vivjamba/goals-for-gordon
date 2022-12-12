@@ -83,7 +83,7 @@ export default {
             this.$toast.add({severity:'success', summary: 'Logout Success', detail:'', life: 1000});
         },
 	handleManagerMode(event){
-		if(event){
+		if(!event){
 			this.employeeGoals = [];
 			this.promiseArray = [];
 			axios.get(`http://localhost:5000/user/manager/listEmployees/${this.user.employeeId}/${this.user.companyId}`)
