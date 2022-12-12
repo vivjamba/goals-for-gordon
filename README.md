@@ -16,40 +16,41 @@ https://umass-amherst.zoom.us/j/96432975453
 
 ## Step 1: 
 
-<br>
-
-Begin by cloning and entering into directory.
+Begin by cloning and entering into the root directory.
 
 ```
 git clone https://github.com/vivjamba/goals-for-gordon/
 cd goals-for-gordon
 ```
+
+
 ## Step 2: 
 
-<br>
-
 To make sure you can connect to the database, you need a .env file containing the MONGODB_URL. This file does not get committed. To get this file, click the link below and move the .env file in the server root directory at 
-`goals-for-gordon/server` as shown in file structure diagram
+`goals-for-gordon/server` as shown in [file structure diagram](#file-structure).
 
 <br>
 
-LINK
+https://drive.google.com/file/d/1tqmIYF2xmsc4lThFBdasznqQGEAH-kqw/view?usp=sharing
+
+<br>
 
 ## Step 3:
 
-<br>
 
-Follow either "Running with Docker" or "Running Native" steps below to run the client and server
+Follow either [Running with Docker](#running-with-docker) or [Running Native](#running-native) steps below to install and run the client and server
+
+<br>
 
 ## Step 4:
 
-<br>
 
-To access the full build, enter the client address into a web browser. The server can also be interacted with by sending requests to the server address
-
-<br>
+To access the full build, enter the client address into a web browser. 
 
 Client address `localhost:5173`
+
+The server can also be interacted with separately by sending [requests](#rest-api) to the server address
+
 
 Server address `localhost:5000`
 
@@ -74,6 +75,8 @@ To run native, you must use multiple terminal windows or a terminal multiplexer 
 
 ## Server
 
+In one terminal window, run the following commands:
+
 ### Install
 ```
 cd server
@@ -86,6 +89,8 @@ npm run dev-up
 ```
 
 ## Client
+
+In a seperate terminal window, run the following commands:
 
 ### Install
 ```
@@ -165,7 +170,7 @@ npm run dev
 
 # Object Structure
 
-JSON objects including at least the **required** fields can be sent via routes and parsed into database documents. <br>
+JSON objects including at least the **required** fields can be sent via requests and parsed into database documents. <br>
 **Immutable** fields cannot be altered after initial document creation <br>
 
 
