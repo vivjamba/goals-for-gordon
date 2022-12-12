@@ -1,10 +1,5 @@
 # goals-for-gordon
 
-Frontend available at `localhost:5173`
-
-Backend available at `localhost:5000`
-
-
 ## Trello Board
 https://trello.com/b/pePWfePv/employee-goals-app
 
@@ -17,14 +12,46 @@ https://drive.google.com/drive/u/1/folders/0ACyQyaNlcwHKUk9PVA
 ## Zoom Link
 https://umass-amherst.zoom.us/j/96432975453
 
-## Development Installation
+# Setup
+
+## Step 1: 
+
+<br>
 
 Begin by cloning and entering into directory.
 
-`git clone https://github.com/vivjamba/goals-for-gordon/`
-`cd goals-for-gordon`
+```
+git clone https://github.com/vivjamba/goals-for-gordon/
+cd goals-for-gordon
+```
+## Step 2: 
 
-To make sure you can connect to the database, you need a .env file containing the MONGODB_URL in the server root directory (goals-for-gordon/server). This file does not get committed.
+<br>
+
+To make sure you can connect to the database, you need a .env file containing the MONGODB_URL. This file does not get committed. To get this file, click the link below and move the .env file in the server root directory at 
+`goals-for-gordon/server` as shown in file structure diagram
+
+<br>
+
+LINK
+
+## Step 3:
+
+<br>
+
+Follow either "Running with Docker" or "Running Native" steps below to run the client and server
+
+## Step 4:
+
+<br>
+
+To access the full build, enter the client address into a web browser. The server can also be interacted with by sending requests to the server address
+
+<br>
+
+Client address `localhost:5173`
+
+Server address `localhost:5000`
 
 <br>
 
@@ -37,9 +64,7 @@ cd ..
 docker-compose up --build
 ```
 This will build the entire environment for development (frontend + backend)
-*Note: The `--build` tag atm is only require for when you create new files,
-install new dependencies, or alter any Docker related files. Working on making
-this a less frequent requirement;
+
 
 <br>
 
@@ -76,57 +101,7 @@ npm run dev
 
 <br>
 
-# Object Structure
 
-JSON objects including at least the **required** fields can be sent via routes and parsed into database documents. <br>
-**Immutable** fields cannot be altered after initial document creation <br>
-
-
-### User Object
-
-```Javascript   
-{
-    firstName: String,      //Required, Immutable
-    lastName: String,       //Required, Immutable
-    employeeId: Number,     //Immutable
-    email: String,          //Required, Immutable
-    companyId: Number,      //Immutable
-    companyName: String,    //Immutable
-    managerId: Number,      //Immutable
-    positionTitle: String,  //Immutable
-    startDate: String,      //Immutable
-    isManager: Boolean,     //Required, Immutable
-    password: String,       //Required, Immutable
-    preferredName: String,
-    profileImageDir: Buffer //(String) 
-} 
-```
-
-### Goal Object
-
-```Javascript
-{
-    title: String, //Required
-    description: String, //Required
-    startDate: Date, //Required
-    endDate:Date, //Required
-    category: //Required
-        String Enumerator ["personal", "performance", "developmental"], 
-    status: //Default: Inactive
-        String Enumerator ["inactive", "active", "complete"],
-    poster: UniqueID (String) //Required
-}
-```
-
-### Comment Object
-
-```JavaScript
-{
-	content: String, //Required
-	poster: UniqueID (Straing), //Required
-	goal:UniqueID (String) //Required
-}
-```
 
 # REST API
 
@@ -187,6 +162,58 @@ JSON objects including at least the **required** fields can be sent via routes a
 `POST /comment/edit/<mongo_id> => {Edited Goal Object}`<br> edit a comment with given mongo_id with fields in request body JSON
 
 <br>
+
+# Object Structure
+
+JSON objects including at least the **required** fields can be sent via routes and parsed into database documents. <br>
+**Immutable** fields cannot be altered after initial document creation <br>
+
+
+### User Object
+
+```Javascript   
+{
+    firstName: String,      //Required, Immutable
+    lastName: String,       //Required, Immutable
+    employeeId: Number,     //Immutable
+    email: String,          //Required, Immutable
+    companyId: Number,      //Immutable
+    companyName: String,    //Immutable
+    managerId: Number,      //Immutable
+    positionTitle: String,  //Immutable
+    startDate: String,      //Immutable
+    isManager: Boolean,     //Required, Immutable
+    password: String,       //Required, Immutable
+    preferredName: String,
+    profileImageDir: Buffer //(String) 
+} 
+```
+
+### Goal Object
+
+```Javascript
+{
+    title: String, //Required
+    description: String, //Required
+    startDate: Date, //Required
+    endDate:Date, //Required
+    category: //Required
+        String Enumerator ["personal", "performance", "developmental"], 
+    status: //Default: Inactive
+        String Enumerator ["inactive", "active", "complete"],
+    poster: UniqueID (String) //Required
+}
+```
+
+### Comment Object
+
+```JavaScript
+{
+	content: String, //Required
+	poster: UniqueID (Straing), //Required
+	goal:UniqueID (String) //Required
+}
+```
 
 # File Structure
 ```
