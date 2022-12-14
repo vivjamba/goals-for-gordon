@@ -19,7 +19,7 @@
                 <Button @click="this.logOut" icon='pi pi-sign-out' label="logout" class="p-button-link text-cyan-900"/>
             </span>
             <span class="switch">
-                <InputSwitch v-if="isManager"  v-model="checked" class="manager-switch"  @click="$emit('manager-mode', checked)"/>
+                <InputSwitch v-if="isManager"  v-model="checked" class="manager-switch"  @change="$emit('manager-mode', checked)"/>
                 <h4 v-if="isManager && checked">Manager View</h4>
                 <h4 v-if="isManager && !checked">Employee View</h4>
             </span>

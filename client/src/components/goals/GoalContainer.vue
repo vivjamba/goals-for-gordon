@@ -1,7 +1,7 @@
 <template>
 
         <div class="grid">
-            <DataTable :value="goals" @row-click="openGoal($event.data._id)" class="col-10 col-offset-1 p-datatable-lg max-w-10" responsiveLayout="scroll">
+            <DataTable :value="goalsClean" @row-click="openGoal($event.data._id)" class="col-10 col-offset-1 p-datatable-lg max-w-10" responsiveLayout="scroll">
                 <Column field="title" header="Title"></Column>
                 <Column field="status" header="Status" >
                     <template #body="{data}">
@@ -36,6 +36,13 @@ export default {
     },
     data(){
         return {
+        }
+    },
+    computed:{
+        goalsClean(){
+            return this.goals.filter((goal) => {
+                return goal!=null;
+            })
         }
     },
     methods:{

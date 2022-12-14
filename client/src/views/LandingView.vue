@@ -25,8 +25,50 @@ export default {
             user: {},
             userLoading: true,
             goals:[],
+            employeeGoals:[],
             goalsLoading: true,
-            auth:undefined
+            auth:undefined,
+            managerMode: false,
+            employees:[],
+            filters: {}
+        }
+    },
+    computed:{
+        displayGoals(){
+            if(this.managerMode){
+                let ret = this.employeeGoals.filter(g => g!=undefined); 
+                if(this.filters.actives == true ||
+                    this.filters.inactives==true ||
+                    this.filters.completes==true){
+                    ret = ret.filter(goal => {
+                        return (goal.status=='complete' && this.filters.completes==true) ||
+                        (goal.status=='active' && this.filters.actives==true) ||
+                        (goal.status=='inactive' && this.filters.inactives==true)
+                    })
+                }
+                if(this.filters.search != undefined && this.filters.search.length>0){
+                    ret = ret.filter(g => g.title.toLowerCase().search(this.filters.search)>-1);
+                }
+                if(this.filters.selectedEmployee!=null){
+                    ret = ret.filter(g => g.poster == this.filters.selectedEmployee._id)
+                }
+                return ret;
+            }else{
+                let ret = this.goals.filter(g => g!=undefined); 
+                if(this.filters.actives == true ||
+                    this.filters.inactives==true ||
+                    this.filters.completes==true){
+                    ret = ret.filter(goal => {
+                        return (goal.status=='complete' && this.filters.completes==true) ||
+                        (goal.status=='active' && this.filters.actives==true) ||
+                        (goal.status=='inactive' && this.filters.inactives==true)
+                    })
+                }
+                if(this.filters.search != undefined && this.filters.search.length>0){
+                    ret = ret.filter(g => g.title.toLowerCase().search(this.filters.search)>-1);
+                }
+                return ret;
+            }
         }
     },
     methods : {
@@ -54,6 +96,7 @@ export default {
                     this.userLoading = false; 
                     this.user = data;
                     this.getGoals(this.user._id);
+                    this.getEmployeeGoals();
                 })
                 .catch((err) => {
                     console.log(err)
@@ -76,35 +119,46 @@ export default {
                 })
                 .catch((err) => console.log(err));
         },
+        getEmployeeGoals(){
+            let promiseArray = [];
+            axios.get(
+                `http://localhost:5000/user/manager/listEmployees/${this.user.employeeId}/${this.user.companyId}`,
+                {
+                    headers:{Authorization: `Bearer ${this.auth}`}
+                })
+                .then((res) => {
+                    this.employees = res.data;
+                    this.employeeGoals = [];
+                    for(let i = 0; i < res.data.length; i++){
+                        promiseArray.push(
+                            axios.get(`http://localhost:5000/goal/employee/${res.data[i]._id}`),{
+                                headers:{Authorization: `Bearer ${this.auth}`}
+                            });
+                    }
+                    Promise.all(promiseArray).then((values) => {
+                            for(let i = 0; i < values.length; i++){
+                                this.employeeGoals = this.employeeGoals.concat(values[i].data);
+                            }
+                    })
+                    .catch((err) => console.log(err));
+                 })
+                 .catch((err) => console.log(err));
+        },
         logOut(){
             localStorage.removeItem('token')
             this.auth = undefined
             this.$router.push({name:'home'})
             this.$toast.add({severity:'success', summary: 'Logout Success', detail:'', life: 1000});
         },
-	handleManagerMode(event){
-		if(!event){
-			this.employeeGoals = [];
-			this.promiseArray = [];
-			axios.get(`http://localhost:5000/user/manager/listEmployees/${this.user.employeeId}/${this.user.companyId}`)
-		     	     .then((res) => {
-			        for(let i = 0; i < res.data.length; i++){
-					this.promiseArray.push(axios.get(`http://localhost:5000/goal/employee/${res.data[i]._id}`));
-				}
-				Promise.all(this.promiseArray).then((values) => {
-							  	for(let i = 0; i < values.length; i++){
-									this.employeeGoals = this.employeeGoals.concat(values[i].data);
-							  	}
-								this.goals = this.employeeGoals;
-								})
-						      	      .catch((err) => console.log(err));
-		     	     })
-		             .catch((err) => console.log(err));
-		}
-		else{
-		   this.goals = this.getGoals(this.user._id);
-		}
-       }},
+        handleManagerMode(event){
+            this.managerMode = event;
+        },
+        handleFilter(event){
+            console.log("ENEVTN")
+            console.log(event);
+            this.filters = event;
+        }
+    },
     mounted(){
         this.checkLogin();
         this.getUserInfo(this.$route.params.userid);
@@ -126,7 +180,6 @@ export default {
     <div id="landing-page">
         <LandingHeader
 	    @manager-mode='handleManagerMode' 
-            @myclicked='changemanagerState'
             :first-name="this.user.firstName"
             :last-name="this.user.lastName"
             :email="this.user.email"
@@ -136,11 +189,16 @@ export default {
             class="bg-primary"
         />
 
-        <GoalHeader @saveGoal="this.getGoals(this.user._id)"/>
+        <GoalHeader 
+            @saveGoal="this.getGoals(this.user._id)"
+            @filterChange="handleFilter"
+            :employees="employees"
+            :managerMode="managerMode"/>
 
         <GoalContainer 
-            :goals="this.goals"
-            :openGoal="this.openGoal"/>
+            :goals="displayGoals"
+            :openGoal="this.openGoal"
+            :manageMode="managerMode"/>
         <RouterView> </RouterView>
 
     </div>
