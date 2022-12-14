@@ -23,14 +23,14 @@ router.get("/list", goal_controller.list_all_goals)
 get goal by mongo_id
 returns an single Goal object
 */
-router.get("/:mongo_id",verifyJWT,roleChecker.read_goal_by_id, goal_controller.find_goal_by_mongo_id)
+router.get("/:mongo_id",verifyJWT, goal_controller.find_goal_by_mongo_id)
 
 /*
 get goal by mongo_id 
 PLANNED: return array of goal object followed by any comment objects
 CURRENT: only returns goal object same as above
 */
-router.get("/withComments/:mongo_id",verifyJWT,roleChecker.read_goal_by_id, goal_controller.find_goal_by_mongo_id_with_comments)
+//router.get("/withComments/:mongo_id",verifyJWT, goal_controller.find_goal_by_mongo_id_with_comments)
 
 /*
 get all goals created by an employee (query by employee's Mongoose _id)
@@ -49,7 +49,7 @@ router.get("/employee/:mongo_id/status/:statusValue",verifyJWT, goal_controller.
 /*
 create goal with fields in request body
 */
-router.post("/create",verifyJWT,roleChecker.create_goal ,goal_controller.create_goal)
+router.post("/create",verifyJWT,goal_controller.create_goal)
 
 //EDIT
 
@@ -57,14 +57,14 @@ router.post("/create",verifyJWT,roleChecker.create_goal ,goal_controller.create_
 edit a goal by replacing with fields in request body
 */
 // TODO check privs for saving
-router.post("/edit/:mongo_id",verifyJWT,roleChecker.edit_or_delete_goal, goal_controller.edit_goal)
+router.post("/edit/:mongo_id",verifyJWT,goal_controller.edit_goal)
 
 //DELETE
 
 /*
 Delete goal with given mongo_id
 */
-router.delete("/:mongo_id", verifyJWT,roleChecker.edit_or_delete_goal, goal_controller.delete_goal)
+router.delete("/:mongo_id", verifyJWT,goal_controller.delete_goal)
 
 
 /**

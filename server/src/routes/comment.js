@@ -21,7 +21,7 @@ router.get("/list", comment_controller.list_all_comments)
 get comment by Mongoose _id
 returns a single Comment object
 */
-router.get("/:mongo_id",verifyJWT,roleChecker.read_comment_by_id, comment_controller.find_comment_by_id)
+router.get("/:mongo_id",verifyJWT,comment_controller.find_comment_by_id)
 
 /*
 get all comments associated with employee Mongoose _id
@@ -40,21 +40,21 @@ router.get("/goal/:mongo_id",verifyJWT, comment_controller.find_comments_by_goal
 /*
 Create comment with all fields in request body 
 */
-router.post("/create", verifyJWT,roleChecker.create_comment, comment_controller.create_comment)
+router.post("/create", verifyJWT,comment_controller.create_comment)
 
 //EDIT
 
 /*
 Edit comment by replacing with fields in request body 
 */
-router.post("/edit/:mongo_id", verifyJWT,roleChecker.edit_or_delete_comment, comment_controller.edit_comment)
+router.post("/edit/:mongo_id", verifyJWT,comment_controller.edit_comment)
 
 //DELETE
 
 /*
 Delete goal with given mongo_id
 */
-router.delete("/:mongo_id", verifyJWT,roleChecker.edit_or_delete_comment, comment_controller.delete_comment)
+router.delete("/:mongo_id", verifyJWT,comment_controller.delete_comment)
 
 
 module.exports=router
