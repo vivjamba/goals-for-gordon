@@ -33,6 +33,9 @@ To make sure you can connect to the database, you need a .env file containing th
 
 https://drive.google.com/file/d/1tqmIYF2xmsc4lThFBdasznqQGEAH-kqw/view?usp=sharing
 
+**NOTE: If the file downloaded is named “index.env” please rename to “.env” before installing**
+
+
 <br>
 
 ## Step 3:
