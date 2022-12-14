@@ -27,7 +27,7 @@ export default {
     methods: {
         logIn(){
             //this.$router.push({name:'user', params: { userid:this.email }});
-            axios.post(`http://localhost:5000/user/login_jwt`, 
+            axios.post(`http://localhost:5000/user/login`, 
                 {
                     email: this.email,
                     password: this.password
