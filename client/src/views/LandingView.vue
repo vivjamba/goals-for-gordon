@@ -93,7 +93,7 @@ export default {
 				}
 				Promise.all(this.promiseArray).then((values) => {
 							  	for(let i = 0; i < values.length; i++){
-									this.employeeGoals = this.employeeGoals = this.employeeGoals.concat(values[i].data);
+									this.employeeGoals = this.employeeGoals.concat(values[i].data);
 							  	}
 								this.goals = this.employeeGoals;
 								})
