@@ -1,10 +1,5 @@
 # goals-for-gordon
 
-Frontend available at `localhost:5173`
-
-Backend available at `localhost:5000`
-
-
 ## Trello Board
 https://trello.com/b/pePWfePv/employee-goals-app
 
@@ -17,16 +12,51 @@ https://drive.google.com/drive/u/1/folders/0ACyQyaNlcwHKUk9PVA
 ## Zoom Link
 https://umass-amherst.zoom.us/j/96432975453
 
-## Development Installation
+# Setup
 
-Begin by cloning and entering into directory.
+## Step 1: 
 
-`git clone https://github.com/vivjamba/goals-for-gordon/`
-`cd goals-for-gordon`
+Begin by cloning and entering into the root directory.
 
-To make sure you can connect to the database, you need a .env file containing the MONGODB_URL in the server root directory (goals-for-gordon/server). This file does not get committed.
+```
+git clone https://github.com/vivjamba/goals-for-gordon/
+cd goals-for-gordon
+```
 
-### Running with Docker
+
+## Step 2: 
+
+To make sure you can connect to the database, you need a .env file containing the MONGODB_URL. This file does not get committed. To get this file, click the link below and move the .env file in the server root directory at 
+`goals-for-gordon/server` as shown in [file structure diagram](#file-structure).
+
+<br>
+
+https://drive.google.com/file/d/1tqmIYF2xmsc4lThFBdasznqQGEAH-kqw/view?usp=sharing
+
+<br>
+
+## Step 3:
+
+
+Follow either [Running with Docker](#running-with-docker) or [Running Native](#running-native) steps below to install and run the client and server
+
+<br>
+
+## Step 4:
+
+
+To access the full build, enter the client address into a web browser. 
+
+Client address `localhost:5173`
+
+The server can also be interacted with separately by sending [requests](#rest-api) to the server address
+
+
+Server address `localhost:5000`
+
+<br>
+
+# Running with Docker
 Ensure you download and run Docker daemon. 
 ```
 cd server
@@ -35,86 +65,162 @@ cd ..
 docker-compose up --build
 ```
 This will build the entire environment for development (frontend + backend)
-*Note: The `--build` tag atm is only require for when you create new files,
-install new dependencies, or alter any Docker related files. Working on making
-this a less frequent requirement;
 
-### Running native
+
+<br>
+
+# Running Native
 
 To run native, you must use multiple terminal windows or a terminal multiplexer such as tmux.
 
-#### Server
+## Server
 
-##### Installation
-```cd server
+In one terminal window, run the following commands:
+
+### Install
+```
 cd server
 npm install
 npm install nodemon
-``````
-to run
-`npm run dev-up`
+```
+### Run
+```
+npm run dev-up
+```
 
-#### Client
+## Client
+
+In a seperate terminal window, run the following commands:
+
+### Install
 ```
 cd client
 npm install
+```
+
+### Run
+
+```
 npm run dev
 ```
 
-## Update 2022-11-3
+<br>
 
-## REST API
-#### User Routes
 
-`/user/list`: get all users (returns an array of User objects)
 
-`POST /user/login`: attempt logging in by email and password
-If email is wrong: respond with 401 with message "wrong email"
-If password is wrong: respond with 401 with message "wrong password"
+# REST API
 
-`/user/<mongo_id>`: get user by mongo_id (returns a single User object)
+### *Update 2022-12-8*
 
-`/user/findByCompany/<companyId>/<employeeId>`: get an employee's manager via comapnyId + managerId OR any employee via companyId + employeeId (returns a single User object)
+## **Format Key**: 
 
-`/user/manager/listEmployees/<companyId>/<managerId>`: get all of a manager's employees, where managerId is a manager’s “employeeId” field (returns array of User objects)
+`HTTP_REQUEST_TYPE /route/route/<variable value in route> => Response Body`
 
-`/user/email/<email>`: get users identified by email (returns array of User objects)
+## User Routes
 
-`/user/edit/<mongo_id>`: edit a user with given mongo_id with fields in request body JSON (used for updating only mutable fields preferredName and profileImgDir)
+`GET /user/list => [User Objects]` <br> Get all users 
 
-#### Goal Routes
+`POST /user/login => {JSON Web Token}` <br> Authenticate users using credentials from request and respond with JSON Web Token on success
 
-`/goal/list`: get all goals (returns array of Goal objects)
+`GET /user/<mongo_id> => {User Object}`<br> Get user by mongo_id 
 
-`GET /goal/<mongo_id>`: get goal by mongo_id (returns a single Goal object)
+`GET /user/findByCompany/<companyId>/<employeeId> => {User Object}`<br> Get an employee's manager via comapnyId + managerId OR any employee via companyId + employeeId
 
-`DELETE /goal/<mongo_id>`: delete goal by mongo_id (returns the single deleted goal object if successful)
+`GET /user/manager/listEmployees/<companyId>/<managerId> => [User Objects]` <br> Get all of a manager's employees, where managerId is a manager’s “employeeId” field 
 
-`/goal/withComments/<mongo_id>`: (PLACEHOLDER) get goal as well as any comments on that goal by mongo_id. PLANNED: Return array with goal object followed by comment objects CURRENT: returns only goal object
+`GET /user/email/<email> => [User Objects]`<br> Get users identified by email 
 
-`/goal/employee/<mongo_id>`: get all goals created by an employee, query by employee's mongo_id (returns array of Goal objects)
+`POST /user/edit/<mongo_id> => {Updated User Object}` <br> Edit a user with given mongo_id with fields in request body JSON (used for updating only mutable fields preferredName and profileImgDir)
 
-`POST /goal/create`: create a goal with fields in request body 
+<br>
 
-`POST /goal/edit/<mongo_id>`: edit a goal with given mongo_id with fields in request body JSON
+## Goal Routes
 
-#### Comment Routes
+`GET /goal/list => [Goal Objects]` <br> Get all goals 
 
-`/comment/list`: get all comments (returns array of Comment objects)
+`GET /goal/<mongo_id> => {Goal Object}` <br> Get goal by mongo_id
 
-`GET /comment/<mongo_id>`: get comment by its mongo_id (returns a single Comment object)
+`GET /goal/employee/<mongo_id> => [Goal Objects]`<br> Get all goals created by an employee, query by employee's mongo_id 
 
-`DELETE /comment/<mongo_id>`: delete goal by mongo_id (returns the single deleted comment object if successful)
+`DELETE /goal/<mongo_id> => {Deleted Goal Object}` <br> delete goal by mongo_id 
 
-`/comment/employee/<mongo_id>`: get all comments associated with employee mongo_id (returns array of Comment objects)
+`POST /goal/create => {Created Goal Object}` <br> Create a goal with fields in request body 
 
-`/comment/goal/<mongo_id>`: get all comments associated with goal mongo_id (returns array of Comment objects)
+`POST /goal/edit/<mongo_id> => {Edited Goal Object}` <br> Edit a goal with given mongo_id with fields in request body JSON
 
-`POST /comment/create`: create a comment with fields in request body
+<br>
 
-`POST /comment/edit/<mongo_id>`: edit a comment with given mongo_id with fields in request body JSON
+## Comment Routes
 
-## file structure
+`GET /comment/list => [Comment Objects]` <br> Get all comments 
+
+`GET /comment/<mongo_id> => {Comment Object}` <br> Get comment by its mongo_id 
+
+`GET /comment/employee/<mongo_id> => [Comment Objects]`<br> Get all comments associated with employee mongo_id 
+
+`GET /comment/goal/<mongo_id> => [Comment Objects]` <br> Get all comments associated with goal mongo_id 
+
+`DELETE /comment/<mongo_id> => {Deleted Comment Object}` <br> delete goal by mongo_id
+
+`POST /comment/create => {Created Goal Object}` <br> Create a comment with fields in request body
+
+`POST /comment/edit/<mongo_id> => {Edited Goal Object}`<br> edit a comment with given mongo_id with fields in request body JSON
+
+<br>
+
+# Object Structure
+
+JSON objects including at least the **required** fields can be sent via requests and parsed into database documents. <br>
+**Immutable** fields cannot be altered after initial document creation <br>
+
+
+### User Object
+
+```Javascript   
+{
+    firstName: String,      //Required, Immutable
+    lastName: String,       //Required, Immutable
+    employeeId: Number,     //Immutable
+    email: String,          //Required, Immutable
+    companyId: Number,      //Immutable
+    companyName: String,    //Immutable
+    managerId: Number,      //Immutable
+    positionTitle: String,  //Immutable
+    startDate: String,      //Immutable
+    isManager: Boolean,     //Required, Immutable
+    password: String,       //Required, Immutable
+    preferredName: String,
+    profileImageDir: Buffer //(String) 
+} 
+```
+
+### Goal Object
+
+```Javascript
+{
+    title: String, //Required
+    description: String, //Required
+    startDate: Date, //Required
+    endDate:Date, //Required
+    category: //Required
+        String Enumerator ["personal", "performance", "developmental"], 
+    status: //Default: Inactive
+        String Enumerator ["inactive", "active", "complete"],
+    poster: Mongoose Object ID (String) //Required
+}
+```
+
+### Comment Object
+
+```JavaScript
+{
+	content: String, //Required
+	poster: Mongoose Object ID (String), //Required
+	goal: Mongoose Object ID (String) //Required
+}
+```
+
+# File Structure
 ```
 📦goals-for-gordon
  ┣ client *todo*
