@@ -2,6 +2,7 @@
 import axios from 'axios'
 
 import CommentThread from '../components/goals/CommentThread.vue'
+import CreateComment from '../components/CreateComment.vue'
 
 import Dialog from 'primevue/Dialog'
 import Divider from 'primevue/Divider'
@@ -14,7 +15,8 @@ export default {
         Dialog,
         Tag,
         Divider,
-        CommentThread
+        CommentThread,
+        CreateComment,
     },
     data() {
         return {
@@ -24,7 +26,11 @@ export default {
             status: "",
             dueDate: "",
             title: "",
-            poster:""
+            poster:"",
+            comments: {},
+            addComment: false,
+            buttonDesc: "Add Comment",
+            category: "",
         }
     },
     computed: {
@@ -43,6 +49,7 @@ export default {
     mounted(){
         this.checkLogin()
         this.getGoalDetails()
+        this.getGoalComments()
     },
     methods : {
         checkLogin(){
@@ -98,6 +105,7 @@ export default {
                     this.dueDate = data.endDate;
                     this.description = data.description;
                     this.status = data.status;
+                    this.category = data.category;
 
                     return axios.get(`http://localhost:5000/user/${data.poster}`, {
                         headers:{ Authorization: `Bearer ${this.auth}`}
@@ -110,6 +118,25 @@ export default {
                 .catch((err)=>{
                     this.$toast.add({severity:'error', summary: 'Retrieving Data failed', detail:'Please login again', life: 2000});
                 })
+        },
+        getGoalComments(){
+            axios.get(`http://localhost:5000/comment/goal/${this.$route.params.goalid}`)
+                .then((res)=>{
+                    let data = res.data;
+                    console.log(data);
+                    this.comments = data;
+                })
+        },
+        changeAddComment(){
+            this.addComment = !this.addComment;
+        },
+        update(){
+            this.changeAddComment();
+            this.getGoalComments();
+        },
+        readable(date){
+            var date2 = new Date(date);
+            return date2.toDateString();
         }
     }
 }
@@ -125,10 +152,12 @@ export default {
                 <template v-else>
                     <h1>{{title}}</h1>
                 </template>
-                {{this.poster}}
+                <div>{{this.poster}}</div>
+                <div>{{this.category.charAt(0).toUpperCase() + this.category.slice(1)}}</div>
+                
             </div>
         </template>
-        <div class="border-round-md w-full h-24rem">
+        <div class="border-round-md w-full" style="margin-bottom:50px; margin-top:20px;">
             <div class="field grid">
                 <span class="mx-1"><tag value="status" :class="statusClass">{{statusText}}</tag></span>
                 <label for="due-date" class="col-fixed font-light" style="width:40">Due Date:</label>
@@ -137,7 +166,7 @@ export default {
                         <Calendar class="" v-model="dueDate"/>
                     </template>
                     <template v-else> 
-                        {{ " " + dueDate.toString().substring(0,10) }}
+                        {{new Date(this.dueDate).toDateString()}}
                     </template>
                 </span>
             </div>
@@ -145,12 +174,22 @@ export default {
                 <template v-if="editing">
                     <Textarea v-model="description" rows="10" cols="60" />
                 </template>
-                <template v-else> 
+                <template v-else>
                     <p class="text-md"><span v-html="descHTML"></span></p>
                 </template>
-            </div>
 
-            <CommentThread/>
+            </div>
+        </div>
+        <div class="comment-head">
+            <h3 class="font-medium">Comments:</h3>
+            <Button v-if="!this.addComment" label="Add Comment" @click="changeAddComment()" class="p-button-sm bg-cyan-700"/>
+            <Button v-if="this.addComment" label="Cancel" @click="changeAddComment()" class="p-button-sm p-button-text text-red-300"/>
+        </div>
+        <div>
+            <div v-if="addComment">
+                <CreateComment @close="update()"/>
+            </div>
+            <CommentThread :comments="this.comments"/>
         </div>
         <template #footer>
             <template v-if="editing">
@@ -164,5 +203,8 @@ export default {
 </template>
 
 <style scoped>
-
+.comment-head{
+    display: flex;
+    justify-content: space-between;
+}
 </style>
