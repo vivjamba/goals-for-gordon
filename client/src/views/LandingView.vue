@@ -93,12 +93,13 @@ export default {
 				}
 				Promise.all(this.promiseArray).then((values) => {
 							  	for(let i = 0; i < values.length; i++){
-									this.employeeGoals.concat(values[i]);
-							  	}})
+									this.employeeGoals = this.employeeGoals = this.employeeGoals.concat(values[i].data);
+							  	}
+								this.goals = this.employeeGoals;
+								})
 						      	      .catch((err) => console.log(err));
 		     	     })
 		             .catch((err) => console.log(err));
-		        this.goals = this.employeeGoals;
 		}
 		else{
 		   this.goals = this.getGoals(this.user._id);
