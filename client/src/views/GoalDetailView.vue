@@ -8,6 +8,8 @@ import Dialog from 'primevue/Dialog'
 import Divider from 'primevue/Divider'
 import Tag from 'primevue/Tag'
 
+import { PrimeIcons } from 'primevue/api';
+
 
 export default {
     name: 'GoalDetailView',
@@ -30,7 +32,8 @@ export default {
             comments: {},
             addComment: false,
             buttonDesc: "Add Comment",
-            category: "",
+            category: ""
+            
         }
     },
     computed: {
@@ -44,6 +47,31 @@ export default {
         },
         descHTML(){
             return this.description.replace(/\n/g, "<br/>");
+        },
+        statusIcon(){
+            if(this.status=='inactive'){
+                return PrimeIcons.PLAY;
+            }else if(this.status=='active'){
+                return PrimeIcons.CHECK_SQUARE;
+            }
+            return PrimeIcons.PAUSE;
+        },
+        statusTip(){
+            if(this.status=='inactive'){
+                return 'Begin Goal';
+            }else if(this.status=='active'){
+                return 'Complete Goal';
+            }
+            return 'Mark Goal Inactive';
+        },
+        nextStatus(){
+            if(this.status=='inactive'){
+                return 'active';
+            }else if(this.status=='active'){
+                return 'complete'
+            }
+            return 'inactive'
+            
         }
     },
     mounted(){
@@ -58,6 +86,30 @@ export default {
         },
         exitDialog(){
             this.$router.push({name:'user', params:{userid: this.$route.params.userid}})
+        },
+        advanceStatus(){
+            axios.post(`http://localhost:5000/goal/edit/${this.$route.params.goalid}`, {
+                    title: this.title,
+                    description: this.description,
+                    endDate: this.dueDate,
+                    status: this.nextStatus
+                },{
+                    headers: { Authorization: `Bearer ${this.auth}`}
+                })
+                .then((res) => {
+                    if(res.status==401){
+                        throw "Not authenticated!";
+                    }
+                    this.editing = false;
+
+                    let data = res.data;
+                    this.status = data.status;
+                })
+                .catch((err) => {
+                    console.log(err)
+                    this.$toast.add({severity:'error', summary: 'Status Change Failed', detail:'Please login again', life: 2000});
+                    //this.$router.push({name:'home'})
+                })
         },
         edit(){
             this.editing = !this.editing;
@@ -158,7 +210,7 @@ export default {
             </div>
         </template>
         <div class="border-round-md w-full" style="margin-bottom:50px; margin-top:20px;">
-            <div class="field grid">
+            <div class="field grid justify-content-center">
                 <span class="mx-1"><tag value="status" :class="statusClass">{{statusText}}</tag></span>
                 <label for="due-date" class="col-fixed font-light" style="width:40">Due Date:</label>
                 <span id="due-date" class="col">
@@ -169,6 +221,7 @@ export default {
                         {{new Date(this.dueDate).toDateString()}}
                     </template>
                 </span>
+
             </div>
             <div id="due-date">
                 <template v-if="editing">
@@ -192,6 +245,7 @@ export default {
             <CommentThread :comments="this.comments"/>
         </div>
         <template #footer>
+            <Button @click="advanceStatus()" v-tooltip="statusTip" class="p-button-link" :icon="statusIcon"></Button>
             <template v-if="editing">
                 <Button label="Save" @click="save()" class="p-button-link" icon="pi pi-save"></Button>
             </template>

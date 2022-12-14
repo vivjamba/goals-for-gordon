@@ -33,7 +33,7 @@ import Textarea from 'primevue/Textarea';
 
 import Toast from 'primevue/toast';
 import ToastService from 'primevue/toastservice';
-
+import ToolTip from 'primevue/tooltip';
 
 const app = createApp(App)
 
@@ -41,6 +41,8 @@ app.use(router)
 app.use(PrimeVue)
 app.use(DialogService)
 app.use(ToastService)
+
+app.directive('tooltip', ToolTip);
 
 app.component('InputSwitch', InputSwitch);
 app.component('DataTable', DataTable);
