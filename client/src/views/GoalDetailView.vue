@@ -172,7 +172,9 @@ export default {
                 })
         },
         getGoalComments(){
-            axios.get(`http://localhost:5000/comment/goal/${this.$route.params.goalid}`)
+            axios.get(`http://localhost:5000/comment/goal/${this.$route.params.goalid}`,{
+                    headers:{ Authorization: `Bearer ${this.auth}`}
+                })
                 .then((res)=>{
                     let data = res.data;
                     console.log(data);
