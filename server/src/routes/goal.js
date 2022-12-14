@@ -36,7 +36,7 @@ CURRENT: only returns goal object same as above
 get all goals created by an employee (query by employee's Mongoose _id)
 returns an array of Goal objects
 */
-router.get("/employee/:mongo_id",verifyJWT, goal_controller.find_goals_by_employee)
+router.get("/employee/:mongo_id", goal_controller.find_goals_by_employee)
 
 /*
 get all goals created by an employee with given statuss
