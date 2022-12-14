@@ -27,7 +27,7 @@ app.use("/comment", require("./src/routes/comment"))
 
 app.get('/',
     async function(req, res){
-        res.send('<h1>Hello World</h1>')
+        res.send('<h1>Client is not running!</h1>')
     }
 );
 

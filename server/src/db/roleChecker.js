@@ -11,7 +11,7 @@ const { User,Goal,Comment } = require("./index")
  * @returns true if logged in user`s id equals poster mongo id
  */
 function isLoggedInUserPoster(posterMongoId,req){
-    return req.user != undefined && posterMongoId === req.user._id
+    return req.user != undefined && String(posterMongoId) === req.user._id
 }
 
 /**
@@ -22,7 +22,8 @@ function isLoggedInUserPoster(posterMongoId,req){
  */
 async function isLoggedInUserManagerOfPoster(posterMongoId,req){
     let user=await User.findById(posterMongoId) 
-    return req.employeeId == user.managerId
+    if(!user) return false
+     return req.employeeId == user.managerId
 }
 
 /**
@@ -83,6 +84,7 @@ async function controlManagerPermission(posterMongoId,req,res,next){
 async function edit_or_delete_goal(req,res,next){
 
     let goal=await Goal.findById(req.params.mongo_id)
+    
     if(goal && isLoggedInUserPoster(goal.poster,req)) next()
     else{
         res.status(401).end()
@@ -180,6 +182,13 @@ async function read_comment_by_goal_id(req,res,next){
  */
 async function create_goal(req,res,next){
      //TODO
+     console.log(req.body.poster)
+     console.log(req.user._id)
+     if(req.body.poster && isLoggedInUserPoster(req.body.poster,req)) next()
+    else{
+        res.status(401).end()
+        return
+    }
 }
 
 
@@ -194,11 +203,24 @@ async function create_goal(req,res,next){
  */
 async function create_comment(req,res,next){
  //TODO
+    if(!req.body.poster || !isLoggedInUserPoster(req.body.poster,req)){
+            
+        res.status(401).end()
+        return
+    }
+
+    let goal=await Goal.findById(req.body.goal)
+    if(!goal){
+        res.status(500).end()
+        return
+    }
+    controlManagerPermission(goal.poster,req,res,next)
+
 }
 
 module.exports={
     edit_or_delete_goal,edit_or_delete_comment,
     read_goal_by_id,read_by_poster_id,read_comment_by_id
-    ,read_comment_by_goal_id
+    ,read_comment_by_goal_id,create_goal,create_comment
 
 }

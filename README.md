@@ -120,7 +120,10 @@ npm run dev
 
 `GET /user/list => [User Objects]` <br> Get all users 
 
-`POST /user/login => {JSON Web Token}` <br> Authenticate users using credentials from request and respond with JSON Web Token on success
+`POST /user/login`: attempt logging in by email and password using jwt
+If email is wrong: respond with 401 with message "wrong email"
+If password is wrong: respond with 401 with message "wrong password"
+
 
 `GET /user/<mongo_id> => {User Object}`<br> Get user by mongo_id 
 

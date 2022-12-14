@@ -3,10 +3,10 @@ const passport = require('passport');
 
 const JWTstrategy = require('passport-jwt').Strategy;
 const ExtractJWT = require('passport-jwt').ExtractJwt;
-const {JWTVerify,JWTVerifyUser,JWTVerifyUserOrManager}=require("./jwtVerifier")
+const {JWTVerify}=require("./jwtVerifier")
 
 const KEY="goals_for_gordon_key"; //jwt secret key, should be put into variables.env in future
-
+/*
 /**
  * 
  * pass only if you are authorized(Default=true for now)
@@ -14,14 +14,10 @@ const KEY="goals_for_gordon_key"; //jwt secret key, should be put into variables
  * @param {*} req 
  * @param {*} res 
  * @param {*} next 
- */
+ *
 function auth(req,res,next){
     let isAuthorized=true
 
-    /**
-     * TODO
-     * check if user is authorized for the action using cookie,session,etc
-     */
 
     if(isAuthorized){
         //move on to the next middleware
@@ -30,7 +26,7 @@ function auth(req,res,next){
     else{
         res.status(401).end()
     }
-}
+}*/
 
 
 
@@ -48,7 +44,8 @@ passport.use("jwt",
     JWTConfig,JWTVerify
   )
 )
-
+const verifyJWT=passport.authenticate('jwt', { session: false })
+  /*
 passport.use("jwt-verify-user",
   new JWTstrategy(
     JWTConfig,JWTVerifyUser
@@ -61,22 +58,21 @@ passport.use("jwt-verify-user-or-manager",
     JWTConfig,JWTVerifyUserOrManager
   )
 )
-
+*/
 
 //authorization middlewares
 
 //check if user is logined
-const verifyJWT=passport.authenticate('jwt', { session: false })
 
 //verify if user is same user with the "target"
-const verifyUser=passport.authenticate('jwt-verify-user', { session: false })
+//const verifyUser=passport.authenticate('jwt-verify-user', { session: false })
 
 //verify if user is same user with the "target" or "target"`s manager
-const verifyUserOrManager=passport.authenticate('jwt-verify-user-or-manager', { session: false })
+//const verifyUserOrManager=passport.authenticate('jwt-verify-user-or-manager', { session: false })
 
 
 
 
 module.exports={
-    auth,verifyJWT,verifyUser,verifyUserOrManager
+    verifyJWT
 }

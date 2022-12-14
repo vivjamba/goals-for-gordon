@@ -2,11 +2,10 @@ const express = require('express');
 const bodyParser = require('body-parser')
 const router = express.Router()
 const user_controller = require("../db/controllers/userController.js")
-const {auth,verifyJWT}=require("./auth.js")
+const {verifyJWT}=require("./auth.js")
 const roleChecker = require("../db/roleChecker.js")
 
 const { loginController}=require("../db/controllers/loginController");
-const { JWTVerify } = require('./jwtVerifier.js');
 //parser
 router.use(bodyParser.json())
 router.use(bodyParser.text())
@@ -17,24 +16,25 @@ router.use(bodyParser.text())
 /**
  * log in function
  */
-router.post("/login_jwt",loginController)
+router.post("/login",loginController)
 
 /**
  * old function that does not use jwt
  */
-router.post("/login", user_controller.check_login)
+// router.post("/login", user_controller.check_login)
 
-
+/*
 router.post("/jwt_test/:id",verifyJWT,(req,res,next)=>{
     console.log(req.user)
     next()
 },(req,res)=>{
     res.status(200);
 })
-
 router.get("/jwt_test/:id",verifyJWT,(req,res)=>{
     res.send("authorized")
 })
+*/
+
 /* 
 get all users
 returns an array of User objects
@@ -53,7 +53,7 @@ Find manager of useremployee using companyId + managerId or
 any user using companyId + employeeId
 returns a single User object
 */
-router.get("/findByCompany/:companyId/:employeeId", user_controller.find_by_company)
+router.get("/findByCompany/:companyId/:employeeId",verifyJWT, user_controller.find_by_company)
 
 /*
 get an employee's manager identified by employeeId + companyId
@@ -65,14 +65,14 @@ get an employee's manager identified by employeeId + companyId
 get all of a manager's employees, where managerId is a manager's employeeId field
 returns array of User objects
 */
-router.get("/manager/listEmployees/:companyId/:managerId", user_controller.find_employees_by_manager)
+router.get("/manager/listEmployees/:companyId/:managerId", verifyJWT,user_controller.find_employees_by_manager)
 
 /*
 get users by email (will probably be deprecated eventually)
 returns array of User objects
 */
 // NOTE: this is being used as alt to /login until login is complete.
-router.get("/email/:email", user_controller.find_user_by_email)
+router.get("/email/:email",verifyJWT, user_controller.find_user_by_email)
 
 //UPDATE
 
@@ -80,6 +80,6 @@ router.get("/email/:email", user_controller.find_user_by_email)
 edit a user's mutable fields by replacing with fields in request body
 note: will only change mutable User fields, even if request body specifies immutable fields
 */
-router.post("/edit/:mongo_id", auth, user_controller.edit_user)
+router.post("/edit/:mongo_id", verifyJWT, user_controller.edit_user)
 
 module.exports=router

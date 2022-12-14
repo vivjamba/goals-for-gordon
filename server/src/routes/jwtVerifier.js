@@ -18,13 +18,14 @@ const JWTVerify=async (req,token, done) => {
     }
   }
   
+  /*
   /**
    * UNUSED, WILL BE REMOVED
    * verify if user is same user with the "target"
    * 
    * i.e.
    * when editing goals, checks if the user is the poster of the goal
-   */
+   *
   const JWTVerifyUser=async (req,token, done) => {
     try {
 
@@ -47,7 +48,7 @@ const JWTVerify=async (req,token, done) => {
   * UNUSED, WILL BE REMOVED
    * verify if user is same user with the "target" or "target"`s manager
    * 
-   */
+   *
   const JWTVerifyUserOrManager=async (req,token, done) => {
     try {
       if(!req.targetId || !req.managerId) return done(new Error("No argument passed"))
@@ -62,7 +63,7 @@ const JWTVerify=async (req,token, done) => {
       done(error);
     }
   }
-  
+  */
   module.exports={
-    JWTVerify,JWTVerifyUser,JWTVerifyUserOrManager
+    JWTVerify
   }
