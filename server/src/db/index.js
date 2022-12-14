@@ -5,7 +5,7 @@ const { userSchema, goalSchema, commentSchema } = require('./schemas')
 const util=require('./../util')
 
 
-const MONGODB_URL = process.env.MONGODB_URL2
+const MONGODB_URL = process.env.MONGODB_URL
 
 mongoose.connect(MONGODB_URL)
 
